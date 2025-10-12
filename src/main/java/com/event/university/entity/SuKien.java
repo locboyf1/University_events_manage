@@ -54,6 +54,9 @@ public class SuKien {
     
     @Column(name = "diachi", length= 100, nullable = false)
     private String diaChi;
+    
+    @Column(name = "bidanh", length= 300, nullable = false)
+    private String biDanh;
 
     @ManyToOne
     @JoinColumn(name = "manguoidung", nullable = false)
@@ -106,6 +109,14 @@ public class SuKien {
 
     public void setAnh(String anh) {
         this.anh = anh;
+    }
+    
+    public String getBiDanh() {
+        return biDanh;
+    }
+
+    public void setBiDanh(String biDanh) {
+        this.biDanh = biDanh;
     }
 
     public LocalDateTime getThoiGianTao() {

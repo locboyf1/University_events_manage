@@ -17,4 +17,12 @@ public class SuKienService {
     public List<SuKien> getAllSuKien() {
         return suKienRepository.findAll();
     }
+    
+    public List<SuKien> getDisplaySorted(){
+    	return suKienRepository.findByHienThiTrueOrderByThoiGianBatDauDesc();
+    }
+    
+    public SuKien getById(Long id) {
+    	return suKienRepository.findByIdAndHienThiTrue(id);
+    }
 }
