@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 12, 2025 lúc 03:24 AM
+-- Thời gian đã tạo: Th10 12, 2025 lúc 09:29 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -62,7 +62,7 @@ CREATE TABLE `binhluanbaiviet` (
 CREATE TABLE `danhmucbaiviet` (
   `id` int(11) NOT NULL,
   `tendanhmuc` varchar(30) NOT NULL,
-  `mota` varchar(500) NOT NULL,
+  `mota` varchar(500) DEFAULT NULL,
   `thutu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -76,7 +76,7 @@ CREATE TABLE `danhmucsukien` (
   `id` int(11) NOT NULL,
   `tendanhmuc` varchar(30) NOT NULL,
   `thutu` int(11) NOT NULL,
-  `mota` varchar(500) NOT NULL,
+  `mota` varchar(500) DEFAULT NULL,
   `bidanh` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -170,6 +170,33 @@ INSERT INTO `lop` (`id`, `manganh`, `tenlop`, `khoaso`, `mota`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `menu`
+--
+
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL,
+  `tieude` varchar(30) NOT NULL,
+  `mota` varchar(100) DEFAULT NULL,
+  `thutu` int(11) NOT NULL,
+  `mamenucha` int(11) DEFAULT NULL,
+  `hien` tinyint(1) NOT NULL,
+  `bidanh` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `menu`
+--
+
+INSERT INTO `menu` (`id`, `tieude`, `mota`, `thutu`, `mamenucha`, `hien`, `bidanh`) VALUES
+(1, 'Trang chủ', 'trang chủ', 1, NULL, 1, 'Home'),
+(2, 'Sự kiện', 'sk', 2, NULL, 1, 'Sukien'),
+(3, 'Sự kiện đang diễn ra', 'đang', 3, 2, 1, 'Sukien'),
+(4, 'Sự kiện sắp tới', 'sk', 4, 2, 1, 'Sukien'),
+(5, 'Sự kiện gần đây', 'sk', 5, 4, 1, 'SuKien');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `nganh`
 --
 
@@ -243,16 +270,18 @@ CREATE TABLE `sukien` (
   `madanhmuc` int(11) NOT NULL,
   `mota` varchar(500) NOT NULL,
   `diachi` varchar(100) NOT NULL,
-  `bidanh` varchar(300) NOT NULL
+  `bidanh` varchar(300) NOT NULL,
+  `sdthotro` varchar(11) NOT NULL,
+  `emailhotro` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `sukien`
 --
 
-INSERT INTO `sukien` (`id`, `tensukien`, `noidung`, `anh`, `manguoidung`, `thoigiantao`, `thoigianbatdau`, `thoigianketthuc`, `batbuoc`, `thoigiansuagannhat`, `hienthi`, `madanhmuc`, `mota`, `diachi`, `bidanh`) VALUES
-(1, 'LỄ TUYÊN DƯƠNG SINH VIÊN ĐẠT ĐIỂM CAO TRONG KỲ TUYỂN SINH NĂM 2025, SINH VIÊN ĐẠT DANH HIỆU SINH VIÊN XUẤT SẮC NĂM HỌC 2024 - 2025', 'LỄ TUYÊN DƯƠNG SINH VIÊN ĐẠT ĐIỂM CAO TRONG KỲ TUYỂN SINH NĂM 2025, SINH VIÊN ĐẠT DANH HIỆU SINH VIÊN XUẤT SẮC NĂM HỌC 2024 - 2025', 'https://scontent.fhan3-2.fna.fbcdn.net/v/t39.30808-6/561748527_822212843719718_7498481503206955276_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeE6R6ZFtvJxEUtz6HvurioDITu6RBvxNDchO7pEG_E0N813QvXYrOuXrv5JnkGj8PNClqEj_w0uOxgmP-hByYEB&_nc_ohc=4RszoxJvnSwQ7kNvwHGOhCo&_nc_oc=Adkq421FyNSw74ZHFyajmkcCQFeZyuKFdNSl742PpMe3WqEfiW9kezAoqFW2qSp5pbrrOhEL8kIA2hY1lm4pwEuV&_nc_zt=23&_nc_ht=scontent.fhan3-2.fna&_nc_gid=JKhQLLxqfyKnJ4WyNLBSJg&oh=00_AfeAr0jh6ijRuk39Fz44zLwPrtZ_X5ib_BXcbKSHlDqDCA&oe=68F091D3', 1, '2025-10-11 22:04:51', '2025-10-11 22:04:51', NULL, 1, NULL, 1, 3, 'LỄ TUYÊN DƯƠNG SINH VIÊN ĐẠT ĐIỂM CAO TRONG KỲ TUYỂN SINH NĂM 2025, SINH VIÊN ĐẠT DANH HIỆU SINH VIÊN XUẤT SẮC NĂM HỌC 2024 - 2025', 'Hội trường A', 'le-tuyen-duong-sinh-vien-dat-diem-cao-trong-ky-tuyen-sinh-nam-2025-sinh-vien-dat-danh-hieu-sinh-vien-xuat-sac-nam-hoc-2024-2025'),
-(2, 'UNI CARE DAY CHÍNH THỨC TRỞ LẠI ĐẠI HỌC VINH 📢\r\n', '\r\nSau những ngày mưa bão khiến kế hoạch phải tạm hoãn, Uni Care Day quay trở lại ý nghĩa hơn với thông điệp “Ch\r\nKhông để sinh viên Đại học Vinh phải chờ thêm nữa, chương trình sẽ chính thức diễn ra:\r\n🗓 15 - 16/10/2025 | 08:00 - 17:00\r\n📍 Khuôn viên Trường Đại học Vinh\r\n\r\nĐến với Uni Care Day, bạn sẽ được chăm sóc xe hoàn toàn FREE:\r\n🛞 IRC Việt Nam: Kiểm tra & tư vấn lốp xe an toàn sau ngập nước\r\n⚡ GS Việt Nam: Test ắc quy miễn phí, khôi phục sức mạnh cho xe\r\n🛢 ENEOS: Thay nhớt xe ga & xe số\r\n🎁 Ngoài ra còn có:\r\n• Quà tặng cực xịn: mũ bảo hiểm, túi canvas, móc khoá và nhiều quà tặng hấp dẫn khác\r\n• Mini game nhận quà, khu ẩm thực miễn phí cực vui\r\n\r\nChỉ 500 suất/ngày nhanh tay đăng ký ngay để xe được “chữa lành” sau bão và rinh quà liền tay!\r\n\r\n👉 Đăng ký ngay tại đây: https://event.xesolutions.vn/.../uni-care-day.../register\r\n\r\n#UniCareDay2025 #ChamSocXeMienPhi #IRC #GS #ENEOS Ẩn bớtăm sóc xe - Sẻ chia sau bão” 💙', 'https://event.xesolutions.vn/web/image/event.event/24/image_logo', 1, '2025-10-11 22:07:08', '2025-10-31 03:07:08', NULL, 0, NULL, 1, 4, 'Đến với Uni Care Day, bạn sẽ được chăm sóc xe hoàn toàn FREE:\r\n🛞 IRC Việt Nam: Kiểm tra & tư vấn lốp xe an toàn sau ngập nước\r\n⚡ GS Việt Nam: Test ắc quy miễn phí, khôi phục sức mạnh cho xe\r\n🛢 ENEOS: Thay nhớt xe ga & xe số', 'Hội trường A', 'uni-care-day-chinh-thuc-tro-lai-dai-hoc-vinh');
+INSERT INTO `sukien` (`id`, `tensukien`, `noidung`, `anh`, `manguoidung`, `thoigiantao`, `thoigianbatdau`, `thoigianketthuc`, `batbuoc`, `thoigiansuagannhat`, `hienthi`, `madanhmuc`, `mota`, `diachi`, `bidanh`, `sdthotro`, `emailhotro`) VALUES
+(1, 'LỄ TUYÊN DƯƠNG SINH VIÊN ĐẠT ĐIỂM CAO TRONG KỲ TUYỂN SINH NĂM 2025, SINH VIÊN ĐẠT DANH HIỆU SINH VIÊN XUẤT SẮC NĂM HỌC 2024 - 2025', 'LỄ TUYÊN DƯƠNG SINH VIÊN ĐẠT ĐIỂM CAO TRONG KỲ TUYỂN SINH NĂM 2025, SINH VIÊN ĐẠT DANH HIỆU SINH VIÊN XUẤT SẮC NĂM HỌC 2024 - 2025', 'https://scontent.fhan3-2.fna.fbcdn.net/v/t39.30808-6/561748527_822212843719718_7498481503206955276_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeE6R6ZFtvJxEUtz6HvurioDITu6RBvxNDchO7pEG_E0N813QvXYrOuXrv5JnkGj8PNClqEj_w0uOxgmP-hByYEB&_nc_ohc=4RszoxJvnSwQ7kNvwHGOhCo&_nc_oc=Adkq421FyNSw74ZHFyajmkcCQFeZyuKFdNSl742PpMe3WqEfiW9kezAoqFW2qSp5pbrrOhEL8kIA2hY1lm4pwEuV&_nc_zt=23&_nc_ht=scontent.fhan3-2.fna&_nc_gid=JKhQLLxqfyKnJ4WyNLBSJg&oh=00_AfeAr0jh6ijRuk39Fz44zLwPrtZ_X5ib_BXcbKSHlDqDCA&oe=68F091D3', 1, '2025-10-11 22:04:51', '2025-10-11 22:04:51', NULL, 1, NULL, 1, 3, 'LỄ TUYÊN DƯƠNG SINH VIÊN ĐẠT ĐIỂM CAO TRONG KỲ TUYỂN SINH NĂM 2025, SINH VIÊN ĐẠT DANH HIỆU SINH VIÊN XUẤT SẮC NĂM HỌC 2024 - 2025', 'Hội trường A', 'le-tuyen-duong-sinh-vien-dat-diem-cao-trong-ky-tuyen-sinh-nam-2025-sinh-vien-dat-danh-hieu-sinh-vien-xuat-sac-nam-hoc-2024-2025', '012345678', 'hotro@mail.com'),
+(2, 'UNI CARE DAY CHÍNH THỨC TRỞ LẠI ĐẠI HỌC VINH 📢\r\n', '\r\nSau những ngày mưa bão khiến kế hoạch phải tạm hoãn, Uni Care Day quay trở lại ý nghĩa hơn với thông điệp “Ch\r\nKhông để sinh viên Đại học Vinh phải chờ thêm nữa, chương trình sẽ chính thức diễn ra:\r\n🗓 15 - 16/10/2025 | 08:00 - 17:00\r\n📍 Khuôn viên Trường Đại học Vinh\r\n\r\nĐến với Uni Care Day, bạn sẽ được chăm sóc xe hoàn toàn FREE:\r\n🛞 IRC Việt Nam: Kiểm tra & tư vấn lốp xe an toàn sau ngập nước\r\n⚡ GS Việt Nam: Test ắc quy miễn phí, khôi phục sức mạnh cho xe\r\n🛢 ENEOS: Thay nhớt xe ga & xe số\r\n🎁 Ngoài ra còn có:\r\n• Quà tặng cực xịn: mũ bảo hiểm, túi canvas, móc khoá và nhiều quà tặng hấp dẫn khác\r\n• Mini game nhận quà, khu ẩm thực miễn phí cực vui\r\n\r\nChỉ 500 suất/ngày nhanh tay đăng ký ngay để xe được “chữa lành” sau bão và rinh quà liền tay!\r\n\r\n👉 Đăng ký ngay tại đây: https://event.xesolutions.vn/.../uni-care-day.../register\r\n\r\n#UniCareDay2025 #ChamSocXeMienPhi #IRC #GS #ENEOS Ẩn bớtăm sóc xe - Sẻ chia sau bão” 💙', 'https://event.xesolutions.vn/web/image/event.event/24/image_logo', 1, '2025-10-11 22:07:08', '2025-10-31 03:07:08', NULL, 0, NULL, 1, 4, 'Đến với Uni Care Day, bạn sẽ được chăm sóc xe hoàn toàn FREE:\r\n🛞 IRC Việt Nam: Kiểm tra & tư vấn lốp xe an toàn sau ngập nước\r\n⚡ GS Việt Nam: Test ắc quy miễn phí, khôi phục sức mạnh cho xe\r\n🛢 ENEOS: Thay nhớt xe ga & xe số', 'Hội trường A', 'uni-care-day-chinh-thuc-tro-lai-dai-hoc-vinh', '012345678', 'hotro@mail.com');
 
 -- --------------------------------------------------------
 
@@ -343,6 +372,13 @@ ALTER TABLE `lop`
   ADD KEY `manganh` (`manganh`);
 
 --
+-- Chỉ mục cho bảng `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `mamenucha` (`mamenucha`);
+
+--
 -- Chỉ mục cho bảng `nganh`
 --
 ALTER TABLE `nganh`
@@ -424,6 +460,12 @@ ALTER TABLE `lop`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT cho bảng `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT cho bảng `nganh`
 --
 ALTER TABLE `nganh`
@@ -484,6 +526,12 @@ ALTER TABLE `lienlac`
 --
 ALTER TABLE `lop`
   ADD CONSTRAINT `lop_ibfk_1` FOREIGN KEY (`manganh`) REFERENCES `nganh` (`id`);
+
+--
+-- Các ràng buộc cho bảng `menu`
+--
+ALTER TABLE `menu`
+  ADD CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`mamenucha`) REFERENCES `menu` (`id`);
 
 --
 -- Các ràng buộc cho bảng `nganh`

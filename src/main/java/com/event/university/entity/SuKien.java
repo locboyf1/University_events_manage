@@ -57,6 +57,13 @@ public class SuKien {
     
     @Column(name = "bidanh", length= 300, nullable = false)
     private String biDanh;
+    
+    @Column(name = "sdthotro", length= 11, nullable = false)
+    private String sdtHoTro;
+
+    @Column(name = "emailhotro", length= 50, nullable = false)
+    private String emailHoTro;
+
 
     @ManyToOne
     @JoinColumn(name = "manguoidung", nullable = false)
@@ -79,6 +86,22 @@ public class SuKien {
         this.id = id;
     }
 
+    public String getSdtHoTro() {
+        return sdtHoTro;
+    }
+
+    public void setSdtHoTro(String sdtHoTro) {
+        this.sdtHoTro = sdtHoTro;
+    }
+    
+    public String getEmailHoTro() {
+        return emailHoTro;
+    }
+
+    public void setEmailHoTro(String emailHoTro) {
+        this.emailHoTro = emailHoTro;
+    }
+
     public String getTenSuKien() {
         return tenSuKien;
     }
@@ -86,6 +109,7 @@ public class SuKien {
     public void setTenSuKien(String tenSuKien) {
         this.tenSuKien = tenSuKien;
     }
+
 
     public String getMoTa() {
         return moTa;
