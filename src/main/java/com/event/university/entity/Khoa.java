@@ -15,27 +15,51 @@ import jakarta.persistence.Table;
 @Table(name = "khoa")
 public class Khoa {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "tenkhoa", length = 100, nullable = false)
-    private String tenKhoa;
-    
-    @Column(name = "mota", length = 500)
-    private String moTa;
-    
-    @OneToMany(mappedBy = "khoa")
-    private Set<Nganh> nganh = new HashSet<>();
- 
-    public Khoa() {}
+	@Column(name = "tenkhoa", length = 100, nullable = false)
+	private String tenKhoa;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getTenKhoa() { return tenKhoa; }
-    public void setTenKhoa(String tenKhoa) { this.tenKhoa = tenKhoa; }
-    public String getMoTa() { return moTa; }
-    public void setMoTa(String moTa) { this.moTa = moTa; }
-    public Set<Nganh> getNganh() { return nganh; }
-    public void setNganh(Set<Nganh> nganh) { this.nganh = nganh; }
+	@Column(name = "mota", length = 500)
+	private String moTa;
+
+	@OneToMany(mappedBy = "khoa")
+	private Set<Nganh> nganh = new HashSet<>();
+
+	public Khoa() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTenKhoa() {
+		return tenKhoa;
+	}
+
+	public void setTenKhoa(String tenKhoa) {
+		this.tenKhoa = tenKhoa;
+	}
+
+	public String getMoTa() {
+		return moTa;
+	}
+
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
+
+	public Set<Nganh> getNganh() {
+		return nganh;
+	}
+
+	public void setNganh(Set<Nganh> nganh) {
+		this.nganh = nganh;
+	}
 }

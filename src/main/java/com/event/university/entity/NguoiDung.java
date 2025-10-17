@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "nguoidung")
 public class NguoiDung {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -115,8 +116,16 @@ public class NguoiDung {
 	public void setVaiTro(VaiTro vaiTro) {
 		this.vaiTro = vaiTro;
 	}
-	
+
 	@ManyToOne
 	@JoinColumn(name = "malop", nullable = true)
 	private Lop lop;
+
+	public Lop getLop() {
+		return lop;
+	}
+
+	public void setLop(Lop lop) {
+		this.lop = lop;
+	}
 }

@@ -8,7 +8,7 @@ import com.event.university.entity.Menu;
 
 public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
-    List<Menu> findByMenuChaIsNullAndHienTrueOrderByThuTuAsc();
+	List<Menu> findByMenuChaIsNullAndHienTrueOrderByThuTuAsc();
 
-    List<Menu> findByMenuChaAndHienTrueOrderByThuTuAsc(Menu menuCha);
+	List<Menu> findByMenuChaAndHienTrueOrderByThuTuAsc(Menu menuCha);
 }

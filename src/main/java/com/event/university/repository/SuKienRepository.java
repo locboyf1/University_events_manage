@@ -11,7 +11,7 @@ import com.event.university.entity.SuKien;
 public interface SuKienRepository extends JpaRepository<SuKien, Long> {
 
 	List<SuKien> findByHienThiTrueOrderByThoiGianBatDauDesc();
-	
+
 	SuKien findByIdAndHienThiTrue(Long id);
-	
+
 }

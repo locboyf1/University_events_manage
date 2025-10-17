@@ -12,22 +12,22 @@ import com.event.university.repository.DanhMucSuKienRepository;
 @Service
 public class DanhMucSuKienService {
 
-    @Autowired
-    private DanhMucSuKienRepository danhMucSuKienRepository;
+	@Autowired
+	private DanhMucSuKienRepository danhMucSuKienRepository;
 
-    public List<DanhMucSuKien> getAllDanhMucSuKien() {
-        return danhMucSuKienRepository.findAll();
-    }
+	public List<DanhMucSuKien> getAllDanhMucSuKien() {
+		return danhMucSuKienRepository.findAll();
+	}
 
-    public Optional<DanhMucSuKien> getDanhMucSuKienById(Long id) {
-        return danhMucSuKienRepository.findById(id);
-    }
+	public Optional<DanhMucSuKien> getDanhMucSuKienById(Long id) {
+		return danhMucSuKienRepository.findById(id);
+	}
 
-    public DanhMucSuKien saveDanhMucSuKien(DanhMucSuKien danhMucSuKien) {
-        return danhMucSuKienRepository.save(danhMucSuKien);
-    }
+	public DanhMucSuKien saveDanhMucSuKien(DanhMucSuKien danhMucSuKien) {
+		return danhMucSuKienRepository.save(danhMucSuKien);
+	}
 
-    public void deleteDanhMucSuKien(Long id) {
-        danhMucSuKienRepository.deleteById(id);
-    }
+	public void deleteDanhMucSuKien(Long id) {
+		danhMucSuKienRepository.deleteById(id);
+	}
 }

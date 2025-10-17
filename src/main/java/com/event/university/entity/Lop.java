@@ -3,6 +3,8 @@ package com.event.university.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,7 @@ public class Lop {
 
 	@ManyToOne
 	@JoinColumn(name = "manganh", nullable = false)
+	@JsonIgnore
 	private Nganh nganh;
 
 	@OneToMany(mappedBy = "lop")

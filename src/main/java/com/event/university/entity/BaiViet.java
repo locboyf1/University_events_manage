@@ -18,59 +18,119 @@ import jakarta.persistence.Table;
 @Table(name = "baiviet")
 public class BaiViet {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "tieude", length = 200, nullable = false)
-    private String tieuDe;
+	@Column(name = "tieude", length = 200, nullable = false)
+	private String tieuDe;
 
-    @Column(name = "mota", length = 500)
-    private String moTa;
+	@Column(name = "mota", length = 500)
+	private String moTa;
 
-    @Column(name = "noidung", columnDefinition = "LONGTEXT", nullable = false)
-    private String noiDung;
+	@Column(name = "noidung", columnDefinition = "LONGTEXT", nullable = false)
+	private String noiDung;
 
-    @Column(name = "ngaytao", nullable = false)
-    private LocalDateTime ngayTao;
+	@Column(name = "ngaytao", nullable = false)
+	private LocalDateTime ngayTao;
 
-    @Column(name = "hienthi", nullable = false)
-    private boolean hienThi;
+	@Column(name = "hienthi", nullable = false)
+	private boolean hienThi;
 
-    @Column(name = "anh", columnDefinition = "LONGTEXT", nullable = false)
-    private String anh;
+	@Column(name = "anh", columnDefinition = "LONGTEXT", nullable = false)
+	private String anh;
 
-    @ManyToOne
-    @JoinColumn(name = "manguoidung", nullable = false)
-    private NguoiDung nguoiDung;
+	@ManyToOne
+	@JoinColumn(name = "manguoidung", nullable = false)
+	private NguoiDung nguoiDung;
 
-    @ManyToOne
-    @JoinColumn(name = "madanhmuc", nullable = false)
-    private DanhMucBaiViet danhMucBaiViet;
-    
-    @OneToMany(mappedBy = "baiViet")
-    private Set<BinhLuanBaiViet> binhLuan = new HashSet<>();
+	@ManyToOne
+	@JoinColumn(name = "madanhmuc", nullable = false)
+	private DanhMucBaiViet danhMucBaiViet;
 
-    public BaiViet() {}
+	@OneToMany(mappedBy = "baiViet")
+	private Set<BinhLuanBaiViet> binhLuan = new HashSet<>();
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getTieuDe() { return tieuDe; }
-    public void setTieuDe(String tieuDe) { this.tieuDe = tieuDe; }
-    public String getMoTa() { return moTa; }
-    public void setMoTa(String moTa) { this.moTa = moTa; }
-    public String getNoiDung() { return noiDung; }
-    public void setNoiDung(String noiDung) { this.noiDung = noiDung; }
-    public LocalDateTime getNgayTao() { return ngayTao; }
-    public void setNgayTao(LocalDateTime ngayTao) { this.ngayTao = ngayTao; }
-    public boolean isHienThi() { return hienThi; }
-    public void setHienThi(boolean hienThi) { this.hienThi = hienThi; }
-    public String getAnh() { return anh; }
-    public void setAnh(String anh) { this.anh = anh; }
-    public NguoiDung getNguoiDung() { return nguoiDung; }
-    public void setNguoiDung(NguoiDung nguoiDung) { this.nguoiDung = nguoiDung; }
-    public DanhMucBaiViet getDanhMucBaiViet() { return danhMucBaiViet; }
-    public void setDanhMucBaiViet(DanhMucBaiViet danhMucBaiViet) { this.danhMucBaiViet = danhMucBaiViet; }
-    public Set<BinhLuanBaiViet> getBinhLuan() { return binhLuan; }
-    public void setBinhLuan(Set<BinhLuanBaiViet> binhLuan) { this.binhLuan = binhLuan; }
+	public BaiViet() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTieuDe() {
+		return tieuDe;
+	}
+
+	public void setTieuDe(String tieuDe) {
+		this.tieuDe = tieuDe;
+	}
+
+	public String getMoTa() {
+		return moTa;
+	}
+
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
+
+	public String getNoiDung() {
+		return noiDung;
+	}
+
+	public void setNoiDung(String noiDung) {
+		this.noiDung = noiDung;
+	}
+
+	public LocalDateTime getNgayTao() {
+		return ngayTao;
+	}
+
+	public void setNgayTao(LocalDateTime ngayTao) {
+		this.ngayTao = ngayTao;
+	}
+
+	public boolean isHienThi() {
+		return hienThi;
+	}
+
+	public void setHienThi(boolean hienThi) {
+		this.hienThi = hienThi;
+	}
+
+	public String getAnh() {
+		return anh;
+	}
+
+	public void setAnh(String anh) {
+		this.anh = anh;
+	}
+
+	public NguoiDung getNguoiDung() {
+		return nguoiDung;
+	}
+
+	public void setNguoiDung(NguoiDung nguoiDung) {
+		this.nguoiDung = nguoiDung;
+	}
+
+	public DanhMucBaiViet getDanhMucBaiViet() {
+		return danhMucBaiViet;
+	}
+
+	public void setDanhMucBaiViet(DanhMucBaiViet danhMucBaiViet) {
+		this.danhMucBaiViet = danhMucBaiViet;
+	}
+
+	public Set<BinhLuanBaiViet> getBinhLuan() {
+		return binhLuan;
+	}
+
+	public void setBinhLuan(Set<BinhLuanBaiViet> binhLuan) {
+		this.binhLuan = binhLuan;
+	}
 }

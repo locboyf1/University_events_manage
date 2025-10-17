@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html layout:decorate="~{admin/site}">
+<head>
+<meta charset="UTF-8">
+<title>Thêm tài khoản mới</title>
+</head>
+<body>
+	<div class="container-fluid" layout:fragment="content">
+		<div class="db-breadcrumb">
+			<h4 class="breadcrumb-title">Thêm tài khoản</h4>
+			<ul class="db-breadcrumb-list">
+				<li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+				<li>User Profile</li>
+			</ul>
+		</div>
+		<div class="row">
+			<!-- Your Profile Views Chart -->
+			<div class="col-lg-12 m-b30">
+				<div class="widget-box">
+					<div class="wc-title">
+						<h4>User Profile</h4>
+					</div>
+					<form th:action="@{/admin/users/create}" th:object="${nguoiDung}"
+						method="post">
+						<div class="widget-inner">
+
+							<div class="edit-profile m-b30">
+								<div class="">
+									<div class="form-group row">
+										<div class="col-sm-10  ml-auto">
+											<h3>1. Thông tin tài khoản</h3>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Họ và tên</label>
+										<div class="col-sm-7">
+											<input class="form-control" type="text" th:field="*{hoTen}">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Tài khoản đăng
+											nhập</label>
+										<div class="col-sm-7">
+											<input class="form-control" th:field="*{taiKhoan}"
+												type="text">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Mật khẩu mặc
+											định</label>
+										<div class="col-sm-7">
+											<input class="form-control" th:field="*{matKhau}"
+												type="password">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Đối tượng</label>
+										<div class="col-sm-7">
+											<select class="form-control" th:field="*{vaiTro}"
+												id="vaiTroSelect">
+
+
+
+												<option th:each="vaiTro: ${vaiTros}"
+													th:text="${vaiTro.tenVaiTro}"
+													th:attr="data-alias=${vaiTro.biDanh}"
+													th:value="${vaiTro.id}"></option>
+											</select>
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+							<div class="edit-profile" id="formSinhVien"
+								style="display: none;">
+								<div class="">
+									<div class="form-group row">
+										<div class="col-sm-10 ml-auto">
+											<h3>2. Đối tượng sinh viên</h3>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Khoa/ viện</label>
+										<div class="col-sm-7">
+											<select class="form-control" id="khoaSelect">
+												<option value="">Chọn khoa</option>
+												<option th:each="khoa: ${khoas}" th:text="${khoa.tenKhoa}"
+													th:value="${khoa.id}"></option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Ngành</label>
+										<div class="col-sm-7">
+											<select class="form-control" id="nganhSelect">
+												<option value="">Chọn ngành</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Lớp</label>
+										<div class="col-sm-7">
+											<select class="form-control" id="lopSelect" name="lop">
+												<option value="">Chọn lớp</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="edit-profile">
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-7">
+										<button type="submit" class="btn">Thêm</button>
+										<button type="reset" class="btn-secondry">Hủy</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<!-- Your Profile Views Chart END-->
+		</div>
+	</div>
+	<script layout:fragment="scripts">
+		$(document).ready(function() {
+			const vaiTroSelect = $('#vaiTroSelect');
+			const formSinhVien = $('#formSinhVien');
+
+			function updateFormVisibility() {
+				const selectedOption = vaiTroSelect.find('option:selected');
+				if (selectedOption.length > 0) {
+					const alias = selectedOption.data('alias');
+					if (alias && alias.toLowerCase() === 'sinhvien') {
+						formSinhVien.slideDown();
+					} else {
+						formSinhVien.slideUp();
+					}
+				} else {
+					formSinhVien.slideUp();
+				}
+			}
+			vaiTroSelect.on('change', updateFormVisibility);
+			updateFormVisibility();
+
+			const khoaSelect = $('#khoaSelect');
+			const nganhSelect = $('#nganhSelect');
+			const lopSelect = $('#lopSelect');
+
+			khoaSelect.on('change', function() {
+				const khoaId = $(this).val();
+
+				nganhSelect.empty();
+				lopSelect.empty();
+
+				nganhSelect.append($('<option>', {
+					value : '',
+					text : 'Chọn ngành'
+				}));
+
+				nganhSelect.selectpicker('refresh');
+				lopSelect.selectpicker('refresh');
+
+				if (khoaId) {
+					$.getJSON(`/api/nganhs/${khoaId}`, function(data) {
+						$.each(data, function(index, nganh) {
+							nganhSelect.append($('<option>', {
+								value : nganh.id,
+								text : nganh.tenNganh
+							}));
+						});
+
+						nganhSelect.selectpicker('refresh');
+						nganhSelect.trigger('change');
+					});
+				}
+			});
+
+			nganhSelect.on('change', function() {
+				const nganhId = $(this).val();
+				lopSelect.empty();
+
+				lopSelect.append($('<option>', {
+					value : '',
+					text : 'Chọn lớp'
+				}));
+				lopSelect.selectpicker('refresh');
+				if (nganhId) {
+					$.getJSON(`/api/lops/${nganhId}`, function(data) {
+						$.each(data, function(index, lop) {
+							lopSelect.append($('<option>', {
+								value : lop.id,
+								text : lop.tenLop
+							}));
+						});
+						lopSelect.selectpicker('refresh');
+					});
+				}
+			});
+
+			khoaSelect.trigger('change');
+			nganhSelect.trigger('change');
+			lopSelect.trigger('change');
+		});
+	</script>
+</body>
+</html>

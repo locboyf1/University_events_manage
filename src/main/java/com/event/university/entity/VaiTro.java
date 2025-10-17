@@ -1,152 +1,103 @@
 package com.event.university.entity;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="vaitro")
+@Table(name = "vaitro")
 public class VaiTro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "tenvaitro", length = 30, nullable = false)
-    private String tenVaiTro;
 
-    @Column(name = "mota", length = 100)
-    private String moTa;
+	@Column(name = "tenvaitro", length = 30)
+	private String tenVaiTro;
 
-    @Column(name = "bidanh", length = 20)
-    private String biDanh;
+	@Column(name = "mota", length = 100)
+	private String moTa;
 
-    @Column(name = "quyentaosukien")
-    private boolean quyenTaoSuKien;
+	@Column(name = "bidanh", length = 20, nullable = false)
+	private String biDanh;
 
-    @Column(name = "quyenduyetsukien")
-    private boolean quyenDuyetSuKien;
+	@Column(name = "capbac")
+	private Integer capBac;
 
-    @Column(name = "quyenquanlybaiviet")
-    private boolean quyenQuanLyBaiViet;
+	@OneToMany(mappedBy = "vaiTro")
+	private Set<NguoiDung> dsNguoiDung;
 
-    @Column(name = "quyensuamenu")
-    private boolean quyenSuaMenu;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "chitietquyen", joinColumns = @JoinColumn(name = "mavaitro"), inverseJoinColumns = @JoinColumn(name = "maquyen"))
+	private Set<Quyen> dsQuyen;
 
-    @Column(name = "quyenquanlynguoidung")
-    private boolean quyenQuanLyNguoiDung;
-    
-    @Column(name = "quyenthemsukien")
-    private boolean quyenThemSuKien;
+	// Constructors, Getters and Setters
+	public VaiTro() {
+	}
 
-    @Column(name = "quyenhientrollenlac")
-    private boolean quyenHienThiRoleLenLac;
+	public Integer getId() {
+		return id;
+	}
 
-    public VaiTro() {
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public String getTenVaiTro() {
+		return tenVaiTro;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setTenVaiTro(String tenVaiTro) {
+		this.tenVaiTro = tenVaiTro;
+	}
 
-    public String getTenVaiTro() {
-        return tenVaiTro;
-    }
+	public String getMoTa() {
+		return moTa;
+	}
 
-    public void setTenVaiTro(String tenVaiTro) {
-        this.tenVaiTro = tenVaiTro;
-    }
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
 
-    public String getMoTa() {
-        return moTa;
-    }
+	public String getBiDanh() {
+		return biDanh;
+	}
 
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
-    }
+	public void setBiDanh(String biDanh) {
+		this.biDanh = biDanh;
+	}
 
-    public String getBiDanh() {
-        return biDanh;
-    }
+	public Integer getCapBac() {
+		return capBac;
+	}
 
-    public void setBiDanh(String biDanh) {
-        this.biDanh = biDanh;
-    }
+	public void setCapBac(Integer capBac) {
+		this.capBac = capBac;
+	}
 
-    public boolean isQuyenTaoSuKien() {
-        return quyenTaoSuKien;
-    }
+	public Set<NguoiDung> getDsNguoiDung() {
+		return dsNguoiDung;
+	}
 
-    public void setQuyenTaoSuKien(boolean quyenTaoSuKien) {
-        this.quyenTaoSuKien = quyenTaoSuKien;
-    }
+	public void setDsNguoiDung(Set<NguoiDung> dsNguoiDung) {
+		this.dsNguoiDung = dsNguoiDung;
+	}
 
-    public boolean isQuyenDuyetSuKien() {
-        return quyenDuyetSuKien;
-    }
+	public Set<Quyen> getDsQuyen() {
+		return dsQuyen;
+	}
 
-    public void setQuyenDuyetSuKien(boolean quyenDuyetSuKien) {
-        this.quyenDuyetSuKien = quyenDuyetSuKien;
-    }
-
-    public boolean isQuyenQuanLyBaiViet() {
-        return quyenQuanLyBaiViet;
-    }
-
-    public void setQuyenQuanLyBaiViet(boolean quyenQuanLyBaiViet) {
-        this.quyenQuanLyBaiViet = quyenQuanLyBaiViet;
-    }
-
-    public boolean isQuyenSuaMenu() {
-        return quyenSuaMenu;
-    }
-
-    public void setQuyenSuaMenu(boolean quyenSuaMenu) {
-        this.quyenSuaMenu = quyenSuaMenu;
-    }
-
-    public boolean isQuyenQuanLyNguoiDung() {
-        return quyenQuanLyNguoiDung;
-    }
-
-    public void setQuyenQuanLyNguoiDung(boolean quyenQuanLyNguoiDung) {
-        this.quyenQuanLyNguoiDung = quyenQuanLyNguoiDung;
-    }
-    
-    public boolean isQuyenThemSuKien() {
-        return quyenThemSuKien;
-    }
-
-    public void setQuyenThemSuKien(boolean quyenThemSuKien) {
-        this.quyenThemSuKien = quyenThemSuKien;
-    }
-
-    public boolean isQuyenHienThiRoleLenLac() {
-        return quyenHienThiRoleLenLac;
-    }
-
-    public void setQuyenHienThiRoleLenLac(boolean quyenHienThiRoleLenLac) {
-        this.quyenHienThiRoleLenLac = quyenHienThiRoleLenLac;
-    }
-    
-    @OneToMany(mappedBy = "vaiTro")
-    private Set<NguoiDung> nguoiDung = new HashSet<>();
-
-    // Getters and Setters for events
-    public Set<NguoiDung> getNguoiDung() {
-        return nguoiDung;
-    }
-
-    public void setNguoiDung(Set<NguoiDung> nguoiDung) {
-        this.nguoiDung = nguoiDung;
-    }
+	public void setDsQuyen(Set<Quyen> dsQuyen) {
+		this.dsQuyen = dsQuyen;
+	}
 }

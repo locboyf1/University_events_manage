@@ -1,559 +1,269 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 12, 2025 lúc 09:29 AM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Cơ sở dữ liệu: `quanlysukien`
---
+CREATE DATABASE IF NOT EXISTS `quanlysukien` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `quanlysukien`;
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `baiviet`
---
-
-CREATE TABLE `baiviet` (
-  `id` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `baiviet`;
+CREATE TABLE IF NOT EXISTS `baiviet` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `tieude` varchar(200) NOT NULL,
-  `mota` varchar(500) NOT NULL,
-  `noidung` longtext NOT NULL,
-  `ngaytao` datetime NOT NULL,
-  `manguoidung` int(11) NOT NULL,
-  `hienthi` tinyint(1) NOT NULL,
+  `mota` varchar(500) DEFAULT NULL,
   `anh` longtext NOT NULL,
-  `madanhmuc` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `noidung` longtext NOT NULL,
+  `ngaytao` datetime(6) NOT NULL,
+  `hienthi` tinyint(1) NOT NULL,
+  `manguoidung` int NOT NULL,
+  `madanhmuc` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_baiviet_danhmucbaiviet` (`madanhmuc`),
+  KEY `FK_baiviet_nguoidung` (`manguoidung`),
+  CONSTRAINT `FK_baiviet_danhmucbaiviet` FOREIGN KEY (`madanhmuc`) REFERENCES `danhmucbaiviet` (`id`),
+  CONSTRAINT `FK_baiviet_nguoidung` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
 
---
--- Cấu trúc bảng cho bảng `binhluanbaiviet`
---
+DROP TABLE IF EXISTS `binhluanbaiviet`;
+CREATE TABLE IF NOT EXISTS `binhluanbaiviet` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `noidung` varchar(500) NOT NULL,
+  `thoigian` datetime(6) NOT NULL,
+  `manguoidung` int NOT NULL,
+  `mabaiviet` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_binhluanbaiviet_baiviet` (`mabaiviet`),
+  KEY `FK_binhluanbaiviet_nguoidung` (`manguoidung`),
+  CONSTRAINT `FK_binhluanbaiviet_baiviet` FOREIGN KEY (`mabaiviet`) REFERENCES `baiviet` (`id`),
+  CONSTRAINT `FK_binhluanbaiviet_nguoidung` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `binhluanbaiviet` (
-  `id` bigint(20) NOT NULL,
-  `manguoidung` int(11) NOT NULL,
-  `mabaiviet` bigint(20) NOT NULL,
-  `thoigian` datetime NOT NULL,
-  `noidung` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `chitietquyen`;
+CREATE TABLE IF NOT EXISTS `chitietquyen` (
+  `mavaitro` int NOT NULL,
+  `maquyen` int NOT NULL,
+  PRIMARY KEY (`mavaitro`,`maquyen`),
+  KEY `FK_chitietquyen_quyen` (`maquyen`),
+  CONSTRAINT `FK_chitietquyen_quyen` FOREIGN KEY (`maquyen`) REFERENCES `quyen` (`id`),
+  CONSTRAINT `FK_chitietquyen_vaitro` FOREIGN KEY (`mavaitro`) REFERENCES `vaitro` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Cấu trúc bảng cho bảng `danhmucbaiviet`
---
 
-CREATE TABLE `danhmucbaiviet` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `danhmucbaiviet`;
+CREATE TABLE IF NOT EXISTS `danhmucbaiviet` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `tendanhmuc` varchar(30) NOT NULL,
+  `thutu` int NOT NULL,
   `mota` varchar(500) DEFAULT NULL,
-  `thutu` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
 
---
--- Cấu trúc bảng cho bảng `danhmucsukien`
---
-
-CREATE TABLE `danhmucsukien` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `danhmucsukien`;
+CREATE TABLE IF NOT EXISTS `danhmucsukien` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `tendanhmuc` varchar(30) NOT NULL,
-  `thutu` int(11) NOT NULL,
+  `thutu` int NOT NULL,
   `mota` varchar(500) DEFAULT NULL,
-  `bidanh` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `danhmucsukien`
---
+  `bidanh` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `danhmucsukien` (`id`, `tendanhmuc`, `thutu`, `mota`, `bidanh`) VALUES
-(1, 'Cuộc thi', 1, 'Cuộc thi học thuật (lập trình, marketing, khởi nghiệp...).\r\nCuộc thi tài năng (ca hát, nhảy múa, nhiếp ảnh...).\r\nHackathon, Code Camp.', 'cuoc-thi'),
-(2, 'Hội thảo', 2, 'Hội nghị khoa học sinh viên, báo cáo nghiên cứu.\r\nLịch bảo vệ khóa luận, luận văn.\r\nHội thảo chuyên đề, diễn thuyết của khách mời', 'hoi-thao'),
-(3, 'Khen thưởng', 3, 'Lễ Khai giảng, Lễ Tốt nghiệp.\r\nLễ Tuyên dương & Khen thưởng\r\nLễ trao học bổng.', 'khen-thuong'),
-(4, 'Cộng đồng', 4, 'Các sự kiện mang ý nghĩa xã hội, đóng góp cho cộng đồng.\r\nChiến dịch Mùa hè xanh, Tiếp sức mùa thi.\r\nNgày hội hiến máu nhân đạo.\r\nCác chương trình từ thiện, quyên góp.', 'cong-dong');
+	(1, 'Cuộc thi', 1, 'Cuộc thi học thuật (lập trình, marketing, khởi nghiệp...). Cuộc thi tài năng (ca hát, nhảy múa, nhiếp ảnh...). Hackathon, Code Camp.', 'cuoc-thi'),
+	(2, 'Hội thảo', 2, 'Hội nghị khoa học sinh viên, báo cáo nghiên cứu. Lịch bảo vệ khóa luận, luận văn. Hội thảo chuyên đề, diễn thuyết của khách mời', 'hoi-thao'),
+	(3, 'Khen thưởng', 3, 'Lễ Khai giảng, Lễ Tốt nghiệp. Lễ Tuyên dương & Khen thưởng. Lễ trao học bổng.', 'khen-thuong'),
+	(4, 'Cộng đồng', 4, 'Các sự kiện mang ý nghĩa xã hội, đóng góp cho cộng đồng. Chiến dịch Mùa hè xanh, Tiếp sức mùa thi. Ngày hội hiến máu nhân đạo. Các chương trình từ thiện, quyên góp.', 'cong-dong');
 
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `danhsachthamgia`;
+CREATE TABLE IF NOT EXISTS `danhsachthamgia` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `manguoidung` int NOT NULL,
+  `masukien` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_danhsachthamgia_nguoidung` (`manguoidung`),
+  KEY `FK_danhsachthamgia_sukien` (`masukien`),
+  CONSTRAINT `FK_danhsachthamgia_nguoidung` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`),
+  CONSTRAINT `FK_danhsachthamgia_sukien` FOREIGN KEY (`masukien`) REFERENCES `sukien` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Cấu trúc bảng cho bảng `danhsachthamgia`
---
 
-CREATE TABLE `danhsachthamgia` (
-  `id` bigint(20) NOT NULL,
-  `masukien` int(11) NOT NULL,
-  `manguoidung` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `khoa`
---
-
-CREATE TABLE `khoa` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `khoa`;
+CREATE TABLE IF NOT EXISTS `khoa` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `tenkhoa` varchar(100) NOT NULL,
-  `mota` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `khoa`
---
+  `mota` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `khoa` (`id`, `tenkhoa`, `mota`) VALUES
-(1, 'Trường Kinh tế', 'Trường Kinh tế'),
-(2, 'Viện Kỹ thuật và Công nghệ', 'Viện Kỹ thuật và Công nghệ'),
-(3, 'Trường Khoa học Xã hội và Nhân văn', 'Trường Khoa học Xã hội và Nhân văn'),
-(4, 'Khoa Giáo dục Quốc phòng và An ninh', 'Khoa Giáo dục Quốc phòng và An ninh'),
-(5, 'Khoa Sư phạm Ngoại ngữ ', 'Khoa Sư phạm Ngoại ngữ ');
+	(1, 'Trường Kinh tế', 'Trường Kinh tế'),
+	(2, 'Viện Kỹ thuật và Công nghệ', 'Viện Kỹ thuật và Công nghệ'),
+	(3, 'Trường Khoa học Xã hội và Nhân văn', 'Trường Khoa học Xã hội và Nhân văn'),
+	(4, 'Khoa Giáo dục Quốc phòng và An ninh', 'Khoa Giáo dục Quốc phòng và An ninh'),
+	(5, 'Khoa Sư phạm Ngoại ngữ ', 'Khoa Sư phạm Ngoại ngữ ');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `lienlac`
---
-
-CREATE TABLE `lienlac` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `lienlac`;
+CREATE TABLE IF NOT EXISTS `lienlac` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `ten` varchar(50) NOT NULL,
   `email` varchar(30) NOT NULL,
   `sdt` varchar(11) NOT NULL,
   `tieude` varchar(100) NOT NULL,
   `noidung` varchar(500) NOT NULL,
-  `thoigian` datetime NOT NULL,
+  `thoigian` datetime(6) NOT NULL,
   `daphanhoi` tinyint(1) NOT NULL,
-  `manguoidung` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `manguoidung` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_lienlac_nguoidung` (`manguoidung`),
+  CONSTRAINT `FK_lienlac_nguoidung` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
 
---
--- Cấu trúc bảng cho bảng `lop`
---
-
-CREATE TABLE `lop` (
-  `id` int(11) NOT NULL,
-  `manganh` int(11) NOT NULL,
+DROP TABLE IF EXISTS `lop`;
+CREATE TABLE IF NOT EXISTS `lop` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `manganh` int NOT NULL,
   `tenlop` varchar(100) NOT NULL,
-  `khoaso` int(11) NOT NULL,
-  `mota` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `lop`
---
+  `khoaso` int NOT NULL,
+  `mota` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `manganh` (`manganh`),
+  CONSTRAINT `FK_lop_nganh` FOREIGN KEY (`manganh`) REFERENCES `nganh` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `lop` (`id`, `manganh`, `tenlop`, `khoaso`, `mota`) VALUES
-(1, 4, '63K1 CNTT', 63, '63K1 CNTT'),
-(2, 4, '63K2 CNTT', 63, '63K2 CNTT'),
-(3, 4, '64K1 CNTT', 64, '64K1 CNTT'),
-(4, 4, '64K2 CNTT', 64, '64K2 CNTT');
+	(1, 4, '63K1 CNTT', 63, '63K1 CNTT'),
+	(2, 4, '63K2 CNTT', 63, '63K2 CNTT'),
+	(3, 4, '64K1 CNTT', 64, '64K1 CNTT'),
+	(4, 4, '64K2 CNTT', 64, '64K2 CNTT');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `menu`
---
-
-CREATE TABLE `menu` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE IF NOT EXISTS `menu` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `tieude` varchar(30) NOT NULL,
+  `bidanh` varchar(30) NOT NULL,
+  `thutu` int NOT NULL,
   `mota` varchar(100) DEFAULT NULL,
-  `thutu` int(11) NOT NULL,
-  `mamenucha` int(11) DEFAULT NULL,
   `hien` tinyint(1) NOT NULL,
-  `bidanh` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `mamenucha` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_menu_menu` (`mamenucha`),
+  CONSTRAINT `FK_menu_menu` FOREIGN KEY (`mamenucha`) REFERENCES `menu` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Đang đổ dữ liệu cho bảng `menu`
---
+INSERT INTO `menu` (`id`, `tieude`, `bidanh`, `thutu`, `mota`, `hien`, `mamenucha`) VALUES
+	(1, 'Trang chủ', 'trangchu', 1, NULL, 1, NULL);
 
-INSERT INTO `menu` (`id`, `tieude`, `mota`, `thutu`, `mamenucha`, `hien`, `bidanh`) VALUES
-(1, 'Trang chủ', 'trang chủ', 1, NULL, 1, 'Home'),
-(2, 'Sự kiện', 'sk', 2, NULL, 1, 'Sukien'),
-(3, 'Sự kiện đang diễn ra', 'đang', 3, 2, 1, 'Sukien'),
-(4, 'Sự kiện sắp tới', 'sk', 4, 2, 1, 'Sukien'),
-(5, 'Sự kiện gần đây', 'sk', 5, 4, 1, 'SuKien');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `nganh`
---
-
-CREATE TABLE `nganh` (
-  `id` int(11) NOT NULL,
-  `makhoa` int(11) NOT NULL,
+DROP TABLE IF EXISTS `nganh`;
+CREATE TABLE IF NOT EXISTS `nganh` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `makhoa` int NOT NULL,
   `tennganh` varchar(100) NOT NULL,
-  `mota` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `nganh`
---
+  `mota` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `makhoa` (`makhoa`),
+  CONSTRAINT `FK_nganh_khoa` FOREIGN KEY (`makhoa`) REFERENCES `khoa` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `nganh` (`id`, `makhoa`, `tennganh`, `mota`) VALUES
-(1, 5, 'Sư phạm tiếng Anh', 'Sư phạm tiếng Anh'),
-(2, 5, 'Ngôn ngữ Anh', 'Ngôn ngữ Anh'),
-(3, 2, 'Công nghệ thông tin CLC', 'Công nghệ thông tin CLC'),
-(4, 2, 'Công nghệ thông tin', 'Công nghệ thông tin'),
-(5, 2, 'Kỹ thuật phần mềm', 'Kỹ thuật phần mềm'),
-(6, 2, 'Khoa học máy tính', 'Khoa học máy tính'),
-(7, 2, 'Kỹ thuật điện tử - viễn thông', 'Kỹ thuật điện tử - viễn thông'),
-(8, 1, 'Kinh tế đầu tư', 'Kinh tế đầu tư'),
-(9, 1, 'Quản trị kinh doanh', 'Quản trị kinh doanh'),
-(10, 1, 'Tài chính ngân hàng', 'Tài chính ngân hàng');
+	(1, 5, 'Sư phạm tiếng Anh', 'Sư phạm tiếng Anh'),
+	(2, 5, 'Ngôn ngữ Anh', 'Ngôn ngữ Anh'),
+	(3, 2, 'Công nghệ thông tin CLC', 'Công nghệ thông tin CLC'),
+	(4, 2, 'Công nghệ thông tin', 'Công nghệ thông tin'),
+	(5, 2, 'Kỹ thuật phần mềm', 'Kỹ thuật phần mềm'),
+	(6, 2, 'Khoa học máy tính', 'Khoa học máy tính'),
+	(7, 2, 'Kỹ thuật điện tử - viễn thông', 'Kỹ thuật điện tử - viễn thông'),
+	(8, 1, 'Kinh tế đầu tư', 'Kinh tế đầu tư'),
+	(9, 1, 'Quản trị kinh doanh', 'Quản trị kinh doanh'),
+	(10, 1, 'Tài chính ngân hàng', 'Tài chính ngân hàng');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `nguoidung`
---
-
-CREATE TABLE `nguoidung` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `nguoidung`;
+CREATE TABLE IF NOT EXISTS `nguoidung` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `taikhoan` varchar(30) NOT NULL,
   `matkhau` varchar(200) NOT NULL,
   `hoten` varchar(60) NOT NULL,
-  `malop` int(11) DEFAULT NULL,
-  `sdt` varchar(11) NOT NULL,
+  `malop` int DEFAULT NULL,
+  `sdt` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `mavaitro` int(11) NOT NULL,
+  `mavaitro` int NOT NULL,
   `anh` varchar(255) NOT NULL,
-  `hoatdong` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `nguoidung`
---
+  `hoatdong` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mavaitro` (`mavaitro`),
+  KEY `malop` (`malop`),
+  CONSTRAINT `FK_nguoidung_lop` FOREIGN KEY (`malop`) REFERENCES `lop` (`id`),
+  CONSTRAINT `FK_nguoidung_vaitro` FOREIGN KEY (`mavaitro`) REFERENCES `vaitro` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `nguoidung` (`id`, `taikhoan`, `matkhau`, `hoten`, `malop`, `sdt`, `email`, `mavaitro`, `anh`, `hoatdong`) VALUES
-(1, '225748020110014', '7c222fb2927d828af22f592134e8932480637c0d', 'Tạ Quang Lộc', 2, '0373819702', 'quangloc@admin.com', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s', 0);
+	(10, '225748020110052', '$2a$10$oVxwORnoVI1FbrSeVT2THuFVPk2gA7A2hG4sE9UXX.2rpxCUTrqMO', 'Hà Vi', 1, NULL, NULL, 7, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s', 1),
+	(11, 'loctq', '$2a$10$n3u8uTiTbnMalTLTxTgBXeuhQQZSINiuW6x0qp6EKP2Db1YjWFmVO', 'Quang Lộc', NULL, NULL, NULL, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s', 1);
 
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `quyen`;
+CREATE TABLE IF NOT EXISTS `quyen` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `tenquyen` varchar(50) NOT NULL DEFAULT '',
+  `mota` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Cấu trúc bảng cho bảng `sukien`
---
 
-CREATE TABLE `sukien` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `sukien`;
+CREATE TABLE IF NOT EXISTS `sukien` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `tensukien` varchar(300) NOT NULL,
+  `bidanh` varchar(300) NOT NULL,
+  `mota` varchar(500) DEFAULT NULL,
   `noidung` longtext NOT NULL,
   `anh` varchar(500) NOT NULL,
-  `manguoidung` int(11) NOT NULL,
-  `thoigiantao` datetime NOT NULL,
-  `thoigianbatdau` datetime NOT NULL,
-  `thoigianketthuc` datetime DEFAULT NULL,
-  `batbuoc` tinyint(1) NOT NULL,
-  `thoigiansuagannhat` datetime DEFAULT NULL,
-  `hienthi` tinyint(1) NOT NULL,
-  `madanhmuc` int(11) NOT NULL,
-  `mota` varchar(500) NOT NULL,
   `diachi` varchar(100) NOT NULL,
-  `bidanh` varchar(300) NOT NULL,
+  `thoigiantao` datetime(6) NOT NULL,
+  `thoigianbatdau` datetime(6) NOT NULL,
+  `thoigianketthuc` datetime(6) DEFAULT NULL,
+  `thoigiansuagannhat` datetime(6) DEFAULT NULL,
   `sdthotro` varchar(11) NOT NULL,
-  `emailhotro` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `emailhotro` varchar(50) NOT NULL,
+  `batbuoc` tinyint(1) NOT NULL,
+  `hienthi` tinyint(1) NOT NULL,
+  `manguoidung` int NOT NULL,
+  `madanhmuc` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_sukien_nguoidung` (`manguoidung`),
+  KEY `FK_sukien_danhmucsukien` (`madanhmuc`),
+  CONSTRAINT `FK_sukien_danhmucsukien` FOREIGN KEY (`madanhmuc`) REFERENCES `danhmucsukien` (`id`),
+  CONSTRAINT `FK_sukien_nguoidung` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Đang đổ dữ liệu cho bảng `sukien`
---
 
-INSERT INTO `sukien` (`id`, `tensukien`, `noidung`, `anh`, `manguoidung`, `thoigiantao`, `thoigianbatdau`, `thoigianketthuc`, `batbuoc`, `thoigiansuagannhat`, `hienthi`, `madanhmuc`, `mota`, `diachi`, `bidanh`, `sdthotro`, `emailhotro`) VALUES
-(1, 'LỄ TUYÊN DƯƠNG SINH VIÊN ĐẠT ĐIỂM CAO TRONG KỲ TUYỂN SINH NĂM 2025, SINH VIÊN ĐẠT DANH HIỆU SINH VIÊN XUẤT SẮC NĂM HỌC 2024 - 2025', 'LỄ TUYÊN DƯƠNG SINH VIÊN ĐẠT ĐIỂM CAO TRONG KỲ TUYỂN SINH NĂM 2025, SINH VIÊN ĐẠT DANH HIỆU SINH VIÊN XUẤT SẮC NĂM HỌC 2024 - 2025', 'https://scontent.fhan3-2.fna.fbcdn.net/v/t39.30808-6/561748527_822212843719718_7498481503206955276_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeE6R6ZFtvJxEUtz6HvurioDITu6RBvxNDchO7pEG_E0N813QvXYrOuXrv5JnkGj8PNClqEj_w0uOxgmP-hByYEB&_nc_ohc=4RszoxJvnSwQ7kNvwHGOhCo&_nc_oc=Adkq421FyNSw74ZHFyajmkcCQFeZyuKFdNSl742PpMe3WqEfiW9kezAoqFW2qSp5pbrrOhEL8kIA2hY1lm4pwEuV&_nc_zt=23&_nc_ht=scontent.fhan3-2.fna&_nc_gid=JKhQLLxqfyKnJ4WyNLBSJg&oh=00_AfeAr0jh6ijRuk39Fz44zLwPrtZ_X5ib_BXcbKSHlDqDCA&oe=68F091D3', 1, '2025-10-11 22:04:51', '2025-10-11 22:04:51', NULL, 1, NULL, 1, 3, 'LỄ TUYÊN DƯƠNG SINH VIÊN ĐẠT ĐIỂM CAO TRONG KỲ TUYỂN SINH NĂM 2025, SINH VIÊN ĐẠT DANH HIỆU SINH VIÊN XUẤT SẮC NĂM HỌC 2024 - 2025', 'Hội trường A', 'le-tuyen-duong-sinh-vien-dat-diem-cao-trong-ky-tuyen-sinh-nam-2025-sinh-vien-dat-danh-hieu-sinh-vien-xuat-sac-nam-hoc-2024-2025', '012345678', 'hotro@mail.com'),
-(2, 'UNI CARE DAY CHÍNH THỨC TRỞ LẠI ĐẠI HỌC VINH 📢\r\n', '\r\nSau những ngày mưa bão khiến kế hoạch phải tạm hoãn, Uni Care Day quay trở lại ý nghĩa hơn với thông điệp “Ch\r\nKhông để sinh viên Đại học Vinh phải chờ thêm nữa, chương trình sẽ chính thức diễn ra:\r\n🗓 15 - 16/10/2025 | 08:00 - 17:00\r\n📍 Khuôn viên Trường Đại học Vinh\r\n\r\nĐến với Uni Care Day, bạn sẽ được chăm sóc xe hoàn toàn FREE:\r\n🛞 IRC Việt Nam: Kiểm tra & tư vấn lốp xe an toàn sau ngập nước\r\n⚡ GS Việt Nam: Test ắc quy miễn phí, khôi phục sức mạnh cho xe\r\n🛢 ENEOS: Thay nhớt xe ga & xe số\r\n🎁 Ngoài ra còn có:\r\n• Quà tặng cực xịn: mũ bảo hiểm, túi canvas, móc khoá và nhiều quà tặng hấp dẫn khác\r\n• Mini game nhận quà, khu ẩm thực miễn phí cực vui\r\n\r\nChỉ 500 suất/ngày nhanh tay đăng ký ngay để xe được “chữa lành” sau bão và rinh quà liền tay!\r\n\r\n👉 Đăng ký ngay tại đây: https://event.xesolutions.vn/.../uni-care-day.../register\r\n\r\n#UniCareDay2025 #ChamSocXeMienPhi #IRC #GS #ENEOS Ẩn bớtăm sóc xe - Sẻ chia sau bão” 💙', 'https://event.xesolutions.vn/web/image/event.event/24/image_logo', 1, '2025-10-11 22:07:08', '2025-10-31 03:07:08', NULL, 0, NULL, 1, 4, 'Đến với Uni Care Day, bạn sẽ được chăm sóc xe hoàn toàn FREE:\r\n🛞 IRC Việt Nam: Kiểm tra & tư vấn lốp xe an toàn sau ngập nước\r\n⚡ GS Việt Nam: Test ắc quy miễn phí, khôi phục sức mạnh cho xe\r\n🛢 ENEOS: Thay nhớt xe ga & xe số', 'Hội trường A', 'uni-care-day-chinh-thuc-tro-lai-dai-hoc-vinh', '012345678', 'hotro@mail.com');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `vaitro`
---
-
-CREATE TABLE `vaitro` (
-  `id` int(11) NOT NULL,
-  `tenvaitro` varchar(30) NOT NULL,
-  `mota` varchar(100) NOT NULL,
+DROP TABLE IF EXISTS `vaitro`;
+CREATE TABLE IF NOT EXISTS `vaitro` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `tenvaitro` varchar(30) DEFAULT NULL,
+  `mota` varchar(100) DEFAULT NULL,
   `bidanh` varchar(20) NOT NULL,
-  `quyentaosukien` tinyint(1) NOT NULL,
-  `quyenduyetsukien` tinyint(1) NOT NULL,
-  `quyenquanlybaiviet` tinyint(1) NOT NULL,
-  `quyensuamenu` tinyint(1) NOT NULL,
-  `quyenquanlynguoidung` tinyint(1) NOT NULL,
-  `quyenthemsukien` tinyint(1) NOT NULL,
-  `quyenhotrolienlac` tinyint(1) NOT NULL,
-  `quyenhientrollenlac` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `capbac` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Đang đổ dữ liệu cho bảng `vaitro`
---
+INSERT INTO `vaitro` (`id`, `tenvaitro`, `mota`, `bidanh`, `capbac`) VALUES
+	(1, 'Quản trị viên', 'toàn quyền', 'quantrivien', 10),
+	(2, 'Quản trị sự kiện', 'sự kiện', 'quantrisukien', 8),
+	(3, 'Quản trị giao diện web', 'Menu, banner, ...', 'quantrigiaodien', 8),
+	(4, 'Quản trị bài viết', NULL, 'quantribaiviet', 8),
+	(5, 'Quản trị tài khoản', NULL, 'quantritaikhoan', 8),
+	(6, 'Người tạo sự kiện', 'Các khoa, viện, ...', 'nguoitaosukien', 6),
+	(7, 'Sinh viên', 'Chỉ dùng thôi', 'sinhvien', 2);
 
-INSERT INTO `vaitro` (`id`, `tenvaitro`, `mota`, `bidanh`, `quyentaosukien`, `quyenduyetsukien`, `quyenquanlybaiviet`, `quyensuamenu`, `quyenquanlynguoidung`, `quyenthemsukien`, `quyenhotrolienlac`, `quyenhientrollenlac`) VALUES
-(1, 'Quản trị viên', 'toàn quyền', 'qtv', 1, 1, 1, 1, 1, 1, 1, b'0');
-
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `baiviet`
---
-ALTER TABLE `baiviet`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `madanhmuc` (`madanhmuc`),
-  ADD KEY `nguoitao` (`manguoidung`);
-
---
--- Chỉ mục cho bảng `binhluanbaiviet`
---
-ALTER TABLE `binhluanbaiviet`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKeu71a4nvq6cms4j0if3wpnkiy` (`mabaiviet`),
-  ADD KEY `FK6bkc8po1yxfe9fliklm2brh4y` (`manguoidung`);
-
---
--- Chỉ mục cho bảng `danhmucbaiviet`
---
-ALTER TABLE `danhmucbaiviet`
-  ADD PRIMARY KEY (`id`);
-
---
--- Chỉ mục cho bảng `danhmucsukien`
---
-ALTER TABLE `danhmucsukien`
-  ADD PRIMARY KEY (`id`);
-
---
--- Chỉ mục cho bảng `danhsachthamgia`
---
-ALTER TABLE `danhsachthamgia`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `masukien` (`masukien`),
-  ADD KEY `manguoidung` (`manguoidung`);
-
---
--- Chỉ mục cho bảng `khoa`
---
-ALTER TABLE `khoa`
-  ADD PRIMARY KEY (`id`);
-
---
--- Chỉ mục cho bảng `lienlac`
---
-ALTER TABLE `lienlac`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKm93cb0xy3838q0x9s9np87wd9` (`manguoidung`);
-
---
--- Chỉ mục cho bảng `lop`
---
-ALTER TABLE `lop`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `manganh` (`manganh`);
-
---
--- Chỉ mục cho bảng `menu`
---
-ALTER TABLE `menu`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `mamenucha` (`mamenucha`);
-
---
--- Chỉ mục cho bảng `nganh`
---
-ALTER TABLE `nganh`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `makhoa` (`makhoa`);
-
---
--- Chỉ mục cho bảng `nguoidung`
---
-ALTER TABLE `nguoidung`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `mavaitro` (`mavaitro`),
-  ADD KEY `malop` (`malop`);
-
---
--- Chỉ mục cho bảng `sukien`
---
-ALTER TABLE `sukien`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `madanhmuc` (`madanhmuc`),
-  ADD KEY `manguoidung` (`manguoidung`);
-
---
--- Chỉ mục cho bảng `vaitro`
---
-ALTER TABLE `vaitro`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT cho các bảng đã đổ
---
-
---
--- AUTO_INCREMENT cho bảng `baiviet`
---
-ALTER TABLE `baiviet`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT cho bảng `binhluanbaiviet`
---
-ALTER TABLE `binhluanbaiviet`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT cho bảng `danhmucbaiviet`
---
-ALTER TABLE `danhmucbaiviet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT cho bảng `danhmucsukien`
---
-ALTER TABLE `danhmucsukien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT cho bảng `danhsachthamgia`
---
-ALTER TABLE `danhsachthamgia`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT cho bảng `khoa`
---
-ALTER TABLE `khoa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT cho bảng `lienlac`
---
-ALTER TABLE `lienlac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT cho bảng `lop`
---
-ALTER TABLE `lop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT cho bảng `menu`
---
-ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT cho bảng `nganh`
---
-ALTER TABLE `nganh`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT cho bảng `nguoidung`
---
-ALTER TABLE `nguoidung`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT cho bảng `sukien`
---
-ALTER TABLE `sukien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT cho bảng `vaitro`
---
-ALTER TABLE `vaitro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `baiviet`
---
-ALTER TABLE `baiviet`
-  ADD CONSTRAINT `baiviet_ibfk_1` FOREIGN KEY (`madanhmuc`) REFERENCES `danhmucbaiviet` (`id`),
-  ADD CONSTRAINT `baiviet_ibfk_2` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`);
-
---
--- Các ràng buộc cho bảng `binhluanbaiviet`
---
-ALTER TABLE `binhluanbaiviet`
-  ADD CONSTRAINT `FK6bkc8po1yxfe9fliklm2brh4y` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`),
-  ADD CONSTRAINT `FKeu71a4nvq6cms4j0if3wpnkiy` FOREIGN KEY (`mabaiviet`) REFERENCES `baiviet` (`id`);
-
---
--- Các ràng buộc cho bảng `danhsachthamgia`
---
-ALTER TABLE `danhsachthamgia`
-  ADD CONSTRAINT `danhsachthamgia_ibfk_1` FOREIGN KEY (`masukien`) REFERENCES `sukien` (`id`),
-  ADD CONSTRAINT `danhsachthamgia_ibfk_2` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`);
-
---
--- Các ràng buộc cho bảng `lienlac`
---
-ALTER TABLE `lienlac`
-  ADD CONSTRAINT `FKm93cb0xy3838q0x9s9np87wd9` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`),
-  ADD CONSTRAINT `lienlac_ibfk_1` FOREIGN KEY (`id`) REFERENCES `nguoidung` (`id`);
-
---
--- Các ràng buộc cho bảng `lop`
---
-ALTER TABLE `lop`
-  ADD CONSTRAINT `lop_ibfk_1` FOREIGN KEY (`manganh`) REFERENCES `nganh` (`id`);
-
---
--- Các ràng buộc cho bảng `menu`
---
-ALTER TABLE `menu`
-  ADD CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`mamenucha`) REFERENCES `menu` (`id`);
-
---
--- Các ràng buộc cho bảng `nganh`
---
-ALTER TABLE `nganh`
-  ADD CONSTRAINT `nganh_ibfk_1` FOREIGN KEY (`makhoa`) REFERENCES `khoa` (`id`);
-
---
--- Các ràng buộc cho bảng `nguoidung`
---
-ALTER TABLE `nguoidung`
-  ADD CONSTRAINT `nguoidung_ibfk_1` FOREIGN KEY (`mavaitro`) REFERENCES `vaitro` (`id`),
-  ADD CONSTRAINT `nguoidung_ibfk_2` FOREIGN KEY (`malop`) REFERENCES `lop` (`id`);
-
---
--- Các ràng buộc cho bảng `sukien`
---
-ALTER TABLE `sukien`
-  ADD CONSTRAINT `sukien_ibfk_1` FOREIGN KEY (`madanhmuc`) REFERENCES `danhmucsukien` (`id`),
-  ADD CONSTRAINT `sukien_ibfk_2` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung` (`id`);
-COMMIT;
-
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

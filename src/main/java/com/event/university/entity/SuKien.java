@@ -18,209 +18,208 @@ import jakarta.persistence.Table;
 @Table(name = "sukien")
 public class SuKien {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "tensukien", length = 300, nullable = false)
-    private String tenSuKien;
-    
-    @Column(name = "mota", length = 500)
-    private String moTa;
+	@Column(name = "tensukien", length = 300, nullable = false)
+	private String tenSuKien;
 
-    @Column(name = "noidung", columnDefinition = "LONGTEXT", nullable = false)
-    private String noiDung;
+	@Column(name = "mota", length = 500)
+	private String moTa;
 
-    @Column(name = "anh", length = 500, nullable = false)
-    private String anh;
+	@Column(name = "noidung", columnDefinition = "LONGTEXT", nullable = false)
+	private String noiDung;
 
-    @Column(name = "thoigiantao", nullable = false)
-    private LocalDateTime thoiGianTao;
+	@Column(name = "anh", length = 500, nullable = false)
+	private String anh;
 
-    @Column(name = "thoigianbatdau", nullable = false)
-    private LocalDateTime thoiGianBatDau;
+	@Column(name = "thoigiantao", nullable = false)
+	private LocalDateTime thoiGianTao;
 
-    @Column(name = "thoigianketthuc")
-    private LocalDateTime thoiGianKetThuc;
-    
-    @Column(name = "thoigiansuagannhat")
-    private LocalDateTime thoiGianSuaGanNhat;
+	@Column(name = "thoigianbatdau", nullable = false)
+	private LocalDateTime thoiGianBatDau;
 
-    @Column(name = "batbuoc", nullable = false)
-    private boolean batBuoc;
+	@Column(name = "thoigianketthuc")
+	private LocalDateTime thoiGianKetThuc;
 
-    @Column(name = "hienthi", nullable = false)
-    private boolean hienThi;
-    
-    @Column(name = "diachi", length= 100, nullable = false)
-    private String diaChi;
-    
-    @Column(name = "bidanh", length= 300, nullable = false)
-    private String biDanh;
-    
-    @Column(name = "sdthotro", length= 11, nullable = false)
-    private String sdtHoTro;
+	@Column(name = "thoigiansuagannhat")
+	private LocalDateTime thoiGianSuaGanNhat;
 
-    @Column(name = "emailhotro", length= 50, nullable = false)
-    private String emailHoTro;
+	@Column(name = "batbuoc", nullable = false)
+	private boolean batBuoc;
 
+	@Column(name = "hienthi", nullable = false)
+	private boolean hienThi;
 
-    @ManyToOne
-    @JoinColumn(name = "manguoidung", nullable = false)
-    private NguoiDung nguoiDung;
+	@Column(name = "diachi", length = 100, nullable = false)
+	private String diaChi;
 
-    @ManyToOne
-    @JoinColumn(name = "madanhmuc", nullable = false)
-    private DanhMucSuKien danhMucSuKien;
-    
-    @OneToMany(mappedBy = "suKien")
-    private Set<DanhSachThamGia> danhSachThamGia = new HashSet<>();
+	@Column(name = "bidanh", length = 300, nullable = false)
+	private String biDanh;
 
-    public SuKien() {}
-    
-    public Long getId() {
-        return id;
-    }
+	@Column(name = "sdthotro", length = 11, nullable = false)
+	private String sdtHoTro;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Column(name = "emailhotro", length = 50, nullable = false)
+	private String emailHoTro;
 
-    public String getSdtHoTro() {
-        return sdtHoTro;
-    }
+	@ManyToOne
+	@JoinColumn(name = "manguoidung", nullable = false)
+	private NguoiDung nguoiDung;
 
-    public void setSdtHoTro(String sdtHoTro) {
-        this.sdtHoTro = sdtHoTro;
-    }
-    
-    public String getEmailHoTro() {
-        return emailHoTro;
-    }
+	@ManyToOne
+	@JoinColumn(name = "madanhmuc", nullable = false)
+	private DanhMucSuKien danhMucSuKien;
 
-    public void setEmailHoTro(String emailHoTro) {
-        this.emailHoTro = emailHoTro;
-    }
+	@OneToMany(mappedBy = "suKien")
+	private Set<DanhSachThamGia> danhSachThamGia = new HashSet<>();
 
-    public String getTenSuKien() {
-        return tenSuKien;
-    }
+	public SuKien() {
+	}
 
-    public void setTenSuKien(String tenSuKien) {
-        this.tenSuKien = tenSuKien;
-    }
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getMoTa() {
-        return moTa;
-    }
+	public String getSdtHoTro() {
+		return sdtHoTro;
+	}
 
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
-    }
+	public void setSdtHoTro(String sdtHoTro) {
+		this.sdtHoTro = sdtHoTro;
+	}
 
-    public String getNoiDung() {
-        return noiDung;
-    }
+	public String getEmailHoTro() {
+		return emailHoTro;
+	}
 
-    public void setNoiDung(String noiDung) {
-        this.noiDung = noiDung;
-    }
+	public void setEmailHoTro(String emailHoTro) {
+		this.emailHoTro = emailHoTro;
+	}
 
-    public String getAnh() {
-        return anh;
-    }
+	public String getTenSuKien() {
+		return tenSuKien;
+	}
 
-    public void setAnh(String anh) {
-        this.anh = anh;
-    }
-    
-    public String getBiDanh() {
-        return biDanh;
-    }
+	public void setTenSuKien(String tenSuKien) {
+		this.tenSuKien = tenSuKien;
+	}
 
-    public void setBiDanh(String biDanh) {
-        this.biDanh = biDanh;
-    }
+	public String getMoTa() {
+		return moTa;
+	}
 
-    public LocalDateTime getThoiGianTao() {
-        return thoiGianTao;
-    }
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
 
-    public void setThoiGianTao(LocalDateTime thoiGianTao) {
-        this.thoiGianTao = thoiGianTao;
-    }
+	public String getNoiDung() {
+		return noiDung;
+	}
 
-    public LocalDateTime getThoiGianBatDau() {
-        return thoiGianBatDau;
-    }
+	public void setNoiDung(String noiDung) {
+		this.noiDung = noiDung;
+	}
 
-    public void setThoiGianBatDau(LocalDateTime thoiGianBatDau) {
-        this.thoiGianBatDau = thoiGianBatDau;
-    }
+	public String getAnh() {
+		return anh;
+	}
 
-    public LocalDateTime getThoiGianKetThuc() {
-        return thoiGianKetThuc;
-    }
+	public void setAnh(String anh) {
+		this.anh = anh;
+	}
 
-    public void setThoiGianKetThuc(LocalDateTime thoiGianKetThuc) {
-        this.thoiGianKetThuc = thoiGianKetThuc;
-    }
+	public String getBiDanh() {
+		return biDanh;
+	}
 
-    public LocalDateTime getThoiGianSuaGanNhat() {
-        return thoiGianSuaGanNhat;
-    }
+	public void setBiDanh(String biDanh) {
+		this.biDanh = biDanh;
+	}
 
-    public void setThoiGianSuaGanNhat(LocalDateTime thoiGianSuaGanNhat) {
-        this.thoiGianSuaGanNhat = thoiGianSuaGanNhat;
-    }
+	public LocalDateTime getThoiGianTao() {
+		return thoiGianTao;
+	}
 
-    public boolean isBatBuoc() {
-        return batBuoc;
-    }
+	public void setThoiGianTao(LocalDateTime thoiGianTao) {
+		this.thoiGianTao = thoiGianTao;
+	}
 
-    public void setBatBuoc(boolean batBuoc) {
-        this.batBuoc = batBuoc;
-    }
+	public LocalDateTime getThoiGianBatDau() {
+		return thoiGianBatDau;
+	}
 
-    public boolean isHienThi() {
-        return hienThi;
-    }
+	public void setThoiGianBatDau(LocalDateTime thoiGianBatDau) {
+		this.thoiGianBatDau = thoiGianBatDau;
+	}
 
-    public void setHienThi(boolean hienThi) {
-        this.hienThi = hienThi;
-    }
-    
-    public String getDiaChi() {
-        return diaChi;
-    }
+	public LocalDateTime getThoiGianKetThuc() {
+		return thoiGianKetThuc;
+	}
 
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
-    }
+	public void setThoiGianKetThuc(LocalDateTime thoiGianKetThuc) {
+		this.thoiGianKetThuc = thoiGianKetThuc;
+	}
 
-    public NguoiDung getNguoiDung() {
-        return nguoiDung;
-    }
+	public LocalDateTime getThoiGianSuaGanNhat() {
+		return thoiGianSuaGanNhat;
+	}
 
-    public void setNguoiDung(NguoiDung nguoiDung) {
-        this.nguoiDung = nguoiDung;
-    }
+	public void setThoiGianSuaGanNhat(LocalDateTime thoiGianSuaGanNhat) {
+		this.thoiGianSuaGanNhat = thoiGianSuaGanNhat;
+	}
 
-    public DanhMucSuKien getDanhMucSuKien() {
-        return danhMucSuKien;
-    }
+	public boolean isBatBuoc() {
+		return batBuoc;
+	}
 
-    public void setDanhMucSuKien(DanhMucSuKien danhMucSuKien) {
-        this.danhMucSuKien = danhMucSuKien;
-    }
-    
-    public Set<DanhSachThamGia> getDanhSachThamGia() {
-        return danhSachThamGia;
-    }
+	public void setBatBuoc(boolean batBuoc) {
+		this.batBuoc = batBuoc;
+	}
 
-    public void setDanhSachThamGia(Set<DanhSachThamGia> danhSachThamGia) {
-        this.danhSachThamGia = danhSachThamGia;
-    }
-    
+	public boolean isHienThi() {
+		return hienThi;
+	}
+
+	public void setHienThi(boolean hienThi) {
+		this.hienThi = hienThi;
+	}
+
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+
+	public NguoiDung getNguoiDung() {
+		return nguoiDung;
+	}
+
+	public void setNguoiDung(NguoiDung nguoiDung) {
+		this.nguoiDung = nguoiDung;
+	}
+
+	public DanhMucSuKien getDanhMucSuKien() {
+		return danhMucSuKien;
+	}
+
+	public void setDanhMucSuKien(DanhMucSuKien danhMucSuKien) {
+		this.danhMucSuKien = danhMucSuKien;
+	}
+
+	public Set<DanhSachThamGia> getDanhSachThamGia() {
+		return danhSachThamGia;
+	}
+
+	public void setDanhSachThamGia(Set<DanhSachThamGia> danhSachThamGia) {
+		this.danhSachThamGia = danhSachThamGia;
+	}
+
 }

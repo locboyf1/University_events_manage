@@ -17,28 +17,28 @@ import com.event.university.service.SuKienService;
 public class EventController {
 	@Autowired
 	private SuKienService suKienService;
-	
+
 	@Autowired
 	private DanhMucSuKienService danhMucSuKienService;
-	
-	@GetMapping("/events")
-	public String  index(Model model) {	
+
+	@GetMapping("/sukien")
+	public String index(Model model) {
 		List<SuKien> suKiens = suKienService.getDisplaySorted();
 		List<DanhMucSuKien> danhMucSuKiens = danhMucSuKienService.getAllDanhMucSuKien();
 		model.addAttribute("suKiens", suKiens);
 		model.addAttribute("danhMucSuKiens", danhMucSuKiens);
 		return "event/index";
 	}
-	
-	@GetMapping("/events/{id}/{biDanh}.html")
+
+	@GetMapping("/Sukien/{id}/{biDanh}.html")
 	public String detail(@PathVariable Long id, @PathVariable String biDanh, Model model) {
 		SuKien suKien = suKienService.getById(id);
 		if (suKien == null) {
 			return "event/index";
 		}
-		
-		model.addAttribute("suKien",suKien);
-		
+
+		model.addAttribute("suKien", suKien);
+
 		return "event/detail";
 	}
 }

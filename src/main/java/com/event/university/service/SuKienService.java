@@ -11,18 +11,18 @@ import com.event.university.repository.SuKienRepository;
 @Service
 public class SuKienService {
 
-    @Autowired
-    private SuKienRepository suKienRepository;
+	@Autowired
+	private SuKienRepository suKienRepository;
 
-    public List<SuKien> getAllSuKien() {
-        return suKienRepository.findAll();
-    }
-    
-    public List<SuKien> getDisplaySorted(){
-    	return suKienRepository.findByHienThiTrueOrderByThoiGianBatDauDesc();
-    }
-    
-    public SuKien getById(Long id) {
-    	return suKienRepository.findByIdAndHienThiTrue(id);
-    }
+	public List<SuKien> getAllSuKien() {
+		return suKienRepository.findAll();
+	}
+
+	public List<SuKien> getDisplaySorted() {
+		return suKienRepository.findByHienThiTrueOrderByThoiGianBatDauDesc();
+	}
+
+	public SuKien getById(Long id) {
+		return suKienRepository.findByIdAndHienThiTrue(id);
+	}
 }

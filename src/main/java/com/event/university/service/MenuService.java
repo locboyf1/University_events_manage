@@ -11,12 +11,12 @@ import com.event.university.repository.MenuRepository;
 @Service
 public class MenuService {
 
-    @Autowired
-    private MenuRepository menuRepository;
+	@Autowired
+	private MenuRepository menuRepository;
 
-    public List<Menu> getTopLevelMenus() {
-        
-        return menuRepository.findByMenuChaIsNullAndHienTrueOrderByThuTuAsc();
-    }
-    
+	public List<Menu> getTopLevelMenus() {
+
+		return menuRepository.findByMenuChaIsNullAndHienTrueOrderByThuTuAsc();
+	}
+
 }

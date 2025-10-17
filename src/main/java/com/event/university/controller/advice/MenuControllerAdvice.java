@@ -12,11 +12,11 @@ import com.event.university.service.MenuService;
 @ControllerAdvice
 public class MenuControllerAdvice {
 
-    @Autowired
-    private MenuService menuService;
+	@Autowired
+	private MenuService menuService;
 
-    @ModelAttribute("topMenus")
-    public List<Menu> addGlobalMenusToModel() {
-        return menuService.getTopLevelMenus();
-    }
+	@ModelAttribute("topMenus")
+	public List<Menu> addGlobalMenusToModel() {
+		return menuService.getTopLevelMenus();
+	}
 }
