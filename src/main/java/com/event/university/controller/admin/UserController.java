@@ -86,7 +86,7 @@ public class UserController {
 
 	@PostMapping("/update")
 	public String update(@ModelAttribute NguoiDung nguoiDung) {
-		nguoiDungService.save(nguoiDung);
+		nguoiDungService.update(nguoiDung);
 		return "redirect:/admin/users/";
 	}
 }

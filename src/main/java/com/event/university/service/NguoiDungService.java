@@ -50,10 +50,11 @@ public class NguoiDungService implements UserDetailsService {
 		NguoiDung nguoiDungPreviou = nguoiDungRepository.findById(nguoiDungUpdated.getId()).orElse(null);
 
 		if (nguoiDungPreviou != null) {
+			nguoiDungPreviou.setTaiKhoan(nguoiDungUpdated.getTaiKhoan());
 			nguoiDungPreviou.setHoTen(nguoiDungUpdated.getHoTen());
 			nguoiDungPreviou.setVaiTro(nguoiDungUpdated.getVaiTro());
-			nguoiDungPreviou.setVaiTro(nguoiDungUpdated.getVaiTro());
-			nguoiDungRepository.save(nguoiDungUpdated);
+			nguoiDungPreviou.setLop(nguoiDungUpdated.getLop());
+			nguoiDungRepository.save(nguoiDungPreviou);
 		}
 	}
 

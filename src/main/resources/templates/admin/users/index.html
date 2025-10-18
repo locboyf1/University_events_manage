@@ -34,8 +34,8 @@
 											class="new-users-name" th:text="${nguoidung.hoTen}">Tên </a>
 											<span class="new-users-info"
 											th:text="${nguoidung.vaiTro.tenVaiTro}">role</span>
-									</span> <span class="new-users-btn"> <a href="#"
-											class="btn button-sm outline">Follow</a>
+									</span> <span class="new-users-btn"> <a th:href="@{/admin/users/update/{id}(id=${nguoidung.id})}"
+											class="btn button-sm outline">Sửa</a>
 									</span></li>
 
 								</ul>
