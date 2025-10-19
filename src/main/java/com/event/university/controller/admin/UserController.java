@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.event.university.entity.Khoa;
 import com.event.university.entity.Lop;
@@ -87,6 +88,12 @@ public class UserController {
 	@PostMapping("/update")
 	public String update(@ModelAttribute NguoiDung nguoiDung) {
 		nguoiDungService.update(nguoiDung);
+		return "redirect:/admin/users/";
+	}
+
+	@PostMapping("/lock")
+	public String lock(@RequestParam Long id) {
+		nguoiDungService.lockUnlock(id);
 		return "redirect:/admin/users/";
 	}
 }

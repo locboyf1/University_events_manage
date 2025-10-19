@@ -32,11 +32,18 @@
 											alt="" />
 									</span> <span class="new-users-text"> <a href="#"
 											class="new-users-name" th:text="${nguoidung.hoTen}">Tên </a>
-											<span class="new-users-info"
+											<span class="new-users-info" th:text="${nguoidung.taiKhoan}">taikhoan</span>
+											<br> <span class="new-users-info"
 											th:text="${nguoidung.vaiTro.tenVaiTro}">role</span>
-									</span> <span class="new-users-btn"> <a th:href="@{/admin/users/update/{id}(id=${nguoidung.id})}"
-											class="btn button-sm outline">Sửa</a>
-									</span></li>
+									</span> <div class="new-users-btn"> <a
+											th:href="@{/admin/users/update/{id}(id=${nguoidung.id})}"
+											class="btn button-sm blue">Sửa</a>
+											<form class="d-inline" th:action="@{/admin/users/lock}" method="post">
+                                                <input type="hidden" th:name="id" th:value="${nguoidung.id}" />
+											<button type="submit" th:class="${nguoidung.hoatDong} ? 'btn button-sm yellow' : 'btn button-sm red' " th:utext="${nguoidung.hoatDong} ? '<i class=\'fa fa-unlock\' ></i> Đang hoạt động' : '<i class=\'fa fa-lock\' ></i> Đã bị khóa'" >Khóa</button>
+											</form>
+									</div>
+									</li>
 
 								</ul>
 							</div>

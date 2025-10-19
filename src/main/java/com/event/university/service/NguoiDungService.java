@@ -43,7 +43,8 @@ public class NguoiDungService implements UserDetailsService {
 		Set<GrantedAuthority> authorities = new HashSet<>();
 		authorities.add(new SimpleGrantedAuthority(nguoiDung.getVaiTro().getBiDanh()));
 
-		return new User(nguoiDung.getTaiKhoan(), nguoiDung.getMatKhau(), authorities);
+		return new User(nguoiDung.getTaiKhoan(), nguoiDung.getMatKhau(), nguoiDung.getHoatDong(), true, true, true,
+				authorities);
 	}
 
 	public void update(NguoiDung nguoiDungUpdated) {
@@ -68,6 +69,14 @@ public class NguoiDungService implements UserDetailsService {
 				.setAnh("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s");
 
 		nguoiDungRepository.save(nguoiDung);
+	}
+
+	public void lockUnlock(Long id) {
+		NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElse(null);
+		if (nguoiDung != null) {
+			nguoiDung.setHoatDong(!nguoiDung.getHoatDong());
+			nguoiDungRepository.save(nguoiDung);
+		}
 	}
 
 }
