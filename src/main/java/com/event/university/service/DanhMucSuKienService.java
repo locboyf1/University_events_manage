@@ -19,7 +19,7 @@ public class DanhMucSuKienService {
 		return danhMucSuKienRepository.findAll();
 	}
 
-	public Optional<DanhMucSuKien> getDanhMucSuKienById(Long id) {
+	public Optional<DanhMucSuKien> getDanhMucSuKienById(Integer id) {
 		return danhMucSuKienRepository.findById(id);
 	}
 
@@ -27,7 +27,7 @@ public class DanhMucSuKienService {
 		return danhMucSuKienRepository.save(danhMucSuKien);
 	}
 
-	public void deleteDanhMucSuKien(Long id) {
+	public void deleteDanhMucSuKien(Integer id) {
 		danhMucSuKienRepository.deleteById(id);
 	}
 }

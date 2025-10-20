@@ -22,7 +22,7 @@ public class LopService {
 		return lopRepository.findAll();
 	}
 
-	public List<LopDto> findByNganhId(Long nganhId) {
+	public List<LopDto> findByNganhId(Integer nganhId) {
 		List<Lop> lops = lopRepository.findByNganhId(nganhId);
 
 		return lops.stream().map(nganhMapper::toLopDto).collect(Collectors.toList());

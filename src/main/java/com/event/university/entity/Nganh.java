@@ -21,7 +21,7 @@ public class Nganh {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "tennganh", length = 100, nullable = false)
 	private String tenNganh;
@@ -40,11 +40,11 @@ public class Nganh {
 	public Nganh() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

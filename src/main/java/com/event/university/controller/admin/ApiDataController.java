@@ -24,12 +24,12 @@ public class ApiDataController {
 	private LopService lopService;
 
 	@GetMapping("/nganhs/{khoaId}")
-	public List<NganhDto> getNganhsByKhoa(@PathVariable Long khoaId) {
+	public List<NganhDto> getNganhsByKhoa(@PathVariable Integer khoaId) {
 		return nganhService.findByKhoaId(khoaId);
 	}
 
 	@GetMapping("/lops/{nganhId}")
-	public List<LopDto> getLopsByNganh(@PathVariable Long nganhId) {
+	public List<LopDto> getLopsByNganh(@PathVariable Integer nganhId) {
 		return lopService.findByNganhId(nganhId);
 	}
 }

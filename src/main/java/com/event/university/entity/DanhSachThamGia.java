@@ -14,7 +14,7 @@ public class DanhSachThamGia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "masukien", nullable = false)
@@ -27,11 +27,11 @@ public class DanhSachThamGia {
 	public DanhSachThamGia() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

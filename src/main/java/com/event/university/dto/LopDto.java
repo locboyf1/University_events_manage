@@ -1,15 +1,15 @@
 package com.event.university.dto;
 
 public class LopDto {
-	private Long id;
+	private Integer id;
 	private String tenLop;
 	private Integer khoaSo;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

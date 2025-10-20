@@ -1,13 +1,8 @@
 package com.event.university.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,20 +26,16 @@ public class NguoiDungService implements UserDetailsService {
 
 	}
 
-	public NguoiDung getById(Long id) {
+	public NguoiDung getById(Integer id) {
 		return nguoiDungRepository.findById(id).orElse(null);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(username).orElseThrow(
-				() -> new UsernameNotFoundException("Không tìm thấy người dùng với tài khoản: " + username));
+		NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(username)
+				.orElseThrow(() -> new UsernameNotFoundException("Sai thông tin đăng nhập"));
 
-		Set<GrantedAuthority> authorities = new HashSet<>();
-		authorities.add(new SimpleGrantedAuthority(nguoiDung.getVaiTro().getBiDanh()));
-
-		return new User(nguoiDung.getTaiKhoan(), nguoiDung.getMatKhau(), nguoiDung.getHoatDong(), true, true, true,
-				authorities);
+		return nguoiDung;
 	}
 
 	public void update(NguoiDung nguoiDungUpdated) {
@@ -71,7 +62,7 @@ public class NguoiDungService implements UserDetailsService {
 		nguoiDungRepository.save(nguoiDung);
 	}
 
-	public void lockUnlock(Long id) {
+	public void lockUnlock(Integer id) {
 		NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElse(null);
 		if (nguoiDung != null) {
 			nguoiDung.setHoatDong(!nguoiDung.getHoatDong());

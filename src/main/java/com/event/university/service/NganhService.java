@@ -23,7 +23,7 @@ public class NganhService {
 		return nganhRepository.findAll();
 	}
 
-	public List<NganhDto> findByKhoaId(Long khoaId) {
+	public List<NganhDto> findByKhoaId(Integer khoaId) {
 		List<Nganh> nganhs = nganhRepository.findByKhoaId(khoaId);
 
 		return nganhs.stream().map(nganhMapper::toNganhDto).collect(Collectors.toList());

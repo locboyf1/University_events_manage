@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.event.university.entity.NguoiDung;
 import com.event.university.entity.SuKien;
 import com.event.university.repository.SuKienRepository;
 
@@ -19,10 +20,14 @@ public class SuKienService {
 	}
 
 	public List<SuKien> getDisplaySorted() {
-		return suKienRepository.findByHienThiTrueOrderByThoiGianBatDauDesc();
+		return suKienRepository.findByHienThiTrueAndDuyetTrueOrderByThoiGianBatDauDesc();
 	}
 
-	public SuKien getById(Long id) {
-		return suKienRepository.findByIdAndHienThiTrue(id);
+	public SuKien getById(Integer id) {
+		return suKienRepository.findByIdAndHienThiTrueAndDuyetTrue(id);
+	}
+
+	public List<SuKien> getByNguoiDung(NguoiDung nguoiDung) {
+		return suKienRepository.findByNguoiDung(nguoiDung);
 	}
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.event.university.entity.DanhMucSuKien;
 
 @Repository
-public interface DanhMucSuKienRepository extends JpaRepository<DanhMucSuKien, Long> {
+public interface DanhMucSuKienRepository extends JpaRepository<DanhMucSuKien, Integer> {
 
 }

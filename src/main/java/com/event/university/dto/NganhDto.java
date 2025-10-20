@@ -3,16 +3,16 @@ package com.event.university.dto;
 import java.util.Set;
 
 public class NganhDto {
-	private Long id;
+	private Integer id;
 	private String tenNganh;
 	private String moTa;
 	private Set<LopDto> lop;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

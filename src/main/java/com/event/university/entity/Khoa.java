@@ -17,7 +17,7 @@ public class Khoa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "tenkhoa", length = 100, nullable = false)
 	private String tenKhoa;
@@ -31,11 +31,11 @@ public class Khoa {
 	public Khoa() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

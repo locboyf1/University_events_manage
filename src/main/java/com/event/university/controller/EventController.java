@@ -3,12 +3,14 @@ package com.event.university.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.event.university.entity.DanhMucSuKien;
+import com.event.university.entity.NguoiDung;
 import com.event.university.entity.SuKien;
 import com.event.university.service.DanhMucSuKienService;
 import com.event.university.service.SuKienService;
@@ -31,7 +33,7 @@ public class EventController {
 	}
 
 	@GetMapping("/Sukien/{id}/{biDanh}.html")
-	public String detail(@PathVariable Long id, @PathVariable String biDanh, Model model) {
+	public String detail(@PathVariable Integer id, @PathVariable String biDanh, Model model) {
 		SuKien suKien = suKienService.getById(id);
 		if (suKien == null) {
 			return "event/index";
@@ -40,5 +42,12 @@ public class EventController {
 		model.addAttribute("suKien", suKien);
 
 		return "event/detail";
+	}
+
+	@GetMapping("sukiencuatoi")
+	public String myEvents(Model model, @AuthenticationPrincipal NguoiDung nguoiDung) {
+		List<SuKien> suKiens = suKienService.getByNguoiDung(nguoiDung);
+		model.addAttribute("suKiens", suKiens);
+		return "event/myevents";
 	}
 }

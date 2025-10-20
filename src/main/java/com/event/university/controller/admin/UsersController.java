@@ -21,7 +21,7 @@ import com.event.university.service.VaiTroService;
 
 @Controller
 @RequestMapping("/admin/users")
-public class UserController {
+public class UsersController {
 
 	@Autowired
 	private NguoiDungService nguoiDungService;
@@ -55,15 +55,15 @@ public class UserController {
 	}
 
 	@GetMapping("/update/{id}")
-	public String update(Model model, @ModelAttribute("id") Long id) {
+	public String update(Model model, @ModelAttribute Integer id) {
 		NguoiDung nguoiDung = nguoiDungService.getById(id);
 		model.addAttribute("nguoiDung", nguoiDung);
 		model.addAttribute("vaiTros", vaiTroService.getAll());
 		model.addAttribute("khoas", khoaService.getAll());
 
-		Long lopId = null;
-		Long nganhId = null;
-		Long khoaId = null;
+		Integer lopId = null;
+		Integer nganhId = null;
+		Integer khoaId = null;
 
 		if (nguoiDung.getLop() != null) {
 			Lop lop = nguoiDung.getLop();
@@ -92,7 +92,7 @@ public class UserController {
 	}
 
 	@PostMapping("/lock")
-	public String lock(@RequestParam Long id) {
+	public String lock(@RequestParam Integer id) {
 		nguoiDungService.lockUnlock(id);
 		return "redirect:/admin/users/";
 	}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/site}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="page-content bg-white">
+			<div class="page-banner ovbl-dark"
+				style="background-image: url(@{/assets/images/banner/banner1.jpg});">
+				<div class="container">
+					<div class="page-banner-entry">
+						<h1 class="text-white">Courses Details</h1>
+					</div>
+				</div>
+			</div>
+			<div class="breadcrumb-row">
+				<div class="container">
+					<ul class="list-inline">
+						<li><a href="@{/}">Trang chủ</a></li>
+						<li>Danh sách sự kiện</li>
+					</ul>
+				</div>
+			</div>
+			<div class="content-block">
+				<div class="section-area section-sp1">
+					<div class="container">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col">Số thứ tự</th>
+									<th scope="col">Tên sự kiện</th>
+									<th scope="col">Mô tả</th>
+									<th scope="col">Bắt đầu</th>
+									<th scope="col">Địa điểm</th>
+									<th scope="col">Ảnh</th>
+									<th scope="col">Hành động</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="suKien, stt : ${suKiens}">
+									<td th:text="${stt.count}">stt</td>
+									<td th:text="${suKien.tenSuKien}">Sample Event</td>
+									<td th:text="${suKien.tenSuKien}">2024-01-01</td>
+									<td
+										th:text="${#temporals.format(suKien.thoiGianBatDau, 'HH:mm dd/MM/YYYY')}">Sample
+										Location</td>
+									<td th:text="${suKien.diaChi}">Sample Location</td>
+									<td><img th:src="${suKien.anh}" alt="Event Image"
+										width="1000" height="700" /></td>
+									<td><a class="btn button-sm blue">Sửa</a> <a
+										th:class="${suKien.hienThi} ? 'btn button-sm yellow' : 'btn button-sm red' "
+										th:utext="${suKien.hienThi} ? '<i class=\'fa fa-unlock\' ></i> Đang hiện' : '<i class=\'fa fa-lock\' ></i> Đã ẩn'">Hiện</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

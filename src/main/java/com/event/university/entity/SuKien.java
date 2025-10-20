@@ -20,7 +20,7 @@ public class SuKien {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "tensukien", length = 300, nullable = false)
 	private String tenSuKien;
@@ -52,6 +52,9 @@ public class SuKien {
 	@Column(name = "hienthi", nullable = false)
 	private boolean hienThi;
 
+	@Column(name = "duyet", nullable = false)
+	private boolean duyet;
+
 	@Column(name = "diachi", length = 100, nullable = false)
 	private String diaChi;
 
@@ -78,11 +81,11 @@ public class SuKien {
 	public SuKien() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -19,7 +19,7 @@ public class LopConverter implements Converter<String, Lop> {
 			return null;
 		}
 
-		Long lopId = Long.parseLong(id);
+		Integer lopId = Integer.parseInt(id);
 		return lopRepository.findById(lopId).orElse(null);
 
 	}

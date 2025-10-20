@@ -15,5 +15,5 @@ public interface NguoiDungRepository extends JpaRepository<NguoiDung, Integer> {
 
 	Optional<NguoiDung> findByTaiKhoan(String taiKhoan);
 
-	Optional<NguoiDung> findById(Long id);
+	Optional<NguoiDung> findById(Integer id);
 }

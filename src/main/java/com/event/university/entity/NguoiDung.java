@@ -1,5 +1,12 @@
 package com.event.university.entity;
 
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +18,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "nguoidung")
-public class NguoiDung {
+public class NguoiDung implements UserDetails {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,5 +136,40 @@ public class NguoiDung {
 
 	public void setLop(Lop lop) {
 		this.lop = lop;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return Collections.singleton(new SimpleGrantedAuthority(this.vaiTro.getBiDanh()));
+	}
+
+	@Override
+	public String getPassword() {
+		return this.matKhau;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.taiKhoan;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return this.hoatDong;
 	}
 }

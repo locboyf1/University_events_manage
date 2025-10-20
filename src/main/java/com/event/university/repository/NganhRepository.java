@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.event.university.entity.Nganh;
 
-public interface NganhRepository extends JpaRepository<Nganh, Long> {
-	List<Nganh> findByKhoaId(Long khoaId);
+public interface NganhRepository extends JpaRepository<Nganh, Integer> {
+	List<Nganh> findByKhoaId(Integer khoaId);
 }
