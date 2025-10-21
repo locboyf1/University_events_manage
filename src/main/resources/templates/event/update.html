@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/site}"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="page-content bg-white">
+			<div class="page-banner ovbl-dark"
+				th:style="'background-image:url(' + @{/assets/images/banner/banner2.jpg} + ');'">
+				<div class="container">
+					<div class="page-banner-entry">
+						<h1 class="text-white">Sự kiện của tôi</h1>
+					</div>
+				</div>
+			</div>
+			<div class="breadcrumb-row">
+				<div class="container">
+					<ul class="list-inline">
+						<li><a th:href="@{/}">Trang chủ</a></li>
+						<li>Sự kiện của tôi</li>
+					</ul>
+				</div>
+			</div>
+			<div class="content-block">
+				<div class="section-area section-sp1 gallery-bx">
+					<div class="container">
+						<!-- Breadcrumb row END -->
+						<div class="profile-head">
+							<h3>Nhập thông tin sự kiện</h3>
+						</div>
+						<form class="edit-profile" th:action="@{/sukiencuatoi/update}"
+							method="post" enctype="multipart/form-data" th:object="${suKien}">
+							<input type="hidden" th:field="*{id}" />
+							<div class="">
+								<div class="form-group row">
+									<div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+										<h3>1. Thông tin chính</h3>
+									</div>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Tên
+									sự kiện</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<select class="form-control" type="text"
+										th:field="*{danhMucSuKien}">
+										<option th:each="danhMuc : ${danhMucs}"
+											th:text="${danhMuc.tenDanhMuc}" th:value="${danhMuc.id}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Tên
+									sự kiện</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<input class="form-control" type="text" th:field="*{tenSuKien}"
+										placeholder="Nhập tên sự kiện">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Mô
+									tả</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<textarea class="form-control" th:field="*{moTa}"
+										placeholder="Nhập mô tả"></textarea>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Nội
+									dung</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<textarea class="form-control" th:field="*{noiDung}"
+										placeholder="Nhập nội dung sự kiện"></textarea>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Số
+									điện thoại hỗ trợ</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<input class="form-control" type="text" th:field="*{sdtHoTro}"
+										placeholder="Nhập số điện thoại">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email
+									hỗ trợ</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<input class="form-control" type="text"
+										th:field="*{emailHoTro}" placeholder="Nhập email">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Ảnh</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<div class=" custom-file">
+										<input type="file" class="custom-file-input" name="fileAnh"
+											accept="image/png, image/jpeg" /> <label
+											class="custom-file-label" for="fileAnh">Chọn tệp ảnh
+											(Bỏ qua nếu không đổi ảnh khác)</label>
+									</div>
+								</div>
+							</div>
+							<div class="seperator"></div>
+
+							<div class="form-group row">
+								<div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+									<h3>2. Thời gian, địa điểm</h3>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Thời
+									gian bắt đầu</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<input class="form-control" type="datetime-local"
+										name="thoiGianBatDau"
+										th:value="${suKien.thoiGianBatDau != null ? #temporals.format(suKien.thoiGianBatDau, 'yyyy-MM-dd''T''HH:mm') : ''}"
+										placeholder="Chọn thời gian bắt đầu">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Thời
+									gian kết thúc<br>(Có thể để trống)
+								</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<input class="form-control" type="datetime-local"
+										name="thoiGianKetThuc"
+										th:value="${suKien.thoiGianKetThuc != null ? #temporals.format(suKien.thoiGianKetThuc, 'yyyy-MM-dd''T''HH:mm') : ''}"
+										placeholder="Chọn thời gian kết thúc">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Địa
+									điểm</label>
+								<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+									<input class="form-control" type="text"
+										placeholder="Nhập địa điểm" th:field="*{diaChi}">
+								</div>
+							</div>
+
+							<div
+								class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+
+							<div class="form-group row">
+								<div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+									<h3 class="m-form__section">3. Các tùy chọn khác</h3>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Tùy
+									chọn</label>
+								<div
+									class="col-12 col-sm-9 col-md-9 col-lg-7 row d-flex align-items-center justify-content-between">
+									<div class="ml-3">
+										<input type="checkbox" th:field="*{batBuoc}"> <span>Tham
+											gia bắt buộc</span>
+									</div>
+									<div>
+										<input type="checkbox" th:field="*{hienThi}"> <span>Hiển
+											thị</span>
+									</div>
+								</div>
+							</div>
+							<div class="">
+								<div class="">
+									<div class="row">
+										<div class="col-12 col-sm-3 col-md-3 col-lg-2"></div>
+										<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+											<button type="submit" class="btn">Lưu</button>
+											<button type="reset" class="btn button-sm gray">Hủy</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script layout:fragment="scripts">
+		$(document).ready(function() {
+			bsCustomFileInput.init();
+		});
+	</script>
+</body>
+</html>
