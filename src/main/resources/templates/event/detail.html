@@ -37,12 +37,12 @@
 										<h2 class="post-title" th:text="${suKien.tenSuKien}">Good Intentions or Good Results?</h2>
 									</div>
 									<div class="ttr-post-text">
-										<p th:text="${suKien.moTa}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+										<p th:utext="${suKien.moTa}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
 									</div>
 								</div>
 							</div>
 							<div class="courese-overview" id="overview">
-								<div class="row" th:text="${suKien.noiDung}">
+								<div class="row" th:utext="${suKien.noiDung}">
 									
 								</div>
 							</div>
@@ -50,7 +50,7 @@
 						<div class="col-lg-4 col-md-5 col-sm-12 m-b30">
 							<div class="bg-primary text-white contact-info-bx m-b30">
 								<h2 class="m-b10 title-head">Hãy tham dự <span>Đừng bỏ qua</span></h2>
-								<p th:text="${suKien.moTa}">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								<p th:utext="${suKien.moTa}">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 								<div class="widget widget_getintuch">	
 									<ul>
 										<li><i class="ti-location-pin"></i><span th:text="${suKien.diaChi}">75k Newcastle St. Ponte Vedra Beach, FL 309382 New York</span></li>
