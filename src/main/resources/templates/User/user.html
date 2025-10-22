@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/site}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="page-content bg-white">
+			<div class="page-banner ovbl-dark"
+				style="background-image: url(assets/images/banner/banner1.jpg);">
+				<div class="container">
+					<div class="page-banner-entry">
+						<h1 class="text-white">Thông tin</h1>
+					</div>
+				</div>
+			</div>
+			<!-- Breadcrumb row -->
+			<div class="breadcrumb-row">
+				<div class="container">
+					<ul class="list-inline">
+						<li><a href="#">Home</a></li>
+						<li>Profile</li>
+					</ul>
+				</div>
+			</div>
+			<div class="container mt-5">
+				<div class="row">
+					<!-- Cột trái: ảnh đại diện -->
+					<div class="col-lg-3 col-md-4 col-sm-12 mb-4 text-center">
+						<div class="card shadow-sm p-3">
+							<img th:src="${user.anh}" alt="Ảnh đại diện"
+								class="rounded-circle mb-3" width="150" height="150">
+							<h5 th:text="@{${user.hoTen}}"></h5>
+							<p class="text-muted" th:text="${user.email}"></p>
+							<form th:action="@{/upload-avatar}" method="post"
+								enctype="multipart/form-data">
+								<div class="form-group">
+									<label for="file">Chọn ảnh đại diện mới:</label> <input
+										type="file" id="file" name="file" class="form-control-file"
+										required>
+								</div>
+								<button type="submit" class="btn btn-primary btn-sm mt-2">Đổi
+									ảnh đại diện</button>
+							</form>
+
+						</div>
+					</div>
+
+					<!-- Cột phải: thông tin cá nhân -->
+					<div class="col-lg-9 col-md-8 col-sm-12">
+						<div class="card shadow-sm p-4">
+							<h4 class="mb-4">Thông tin cá nhân</h4>
+
+							<form th:object="${user}">
+								<!-- Họ tên -->
+								<div class="form-group row">
+									<label class="col-sm-3 col-form-label">Họ tên</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" th:field="*{hoTen}"
+											readonly>
+									</div>
+								</div>
+
+								<!-- Email -->
+								<div class="form-group row">
+									<label class="col-sm-3 col-form-label">Email</label>
+									<div class="col-sm-9">
+										<input type="email" class="form-control" th:field="*{email}">
+									</div>
+								</div>
+
+								<!-- Số điện thoại -->
+								<div class="form-group row">
+									<label class="col-sm-3 col-form-label">Số điện thoại</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" th:field="*{sDT}">
+									</div>
+								</div>
+
+								<!-- Địa chỉ -->
+								<div class="form-group row">
+									<label class="col-sm-3 col-form-label">Lớp</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control"
+											th:field="*{lop.tenLop}" readonly>
+									</div>
+								</div>
+
+								<!-- Mạng xã hội -->
+								<div class="form-group row">
+									<label class="col-sm-3 col-form-label">Ngành</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control"
+											th:field="*{lop.nganh.tenNganh}" readonly>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-sm-3 col-form-label">Khoa/Viện</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control"
+											th:field="*{lop.nganh.khoa.tenKhoa}" readonly>
+									</div>
+								</div>
+
+								<!-- Nút hành động -->
+								<div class="form-group row mt-4">
+									<div class="col-sm-12 text-right">
+										<button type="submit" class="btn btn-primary">Lưu
+											thay đổi</button>
+										<button type="reset" class="btn btn-secondary">Hủy</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

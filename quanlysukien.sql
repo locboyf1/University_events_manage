@@ -7,6 +7,10 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+DROP DATABASE IF EXISTS `quanlysukien`;
+CREATE DATABASE IF NOT EXISTS `quanlysukien` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `quanlysukien`;
+
 DROP TABLE IF EXISTS `baiviet`;
 CREATE TABLE IF NOT EXISTS `baiviet` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -198,11 +202,12 @@ CREATE TABLE IF NOT EXISTS `nguoidung` (
   KEY `malop` (`malop`),
   CONSTRAINT `FK_nguoidung_lop` FOREIGN KEY (`malop`) REFERENCES `lop` (`id`),
   CONSTRAINT `FK_nguoidung_vaitro` FOREIGN KEY (`mavaitro`) REFERENCES `vaitro` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `nguoidung` (`id`, `taikhoan`, `matkhau`, `hoten`, `malop`, `sdt`, `email`, `mavaitro`, `anh`, `hoatdong`) VALUES
 	(10, '225748020110052', '$2a$10$oVxwORnoVI1FbrSeVT2THuFVPk2gA7A2hG4sE9UXX.2rpxCUTrqMO', 'Hà Vi', 1, NULL, NULL, 7, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s', 1),
-	(11, 'loctq', '$2a$10$n3u8uTiTbnMalTLTxTgBXeuhQQZSINiuW6x0qp6EKP2Db1YjWFmVO', 'Quang Lộc', 3, NULL, NULL, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s', 1);
+	(11, 'loctq', '$2a$10$n3u8uTiTbnMalTLTxTgBXeuhQQZSINiuW6x0qp6EKP2Db1YjWFmVO', 'Quang Lộc', 3, NULL, NULL, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s', 1),
+	(12, 'khanhnkq', '$2a$10$HIHPVUzG9.xMteyAXpU77.3v6uNlkcIqyqqgADCmwFAivRRrixfiq', 'Nguyễn Khắc Quốc Khánh', NULL, NULL, NULL, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s', 1);
 
 DROP TABLE IF EXISTS `quyen`;
 CREATE TABLE IF NOT EXISTS `quyen` (

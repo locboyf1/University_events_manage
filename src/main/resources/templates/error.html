@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lỗi hệ thống</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f9fa; }
+        .container { max-width: 500px; margin: 80px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h1 { color: #dc3545; }
+        .details { color: #6c757d; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Đã xảy ra lỗi!</h1>
+        <p>Xin vui lòng thử lại hoặc liên hệ quản trị viên.</p>
+        <div class="details">
+            <p th:if="${status}" th:text="'Mã lỗi: ' + ${status}"></p>
+            <p th:if="${error}" th:text="'Chi tiết: ' + ${error}"></p>
+        </div>
+        <a href="/" class="btn btn-primary">Quay về trang chủ</a>
+    </div>
+</body>
+</html>
