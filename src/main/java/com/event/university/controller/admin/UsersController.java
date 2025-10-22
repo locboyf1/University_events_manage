@@ -50,7 +50,7 @@ public class UsersController {
 
 	@PostMapping("/create")
 	public String create(@ModelAttribute NguoiDung nguoiDung) {
-		nguoiDungService.save(nguoiDung);
+		nguoiDungService.create(nguoiDung);
 		return "redirect:/admin/users/";
 	}
 

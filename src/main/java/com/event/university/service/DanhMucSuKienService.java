@@ -30,4 +30,8 @@ public class DanhMucSuKienService {
 	public void deleteDanhMucSuKien(Integer id) {
 		danhMucSuKienRepository.deleteById(id);
 	}
+
+	public List<DanhMucSuKien> getAllOderByThuTu() {
+		return danhMucSuKienRepository.findAllByOrderByThuTu();
+	}
 }

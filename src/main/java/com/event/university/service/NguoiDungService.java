@@ -50,7 +50,7 @@ public class NguoiDungService implements UserDetailsService {
 		}
 	}
 
-	public void save(NguoiDung nguoiDung) {
+	public void create(NguoiDung nguoiDung) {
 
 		String rawPassword = nguoiDung.getMatKhau();
 		String encodedPassword = passwordEncoder.encode(rawPassword);

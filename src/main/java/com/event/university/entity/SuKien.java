@@ -31,7 +31,7 @@ public class SuKien {
 	@Column(name = "noidung", columnDefinition = "LONGTEXT", nullable = false)
 	private String noiDung;
 
-	@Column(name = "anh", length = 500, nullable = false)
+	@Column(name = "anh", nullable = false)
 	private String anh;
 
 	@Column(name = "thoigiantao", nullable = false)
@@ -223,6 +223,14 @@ public class SuKien {
 
 	public void setDanhSachThamGia(Set<DanhSachThamGia> danhSachThamGia) {
 		this.danhSachThamGia = danhSachThamGia;
+	}
+
+	public boolean getDuyet() {
+		return this.duyet;
+	}
+
+	public void setDuyet(boolean duyet) {
+		this.duyet = duyet;
 	}
 
 }
