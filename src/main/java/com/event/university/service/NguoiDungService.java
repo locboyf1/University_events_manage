@@ -1,16 +1,21 @@
 package com.event.university.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.event.university.entity.NguoiDung;
 import com.event.university.repository.NguoiDungRepository;
+import com.event.university.utillities.ImageProcess;
 
 @Service
 public class NguoiDungService implements UserDetailsService {
@@ -70,4 +75,32 @@ public class NguoiDungService implements UserDetailsService {
 		}
 	}
 
+	public void changeAvatar(NguoiDung nguoiDung, MultipartFile fileAnh) throws IOException {
+		byte[] anh = fileAnh.getBytes();
+		String kieuAnh = fileAnh.getContentType();
+		String anhBase64 = ImageProcess.convertImage2String(anh, kieuAnh);
+		nguoiDung.setAnh(anhBase64);
+		nguoiDungRepository.save(nguoiDung);
+	}
+
+	public void changeEmailAndPhone(NguoiDung nguoiDung) {
+		NguoiDung nguoiDungPreviou = nguoiDungRepository.findById(nguoiDung.getId()).orElse(null);
+		nguoiDungPreviou.setEmail(nguoiDung.getEmail());
+		nguoiDungPreviou.setSDT(nguoiDung.getSDT());
+
+		nguoiDungRepository.save(nguoiDungPreviou);
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		if (authentication != null && authentication.getPrincipal() instanceof NguoiDung) {
+
+			NguoiDung sessionNguoiDung = (NguoiDung) authentication.getPrincipal();
+			if (sessionNguoiDung.getId().equals(nguoiDungPreviou.getId())) {
+
+				sessionNguoiDung.setEmail(nguoiDungPreviou.getEmail());
+				sessionNguoiDung.setSDT(nguoiDungPreviou.getSDT());
+			}
+
+		}
+	}
 }

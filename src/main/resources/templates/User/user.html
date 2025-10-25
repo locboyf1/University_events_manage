@@ -29,19 +29,23 @@
 					<!-- Cột trái: ảnh đại diện -->
 					<div class="col-lg-3 col-md-4 col-sm-12 mb-4 text-center">
 						<div class="card shadow-sm p-3">
-							<img th:src="${user.anh}" alt="Ảnh đại diện"
-								class="rounded-circle mb-3" width="150" height="150">
-							<h5 th:text="@{${user.hoTen}}"></h5>
-							<p class="text-muted" th:text="${user.email}"></p>
-							<form th:action="@{/upload-avatar}" method="post"
+							<img th:src="${nguoiDung.anh}" alt="Ảnh đại diện"
+								class="rounded-circle m-auto"
+								style="width: 150px; height: 150px;">
+							<h5 class="mt-3" th:text="@{${nguoiDung.hoTen}}"></h5>
+							<p class="text-muted" th:text="${nguoiDung.email}"></p>
+							<form th:action="@{/thongtin/doianhdaidien}" method="post"
 								enctype="multipart/form-data">
 								<div class="form-group">
-									<label for="file">Chọn ảnh đại diện mới:</label> <input
-										type="file" id="file" name="file" class="form-control-file"
-										required>
+									<label for="file">Chọn ảnh đại diện mới:</label>
+									<div class=" custom-file">
+										<input type="file" class="custom-file-input" name="fileAnh"
+											accept="image/png, image/jpeg" /> <label
+											class="custom-file-label" for="fileAnh">Chọn ảnh</label>
+									</div>
 								</div>
-								<button type="submit" class="btn btn-primary btn-sm mt-2">Đổi
-									ảnh đại diện</button>
+								<button type="submit" class="btn btn-primary btn-sm mt-2">Lưu
+									ảnh mới</button>
 							</form>
 
 						</div>
@@ -52,7 +56,8 @@
 						<div class="card shadow-sm p-4">
 							<h4 class="mb-4">Thông tin cá nhân</h4>
 
-							<form th:object="${user}">
+							<form th:object="${nguoiDung}"  th:action="@{/thongtin/capnhatthongtin}" method="post">
+								<input type="hidden" th:field="*{id}" />
 								<!-- Họ tên -->
 								<div class="form-group row">
 									<label class="col-sm-3 col-form-label">Họ tên</label>
@@ -118,6 +123,13 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
+
+	<script layout:fragment="scripts">
+		$(document).ready(function() {
+			bsCustomFileInput.init();
+		});
+	</script>
 </body>
 </html>

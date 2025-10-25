@@ -22,7 +22,7 @@ public class AuthConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/admin/**").hasAuthority("quantrivien")
 				.requestMatchers("/", "/trangchu", "/dangnhap", "/dangxuat", "/assets/**", "/admins/**",
-						"/testpassword/**", "/api/**")
+						"/testpassword/**", "/api/**", "/thongtin/**")
 				.permitAll()
 
 				.anyRequest().authenticated())
