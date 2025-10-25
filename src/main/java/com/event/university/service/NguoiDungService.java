@@ -76,11 +76,25 @@ public class NguoiDungService implements UserDetailsService {
 	}
 
 	public void changeAvatar(NguoiDung nguoiDung, MultipartFile fileAnh) throws IOException {
+		NguoiDung nguoiDungDB = nguoiDungRepository.findById(nguoiDung.getId()).orElse(null);
+
 		byte[] anh = fileAnh.getBytes();
 		String kieuAnh = fileAnh.getContentType();
 		String anhBase64 = ImageProcess.convertImage2String(anh, kieuAnh);
-		nguoiDung.setAnh(anhBase64);
-		nguoiDungRepository.save(nguoiDung);
+		nguoiDungDB.setAnh(anhBase64);
+		nguoiDungRepository.save(nguoiDungDB);
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		if (authentication != null && authentication.getPrincipal() instanceof NguoiDung) {
+
+			NguoiDung sessionNguoiDung = (NguoiDung) authentication.getPrincipal();
+			if (sessionNguoiDung.getId().equals(nguoiDung.getId())) {
+
+				sessionNguoiDung.setAnh(anhBase64);
+			}
+
+		}
 	}
 
 	public void changeEmailAndPhone(NguoiDung nguoiDung) {

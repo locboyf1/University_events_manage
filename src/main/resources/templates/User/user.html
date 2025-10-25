@@ -32,7 +32,7 @@
 							<img th:src="${nguoiDung.anh}" alt="Ảnh đại diện"
 								class="rounded-circle m-auto"
 								style="width: 150px; height: 150px;">
-							<h5 class="mt-3" th:text="@{${nguoiDung.hoTen}}"></h5>
+							<h5 class="mt-3" th:text="${nguoiDung.hoTen}"></h5>
 							<p class="text-muted" th:text="${nguoiDung.email}"></p>
 							<form th:action="@{/thongtin/doianhdaidien}" method="post"
 								enctype="multipart/form-data">
@@ -84,7 +84,7 @@
 								</div>
 
 								<!-- Địa chỉ -->
-								<div class="form-group row">
+								<div class="form-group row" th:if="${nguoiDung.vaiTro.biDanh == 'sinhvien'}">
 									<label class="col-sm-3 col-form-label">Lớp</label>
 									<div class="col-sm-9">
 										<input type="text" class="form-control"
@@ -93,7 +93,7 @@
 								</div>
 
 								<!-- Mạng xã hội -->
-								<div class="form-group row">
+								<div class="form-group row" th:if="${nguoiDung.vaiTro.biDanh == 'sinhvien'}">
 									<label class="col-sm-3 col-form-label">Ngành</label>
 									<div class="col-sm-9">
 										<input type="text" class="form-control"
@@ -101,7 +101,7 @@
 									</div>
 								</div>
 
-								<div class="form-group row">
+								<div class="form-group row" th:if="${nguoiDung.vaiTro.biDanh == 'sinhvien'}">
 									<label class="col-sm-3 col-form-label">Khoa/Viện</label>
 									<div class="col-sm-9">
 										<input type="text" class="form-control"
