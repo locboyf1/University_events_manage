@@ -1,253 +1,59 @@
 <!DOCTYPE html>
 <html layout:decorate="~{admin/site}">
-<head>
-<meta charset="UTF-8">
-<title>Danh sách bài viết</title>
-</head>
-<body>
-	<!--Main container start -->
 
-		<div class="container-fluid" layout:fragment="content">
+<body class="ttr-opened-sidebar ttr-pinned-sidebar">
+	<div layout:fragment="content">
+		<!--Main container start -->
+		<div class="container-fluid">
 			<div class="db-breadcrumb">
-				<h4 class="breadcrumb-title">Courses</h4>
+				<h4 class="breadcrumb-title">Dashboard</h4>
 				<ul class="db-breadcrumb-list">
 					<li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-					<li>Courses</li>
+					<li>Dashboard</li>
 				</ul>
-			</div>	
+			</div>
+			<!-- Card -->
+
 			<div class="row">
 				<!-- Your Profile Views Chart -->
+
 				<div class="col-lg-12 m-b30">
 					<div class="widget-box">
 						<div class="wc-title">
-							<h4>Your Courses</h4>
+							<h4>Danh sách người dùng</h4>
+							<br> <a class="btn btn-primary"
+								th:href="@{/admin/users/create}">Thêm người dùng</a>
 						</div>
 						<div class="widget-inner">
-							<div class="card-courses-list admin-courses">
-								<div class="card-courses-media">
-									<img src="assets/images/courses/pic1.jpg" alt=""/>
-								</div>
-								<div class="card-courses-full-dec">
-									<div class="card-courses-title">
-										<h4>Become a PHP Master and Make Money</h4>
-									</div>
-									<div class="card-courses-list-bx">
-										<ul class="card-courses-view">
-											<li class="card-courses-user">
-												<div class="card-courses-user-pic">
-													<img src="assets/images/testimonials/pic3.jpg" alt=""/>
-												</div>
-												<div class="card-courses-user-info">
-													<h5>Teacher</h5>
-													<h4>Keny White</h4>
-												</div>
-											</li>
-											<li class="card-courses-categories">
-												<h5>3 Categories</h5>
-												<h4>Backend</h4>
-											</li>
-											<li class="card-courses-review">
-												<h5>3 Review</h5>
-												<ul class="cours-star">
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-												</ul>
-											</li>
-											<li class="card-courses-stats">
-												<a href="#" class="btn button-sm green radius-xl">Pending</a>
-											</li>
-											<li class="card-courses-price">
-												<del>$190</del>
-												<h5 class="text-primary">$120</h5>
-											</li>
-										</ul>
-									</div>
-									<div class="row card-courses-dec">
-										<div class="col-md-12">
-											<h6 class="m-b10">Course Description</h6>
-											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
-										</div>
-										<div class="col-md-12">
-											<a href="#" class="btn green radius-xl outline">Approve</a>
-											<a href="#" class="btn red outline radius-xl ">Cancel</a>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							<div class="card-courses-list admin-courses">
-								<div class="card-courses-media">
-									<img src="assets/images/courses/pic2.jpg" alt=""/>
-								</div>
-								<div class="card-courses-full-dec">
-									<div class="card-courses-title">
-										<h4>Become a PHP Master and Make Money</h4>
-									</div>
-									<div class="card-courses-list-bx">
-										<ul class="card-courses-view">
-											<li class="card-courses-user">
-												<div class="card-courses-user-pic">
-													<img src="assets/images/testimonials/pic3.jpg" alt=""/>
-												</div>
-												<div class="card-courses-user-info">
-													<h5>Teacher</h5>
-													<h4>Keny White</h4>
-												</div>
-											</li>
-											<li class="card-courses-categories">
-												<h5>3 Categories</h5>
-												<h4>Backend</h4>
-											</li>
-											<li class="card-courses-review">
-												<h5>3 Review</h5>
-												<ul class="cours-star">
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-												</ul>
-											</li>
-											<li class="card-courses-stats">
-												<a href="#" class="btn button-sm green radius-xl">Pending</a>
-											</li>
-											<li class="card-courses-price">
-												<del>$190</del>
-												<h5 class="text-primary">$120</h5>
-											</li>
-										</ul>
-									</div>
-									<div class="row card-courses-dec">
-										<div class="col-md-12">
-											<h6 class="m-b10">Course Description</h6>
-											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
-										</div>
-										<div class="col-md-12">
-											<a href="#" class="btn green radius-xl outline">Approve</a>
-											<a href="#" class="btn red outline radius-xl ">Cancel</a>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							<div class="card-courses-list admin-courses">
-								<div class="card-courses-media">
-									<img src="assets/images/courses/pic3.jpg" alt=""/>
-								</div>
-								<div class="card-courses-full-dec">
-									<div class="card-courses-title">
-										<h4>Become a PHP Master and Make Money</h4>
-									</div>
-									<div class="card-courses-list-bx">
-										<ul class="card-courses-view">
-											<li class="card-courses-user">
-												<div class="card-courses-user-pic">
-													<img src="assets/images/testimonials/pic3.jpg" alt=""/>
-												</div>
-												<div class="card-courses-user-info">
-													<h5>Teacher</h5>
-													<h4>Keny White</h4>
-												</div>
-											</li>
-											<li class="card-courses-categories">
-												<h5>3 Categories</h5>
-												<h4>Backend</h4>
-											</li>
-											<li class="card-courses-review">
-												<h5>3 Review</h5>
-												<ul class="cours-star">
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-												</ul>
-											</li>
-											<li class="card-courses-stats">
-												<a href="#" class="btn button-sm green radius-xl">Pending</a>
-											</li>
-											<li class="card-courses-price">
-												<del>$190</del>
-												<h5 class="text-primary">$120</h5>
-											</li>
-										</ul>
-									</div>
-									<div class="row card-courses-dec">
-										<div class="col-md-12">
-											<h6 class="m-b10">Course Description</h6>
-											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
-										</div>
-										<div class="col-md-12">
-											<a href="#" class="btn green radius-xl outline">Approve</a>
-											<a href="#" class="btn red outline radius-xl ">Cancel</a>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							<div class="card-courses-list admin-courses">
-								<div class="card-courses-media">
-									<img src="assets/images/courses/pic4.jpg" alt=""/>
-								</div>
-								<div class="card-courses-full-dec">
-									<div class="card-courses-title">
-										<h4>Become a PHP Master and Make Money</h4>
-									</div>
-									<div class="card-courses-list-bx">
-										<ul class="card-courses-view">
-											<li class="card-courses-user">
-												<div class="card-courses-user-pic">
-													<img src="assets/images/testimonials/pic3.jpg" alt=""/>
-												</div>
-												<div class="card-courses-user-info">
-													<h5>Teacher</h5>
-													<h4>Keny White</h4>
-												</div>
-											</li>
-											<li class="card-courses-categories">
-												<h5>3 Categories</h5>
-												<h4>Backend</h4>
-											</li>
-											<li class="card-courses-review">
-												<h5>3 Review</h5>
-												<ul class="cours-star">
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-												</ul>
-											</li>
-											<li class="card-courses-stats">
-												<a href="#" class="btn button-sm green radius-xl">Pending</a>
-											</li>
-											<li class="card-courses-price">
-												<del>$190</del>
-												<h5 class="text-primary">$120</h5>
-											</li>
-										</ul>
-									</div>
-									<div class="row card-courses-dec">
-										<div class="col-md-12">
-											<h6 class="m-b10">Course Description</h6>
-											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
-										</div>
-										<div class="col-md-12">
-											<a href="#" class="btn green radius-xl outline">Approve</a>
-											<a href="#" class="btn red outline radius-xl ">Cancel</a>
-										</div>
-									</div>
-									
-								</div>
+							<div class="new-user-list">
+								<ul>
+									<li th:each="nguoidung : ${nguoiDungs}"><span
+										class="new-users-pic"> <img th:src="${nguoidung.anh}"
+											alt="" />
+									</span> <span class="new-users-text"> <a href="#" class="new-users-name" th:text="${nguoidung.hoTen}">Tên </a>
+											<span class="new-users-info" th:text="${nguoidung.taiKhoan}">taikhoan</span>
+											<br> <span class="new-users-info">role</span>
+									</span>
+										<div class="new-users-btn">
+											<a th:href="@{/admin/users/update/{id}(id=${nguoidung.id})}"
+												class="btn button-sm blue">Sửa</a>
+											<form class="d-inline" th:action="@{/admin/users/lock}"
+												method="post">
+												<input type="hidden" th:name="id" th:value="${nguoidung.id}" />
+												<button type="submit"
+													th:class="${nguoidung.hoatDong} ? 'btn button-sm yellow' : 'btn button-sm red' "
+													th:utext="${nguoidung.hoatDong} ? '<i class=\'fa fa-unlock\' ></i> Đang hoạt động' : '<i class=\'fa fa-lock\' ></i> Đã bị khóa'">Khóa</button>
+											</form>
+										</div></li>
+
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- Your Profile Views Chart END-->
 			</div>
 		</div>
+	</div>
 </body>
+
 </html>

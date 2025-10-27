@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -31,7 +32,8 @@ public class SuKien {
 	@Column(name = "noidung", columnDefinition = "LONGTEXT", nullable = false)
 	private String noiDung;
 
-	@Column(name = "anh", nullable = false)
+	@Lob
+	@Column(name = "anh", nullable = false, columnDefinition = "LONGTEXT")
 	private String anh;
 
 	@Column(name = "thoigiantao", nullable = false)
