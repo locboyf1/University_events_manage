@@ -2,6 +2,7 @@ package com.event.university.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,6 +26,9 @@ public class NguoiDungService implements UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	public Optional<NguoiDung> findByTaiKhoan(String taiKhoan) {
+	    return nguoiDungRepository.findByTaiKhoan(taiKhoan);
+	}
 
 	public List<NguoiDung> getAll() {
 		return nguoiDungRepository.findAll();

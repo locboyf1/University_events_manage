@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html layout:decorate="~{admin/site}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Danh sách sự kiện</title>
 </head>
 <body>
+	<div class="container-fluid" layout:fragment="content">
+		<div class="db-breadcrumb">
+			<h4 class="breadcrumb-title">Sự kiện</h4>
+			<ul class="db-breadcrumb-list">
+				<li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+				<li>Sự kiện</li>
+			</ul>
+		</div>
 
+		<div class="row">
+			<!-- Danh sách sự kiện -->
+			<div class="col-lg-12 m-b30">
+				<div class="widget-box">
+					<div class="wc-title">
+						<h4>Danh sách sự kiện</h4>
+					</div>
+					<div class="widget-inner">
+						<div class="card-courses-list bookmarks-bx"
+							th:each="sukien : ${suKiens}">
+							<div class="card-courses-media">
+								<img th:src="${sukien.anh}" alt="" />
+							</div>
+							<div class="card-courses-full-dec">
+								<div class="card-courses-title">
+									<h4 class="event-title">
+										<a
+											th:href="@{/Sukien/{id}/{biDanh}.html(id=${sukien.id}, biDanh=${sukien.biDanh})}"
+											th:text="${sukien.tenSuKien}">Đây là tiêu đề</a>
+									</h4>
+								</div>
+								<div class="card-courses-list-bx">
+									<ul class="card-courses-view">
+										<li class="card-courses-categories">
+											<h5>Thời gian</h5>
+											<div class="event-date"
+												th:text="${#temporals.format(sukien.thoiGianBatDau, 'dd')} + ' Tháng ' + ${#temporals.format(sukien.thoiGianBatDau, 'MM')}"></div>
+										</li>
+										<li class="card-courses-review">
+											<h5>Địa điểm</h5> <a href="#"><i class="fa fa-map-marker"></i>
+												<span th:text="${sukien.diaChi}">Địa chỉ</span></a>
+										</li>
+									</ul>
+								</div>
+								<div class="row card-courses-dec">
+									<div class="col-md-12">
+										<p th:text="${sukien.moTa}">Mô tả</p>
+									</div>
+									<div class="col-md-12">
+										<a th:href="@{'/admin/events/' + ${sukien.id} + '/detail'}"
+											class="btn btn-info"> Chi tiết </a>
+
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Danh sách sự kiện END -->
+		</div>
+
+		<!-- KẾT THÚC FORM THÀNH VIÊN -->
+	</div>
 </body>
 </html>
