@@ -27,6 +27,11 @@ public class DanhSachThamGia {
 	public DanhSachThamGia() {
 	}
 
+	public DanhSachThamGia(SuKien suKien, NguoiDung nguoiDung) {
+		this.suKien = suKien;
+		this.nguoiDung = nguoiDung;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -50,4 +55,5 @@ public class DanhSachThamGia {
 	public void setNguoiDung(NguoiDung nguoiDung) {
 		this.nguoiDung = nguoiDung;
 	}
+
 }
