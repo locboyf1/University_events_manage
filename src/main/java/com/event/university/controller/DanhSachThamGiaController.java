@@ -97,16 +97,11 @@ public class DanhSachThamGiaController {
 	}
 
 	@PostMapping("/remove-member")
-	public String removeMemberFromEvent(@RequestParam Integer suKienId, @RequestParam Integer nguoiDungId,
-			RedirectAttributes redirectAttributes) {
+	public String removeMemberFromEvent(@RequestParam Integer suKienId, @RequestParam Integer nguoiDungId) {
 
-		try {
-			danhSachThamGiaService.removeNguoiDungKhoiSuKien(nguoiDungId, suKienId);
-			redirectAttributes.addFlashAttribute("success", "Đã xóa thành viên khỏi sự kiện!");
-		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Xóa thất bại: " + e.getMessage());
-		}
+		danhSachThamGiaService.removeNguoiDungKhoiSuKien(nguoiDungId, suKienId);
 
 		return "redirect:/admin/events/" + suKienId + "/detail";
 	}
+
 }
