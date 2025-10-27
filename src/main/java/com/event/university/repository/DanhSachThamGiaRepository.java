@@ -13,7 +13,6 @@ import com.event.university.entity.SuKien;
 @Repository
 public interface DanhSachThamGiaRepository extends JpaRepository<DanhSachThamGia, Integer> {
     
-    // 🔹 Lấy danh sách người tham gia theo mã sự kiện
     List<DanhSachThamGia> findBySuKien_Id(Integer suKienId);
     
     Optional<DanhSachThamGia> findBySuKienAndNguoiDung(SuKien suKien, NguoiDung nguoiDung);
