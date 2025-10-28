@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -41,7 +42,8 @@ public class NguoiDung implements UserDetails {
 	@Column(name = "email", length = 50, nullable = true)
 	private String email;
 
-	@Column(name = "anh", nullable = false)
+	@Lob
+	@Column(name = "anh", nullable = false, columnDefinition = "LONGTEXT")
 	private String anh;
 
 	@Column(name = "hoatdong", nullable = false)

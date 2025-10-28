@@ -12,56 +12,48 @@ import jakarta.persistence.Table;
 @Table(name = "danhsachthamgia")
 public class DanhSachThamGia {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "masukien", nullable = false)
-    private SuKien suKien;
+	@ManyToOne
+	@JoinColumn(name = "masukien", nullable = false)
+	private SuKien suKien;
 
-    @ManyToOne
-    @JoinColumn(name = "manguoidung", nullable = false)
-    private NguoiDung nguoiDung;
-    
-    private String trangThai;
+	@ManyToOne
+	@JoinColumn(name = "manguoidung", nullable = false)
+	private NguoiDung nguoiDung;
 
-    public DanhSachThamGia() {}
+	public DanhSachThamGia() {
+	}
 
-    public DanhSachThamGia(SuKien suKien, NguoiDung nguoiDung) {
-        this.suKien = suKien;
-        this.nguoiDung = nguoiDung;
-    }
+	public DanhSachThamGia(SuKien suKien, NguoiDung nguoiDung) {
+		this.suKien = suKien;
+		this.nguoiDung = nguoiDung;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public SuKien getSuKien() {
-        return suKien;
-    }
+	public SuKien getSuKien() {
+		return suKien;
+	}
 
-    public void setSuKien(SuKien suKien) {
-        this.suKien = suKien;
-    }
+	public void setSuKien(SuKien suKien) {
+		this.suKien = suKien;
+	}
 
-    public NguoiDung getNguoiDung() {
-        return nguoiDung;
-    }
+	public NguoiDung getNguoiDung() {
+		return nguoiDung;
+	}
 
-    public void setNguoiDung(NguoiDung nguoiDung) {
-        this.nguoiDung = nguoiDung;
-    }
+	public void setNguoiDung(NguoiDung nguoiDung) {
+		this.nguoiDung = nguoiDung;
+	}
 
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
 }

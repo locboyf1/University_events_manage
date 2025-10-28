@@ -26,8 +26,13 @@ public class NguoiDungService implements UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
 	public Optional<NguoiDung> findByTaiKhoan(String taiKhoan) {
-	    return nguoiDungRepository.findByTaiKhoan(taiKhoan);
+		return nguoiDungRepository.findByTaiKhoan(taiKhoan);
+	}
+
+	public List<NguoiDung> findSinhVienHoatDong() {
+		return nguoiDungRepository.findHoatDongSinhVien();
 	}
 
 	public List<NguoiDung> getAll() {

@@ -24,90 +24,84 @@ import com.event.university.service.SuKienService;
 @RequestMapping("/admin/events")
 public class DanhSachThamGiaController {
 
-    @Autowired
-    private DanhSachThamGiaService danhSachThamGiaService;
+	@Autowired
+	private DanhSachThamGiaService danhSachThamGiaService;
 
-    @Autowired
-    private SuKienService suKienService;
+	@Autowired
+	private SuKienService suKienService;
 
-    @Autowired
-    private NguoiDungService nguoiDungService;
+	@Autowired
+	private NguoiDungService nguoiDungService;
 
-    @GetMapping("/{id}/detail")
-    public String getDanhSachThamGia(@PathVariable("id") Integer suKienId, Model model) {
-        Optional<SuKien> optionalSuKien = suKienService.getById(suKienId);
-        if (optionalSuKien.isEmpty()) {
-            return "redirect:/admin/events";
-        }
+	// ✅ Trang chi tiết sự kiện
+	@GetMapping("/{id}/detail")
+	public String getDanhSachThamGia(@PathVariable("id") Integer suKienId, Model model) {
+		Optional<SuKien> optionalSuKien = suKienService.getById(suKienId);
+		if (optionalSuKien.isEmpty()) {
+			return "redirect:/admin/events";
+		}
 
-        SuKien suKien = optionalSuKien.get();
-        List<DanhSachThamGia> danhSachThamGia = danhSachThamGiaService.getBySuKienId(suKienId);
-        List<NguoiDung> nguoiDungList = nguoiDungService.getAll(); 
+		SuKien suKien = optionalSuKien.get();
+		List<DanhSachThamGia> danhSachThamGia = danhSachThamGiaService.getBySuKienId(suKienId);
+		List<NguoiDung> nguoiDungList = nguoiDungService.findSinhVienHoatDong(); // ✅ Thêm dòng này
 
-        model.addAttribute("suKien", suKien);
-        model.addAttribute("danhSachThamGia", danhSachThamGia);
-        model.addAttribute("nguoiDungList", nguoiDungList); 
-        model.addAttribute("showForm", true); 
+		model.addAttribute("suKien", suKien);
+		model.addAttribute("danhSachThamGia", danhSachThamGia);
+		model.addAttribute("nguoiDungList", nguoiDungList); // ✅ Truyền sang giao diện
+		model.addAttribute("showForm", true); // ✅ Cho phép hiển thị form
 
-        return "admin/events/detail";
-    }
 
-    @GetMapping("/update/{id}")
-    public String showFormAddMember(@PathVariable("id") Integer suKienId, Model model) {
-        Optional<SuKien> optionalSuKien = suKienService.getById(suKienId);
-        if (optionalSuKien.isEmpty()) {
-            return "redirect:/admin/events";
-        }
+		return "admin/events/detail";
+	}
 
-        SuKien suKien = optionalSuKien.get();
-        List<DanhSachThamGia> danhSachThamGia = danhSachThamGiaService.getBySuKienId(suKienId);
-        List<NguoiDung> nguoiDungList = nguoiDungService.getAll(); 
+	@GetMapping("/update/{id}")
+	public String showFormAddMember(@PathVariable("id") Integer suKienId, Model model) {
+		Optional<SuKien> optionalSuKien = suKienService.getById(suKienId);
+		if (optionalSuKien.isEmpty()) {
+			return "redirect:/admin/events";
+		}
 
-        model.addAttribute("suKien", suKien);
-        model.addAttribute("danhSachThamGia", danhSachThamGia);
-        model.addAttribute("nguoiDungList", nguoiDungList); 
-        model.addAttribute("showForm", true);
+		SuKien suKien = optionalSuKien.get();
+		List<DanhSachThamGia> danhSachThamGia = danhSachThamGiaService.getBySuKienId(suKienId);
+		List<NguoiDung> nguoiDungList = nguoiDungService.getAll(); // 🔹 Lấy toàn bộ người dùng
 
-        return "admin/events/detail" ;
-    }
+		model.addAttribute("suKien", suKien);
+		model.addAttribute("danhSachThamGia", danhSachThamGia);
+		model.addAttribute("nguoiDungList", nguoiDungList); // 🔹 Thêm vào model
+		model.addAttribute("showForm", true);
 
-    @PostMapping("/add-member")
-    public String addMemberToEvent(
-            @RequestParam Integer suKienId,
-            @RequestParam String taiKhoan,
-            RedirectAttributes redirectAttributes) {
+		return "admin/events/detail";
+	}
 
-        try {
-            Optional<NguoiDung> nguoiDungOpt = nguoiDungService.findByTaiKhoan(taiKhoan);
-            if (nguoiDungOpt.isEmpty()) {
-                redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng với tài khoản: " + taiKhoan);
-                return "redirect:/admin/events/update/" + suKienId;
-            }
+	// ✅ Xử lý thêm thành viên vào sự kiện
+	@PostMapping("/add-member")
+	public String addMemberToEvent(@RequestParam Integer suKienId, @RequestParam String taiKhoan,
+			RedirectAttributes redirectAttributes) {
 
-            NguoiDung nguoiDung = nguoiDungOpt.get();
-            danhSachThamGiaService.addNguoiDungVaoSuKien(nguoiDung, suKienId);
+		try {
+			Optional<NguoiDung> nguoiDungOpt = nguoiDungService.findByTaiKhoan(taiKhoan);
+			if (nguoiDungOpt.isEmpty()) {
+				redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng với tài khoản: " + taiKhoan);
+				return "redirect:/admin/events/update/" + suKienId;
+			}
 
-            redirectAttributes.addFlashAttribute("success", "Đã thêm thành viên thành công!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
+			NguoiDung nguoiDung = nguoiDungOpt.get();
+			danhSachThamGiaService.addNguoiDungVaoSuKien(nguoiDung, suKienId);
 
-        return "redirect:/admin/events/update/" + suKienId;
-    }
-    
-    @PostMapping("/remove-member")
-    public String removeMemberFromEvent(
-            @RequestParam Integer suKienId,
-            @RequestParam Integer nguoiDungId,
-            RedirectAttributes redirectAttributes) {
+			redirectAttributes.addFlashAttribute("success", "Đã thêm thành viên thành công!");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", e.getMessage());
+		}
 
-        try {
-            danhSachThamGiaService.removeNguoiDungKhoiSuKien(nguoiDungId, suKienId);
-            redirectAttributes.addFlashAttribute("success", "Đã xóa thành viên khỏi sự kiện!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Xóa thất bại: " + e.getMessage());
-        }
+		return "redirect:/admin/events/update/" + suKienId;
+	}
 
-        return "redirect:/admin/events/" + suKienId + "/detail";
-    }
+	@PostMapping("/remove-member")
+	public String removeMemberFromEvent(@RequestParam Integer suKienId, @RequestParam Integer nguoiDungId) {
+
+		danhSachThamGiaService.removeNguoiDungKhoiSuKien(nguoiDungId, suKienId);
+
+		return "redirect:/admin/events/" + suKienId + "/detail";
+	}
+
 }

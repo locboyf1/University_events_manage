@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <html layout:decorate="~{admin/site}">
-<head>
-<meta charset="UTF-8">
-<title>Danh sách bài viết</title>
-</head>
-<body>
-	<!--Main container start -->
 
+<<<<<<< HEAD
+<body class="ttr-opened-sidebar ttr-pinned-sidebar">
+	<div layout:fragment="content">
+		<!--Main container start -->
+		<div class="container-fluid">
+			<div class="db-breadcrumb">
+				<h4 class="breadcrumb-title">Dashboard</h4>
+				<ul class="db-breadcrumb-list">
+					<li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+					<li>Dashboard</li>
+				</ul>
+			</div>
+			<!-- Card -->
+
+			<div class="row">
+				<!-- Your Profile Views Chart -->
+
+				<div class="col-lg-12 m-b30">
+					<div class="widget-box">
+						<div class="wc-title">
+							<h4>Danh sách người dùng</h4>
+							<br> <a class="btn btn-primary"
+								th:href="@{/admin/users/create}">Thêm người dùng</a>
+						</div>
+						<div class="widget-inner">
+							<div class="new-user-list">
+								<ul>
+									<li th:each="nguoidung : ${nguoiDungs}"><span
+										class="new-users-pic"> <img th:src="${nguoidung.anh}"
+											alt="" />
+									</span> <span class="new-users-text"> <a href="#" class="new-users-name" th:text="${nguoidung.hoTen}">Tên </a>
+											<span class="new-users-info" th:text="${nguoidung.taiKhoan}">taikhoan</span>
+											<br> <span class="new-users-info">role</span>
+									</span>
+										<div class="new-users-btn">
+											<a th:href="@{/admin/users/update/{id}(id=${nguoidung.id})}"
+												class="btn button-sm blue">Sửa</a>
+											<form class="d-inline" th:action="@{/admin/users/lock}"
+												method="post">
+												<input type="hidden" th:name="id" th:value="${nguoidung.id}" />
+												<button type="submit"
+													th:class="${nguoidung.hoatDong} ? 'btn button-sm yellow' : 'btn button-sm red' "
+													th:utext="${nguoidung.hoatDong} ? '<i class=\'fa fa-unlock\' ></i> Đang hoạt động' : '<i class=\'fa fa-lock\' ></i> Đã bị khóa'">Khóa</button>
+											</form>
+										</div></li>
+
+								</ul>
+=======
 	<div class="container-fluid" layout:fragment="content">
 		<div class="db-breadcrumb">
 			<h4 class="breadcrumb-title">Courses</h4>
@@ -253,6 +295,7 @@
 									</div>
 								</div>
 
+>>>>>>> 063b05f12071f87fb43e85902102d52c6690c6e9
 							</div>
 						</div>
 					</div>
@@ -262,4 +305,5 @@
 		</div>
 	</div>
 </body>
+
 </html>
