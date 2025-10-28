@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,7 +56,7 @@ public class UsersController {
 	}
 
 	@GetMapping("/update/{id}")
-	public String update(Model model, @ModelAttribute Integer id) {
+	public String update(Model model, @PathVariable("id") Integer id) {
 		NguoiDung nguoiDung = nguoiDungService.getById(id);
 		model.addAttribute("nguoiDung", nguoiDung);
 		model.addAttribute("vaiTros", vaiTroService.getAll());

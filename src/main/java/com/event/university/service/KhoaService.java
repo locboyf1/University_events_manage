@@ -16,4 +16,15 @@ public class KhoaService {
 	public List<Khoa> getAll() {
 		return khoaRepository.findAll();
 	}
+
+	public Khoa findById(Integer id) {
+		return khoaRepository.findById(id).orElse(null);
+	}
+
+	public void update(Khoa khoa) {
+		Khoa khoaDB = khoaRepository.findById(khoa.getId()).orElse(null);
+		khoaDB.setMoTa(khoa.getMoTa());
+		khoaDB.setTenKhoa(khoa.getTenKhoa());
+		khoaRepository.save(khoaDB);
+	}
 }
