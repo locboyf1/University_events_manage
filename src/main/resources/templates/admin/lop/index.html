@@ -6,7 +6,7 @@
 
 <head>
 
-<title>Quản lý khoa</title>
+<title>Quản lý ngành</title>
 <!-- General CSS Files -->
 </head>
 
@@ -18,11 +18,12 @@
 				<div class="col-12 col-md-12 col-lg-12">
 					<div class="card">
 						<div class="card-header">
-							<h4>Quản lý khoa</h4>
+							<h4>Quản lý lớp thuộc ngành: <b th:text="${nganh.tenNganh}" ></b></h4>
 						</div>
 						<div class="card-body">
 							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModal">Thêm khoa mới</button>
+								data-target="#exampleModal">Thêm lớp mới</button>
+								<a class="btn gray" th:href="@{/admin/nganh/{id}(id = ${nganh.khoa.id})}">Quay lại ngành</a>
 						
 							<table
 								class="table table-striped table-hover table-bordered mt-3">
@@ -30,24 +31,22 @@
 								<thead class="table-light">
 									<tr>
 										<th scope="col">STT</th>
-										<th scope="col">Tên khoa</th>
+										<th scope="col">Tên lớp</th>
 										<th scope="col">Mô tả</th>
-										<th scope="col">Số lượng ngành</th>
+										<th scope="col">Khoa số</th>
 										<th scope="col">Hành động</th>
 									</tr>
 								</thead>
 
 								<tbody>
-									<tr th:each="khoa, i : ${khoas}">
+									<tr th:each="lop, i : ${lops}">
 										<th th:text="${i.count}"  scope="row">4</th>
-										<td th:text="${khoa.tenKhoa}">tenkhoa</td>
-										<td th:text="${khoa.moTa}">mota</td>
-										<td th:text="${khoa.nganh.size()}"></td>
+										<td th:text="${lop.tenLop}">tenlop</td>
+										<td th:text="${lop.moTa}">mota</td>
+										<td th:text="${lop.khoaSo}"></td>
 										<td><a
-											th:href="@{/admin/khoa/update/{id}(id = ${khoa.id})}"
-											class="btn">Sửa</a> <a
-											th:href="@{/admin/nganh/{id}(id = ${khoa.id})}"
-											class="btn blue">Danh sách ngành</a></td>
+											th:href="@{/admin/lop/update/{id}(id = ${lop.id})}"
+											class="btn">Sửa</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -62,25 +61,38 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="formModal">Nhập thông tin khoa</h5>
+						<h5 class="modal-title" id="formModal">Nhập thông tin lớp</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						<form class="" th:object="${khoa}"
-							th:action="@{/admin/khoa/create}" method="post">
+						<form class="" th:object="${lop}"
+							th:action="@{/admin/lop/create}" method="post">
+							<input type="hidden" name="nganhId" th:value="${nganh.id}" />
 							<div class="form-group">
-								<label>Khoa</label>
+								<label>Lớp</label>
 								<div class="input-group">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
 											<i class="fa fa-font"></i>
 										</div>
 									</div>
-									<input type="text" class="form-control" placeholder="Tên khoa"
-										th:field="*{tenKhoa}">
+									<input type="text" class="form-control" placeholder="Tên lớp"
+										th:field="*{tenLop}">
+								</div>
+							</div>
+								<div class="form-group">
+								<label>Khóa</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fa fa-briefcase"></i>
+										</div>
+									</div>
+									<input type="number" class="form-control" placeholder="Khóa"
+										th:field="*{khoaSo}">
 								</div>
 							</div>
 							<div class="form-group">
