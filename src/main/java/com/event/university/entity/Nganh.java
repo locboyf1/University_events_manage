@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "nganh")
@@ -23,9 +25,12 @@ public class Nganh {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "tennganh", length = 100, nullable = false)
+	@NotBlank(message = "Không được để trống tên ngành")
+	@Size(max = 50, message = "Tên ngành không được quá dài")
+	@Column(name = "tennganh", length = 50, nullable = false)
 	private String tenNganh;
 
+	@Size(message = "Mô tả không được quá dài")
 	@Column(name = "mota", length = 500)
 	private String moTa;
 
