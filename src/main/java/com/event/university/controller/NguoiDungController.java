@@ -18,7 +18,7 @@ import com.event.university.service.NguoiDungService;
 
 @Controller
 @RequestMapping("/thongtin")
-public class UserController {
+public class NguoiDungController {
 
 	@Autowired
 	private NguoiDungRepository nguoiDungRepository;

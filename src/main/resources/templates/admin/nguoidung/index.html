@@ -22,7 +22,7 @@
 						<div class="wc-title">
 							<h4>Danh sách người dùng</h4>
 							<br> <a class="btn btn-primary"
-								th:href="@{/admin/users/create}">Thêm người dùng</a>
+								th:href="@{/admin/nguoidung/create}">Thêm người dùng</a>
 						</div>
 						<div class="widget-inner">
 							<div class="new-user-list">
@@ -36,9 +36,9 @@
 											<br> <span class="new-users-info"
 											th:text="${nguoidung.vaiTro.tenVaiTro}">role</span>
 									</span> <div class="new-users-btn"> <a
-											th:href="@{/admin/users/update/{id}(id=${nguoidung.id})}"
+											th:href="@{/admin/nguoidung/update/{id}(id=${nguoidung.id})}"
 											class="btn button-sm blue">Sửa</a>
-											<form class="d-inline" th:action="@{/admin/users/lock}" method="post">
+											<form class="d-inline" th:action="@{/admin/nguoidung/lock}" method="post">
                                                 <input type="hidden" th:name="id" th:value="${nguoidung.id}" />
 											<button type="submit" th:class="${nguoidung.hoatDong} ? 'btn button-sm yellow' : 'btn button-sm red' " th:utext="${nguoidung.hoatDong} ? '<i class=\'fa fa-unlock\' ></i> Đang hoạt động' : '<i class=\'fa fa-lock\' ></i> Đã bị khóa'" >Khóa</button>
 											</form>

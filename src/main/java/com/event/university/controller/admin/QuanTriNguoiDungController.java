@@ -21,8 +21,8 @@ import com.event.university.service.NguoiDungService;
 import com.event.university.service.VaiTroService;
 
 @Controller
-@RequestMapping("/admin/users")
-public class UsersController {
+@RequestMapping("/admin/nguoidung")
+public class QuanTriNguoiDungController {
 
 	@Autowired
 	private NguoiDungService nguoiDungService;
@@ -36,7 +36,7 @@ public class UsersController {
 	public String manageUsers(Model model) {
 		List<NguoiDung> nguoiDungs = nguoiDungService.getAll();
 		model.addAttribute("nguoiDungs", nguoiDungs);
-		return "admin/users/index";
+		return "admin/nguoidung/index";
 	}
 
 	@GetMapping("/create")
@@ -46,13 +46,13 @@ public class UsersController {
 		model.addAttribute("nguoiDung", nguoiDung);
 		model.addAttribute("vaiTros", vaiTroService.getAll());
 		model.addAttribute("khoas", khoaService.getAll());
-		return "admin/users/create";
+		return "admin/nguoidung/create";
 	}
 
 	@PostMapping("/create")
 	public String create(@ModelAttribute NguoiDung nguoiDung) {
 		nguoiDungService.create(nguoiDung);
-		return "redirect:/admin/users/";
+		return "redirect:/admin/nguoidung/";
 	}
 
 	@GetMapping("/update/{id}")
@@ -82,19 +82,19 @@ public class UsersController {
 		model.addAttribute("nganhId", nganhId);
 		model.addAttribute("lopId", lopId);
 
-		return "admin/users/update";
+		return "admin/nguoidung/update";
 
 	}
 
 	@PostMapping("/update")
 	public String update(@ModelAttribute NguoiDung nguoiDung) {
 		nguoiDungService.update(nguoiDung);
-		return "redirect:/admin/users/";
+		return "redirect:/admin/nguoidung/";
 	}
 
 	@PostMapping("/lock")
 	public String lock(@RequestParam Integer id) {
 		nguoiDungService.lockUnlock(id);
-		return "redirect:/admin/users/";
+		return "redirect:/admin/nguoidung/";
 	}
 }

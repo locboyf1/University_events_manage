@@ -11,7 +11,7 @@ import com.event.university.entity.SuKien;
 import com.event.university.service.SuKienService;
 
 @Controller
-public class HomeController {
+public class TrangChuController {
 
 	@Autowired
 	private SuKienService suKienService;

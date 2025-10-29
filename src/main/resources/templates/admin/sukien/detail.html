@@ -21,7 +21,7 @@
 				<div class="container">
 					<ul class="list-inline">
 						<li><a href="@{/}">Trang chủ</a></li>
-						<li><a th:href="@{/admin/events}" 	>Danh sách sự kiện</a></li>
+						<li><a th:href="@{/admin/sukien}" 	>Danh sách sự kiện</a></li>
 						<li th:text="${suKien.tenSuKien}"></li>
 					</ul>
 				</div>
@@ -111,7 +111,7 @@
 										<td th:text="${thamGia.nguoiDung.lop.tenLop}">CNTT1</td>
 										<td>
 											<!-- ✅ Nút xóa -->
-											<form th:action="@{/admin/events/remove-member}"
+											<form th:action="@{/admin/sukien/remove-member}"
 												method="post"
 												onsubmit="return confirm('Bạn có chắc muốn xóa thành viên này không?')">
 												<input type="hidden" name="suKienId" th:value="${suKien.id}" />
@@ -136,7 +136,7 @@
 								 
 						</div>-->
 
-						<form th:action="@{/admin/events/add-member}" method="post"
+						<form th:action="@{/admin/sukien/add-member}" method="post"
 							class="mt-3" th:if="${showForm}">
 							<input type="hidden" name="suKienId" th:value="${suKien.id}" />
 
