@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.event.university.dto.NguoiDungDto;
 import com.event.university.entity.NguoiDung;
 import com.event.university.repository.NguoiDungRepository;
 import com.event.university.utillities.ImageProcess;
@@ -25,10 +26,20 @@ public class NguoiDungService implements UserDetailsService {
 	private NguoiDungRepository nguoiDungRepository;
 
 	@Autowired
+	private LopService lopService;
+
+	@Autowired
+	private VaiTroService vaiTroService;
+
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	public Optional<NguoiDung> findByTaiKhoan(String taiKhoan) {
 		return nguoiDungRepository.findByTaiKhoan(taiKhoan);
+	}
+
+	public List<NguoiDung> findAllByTaiKhoan(String taiKhoan) {
+		return nguoiDungRepository.findAllByTaiKhoan(taiKhoan);
 	}
 
 	public List<NguoiDung> findSinhVienHoatDong() {
@@ -40,8 +51,18 @@ public class NguoiDungService implements UserDetailsService {
 
 	}
 
-	public NguoiDung getById(Integer id) {
+	public NguoiDung findById(Integer id) {
 		return nguoiDungRepository.findById(id).orElse(null);
+	}
+
+	public NguoiDung getFromDto(NguoiDungDto nguoiDungDto) {
+		NguoiDung nguoiDung = new NguoiDung();
+		nguoiDung.setHoTen(nguoiDungDto.getHoTen());
+		nguoiDung.setLop(lopService.findById(nguoiDungDto.getMaLop()));
+		nguoiDung.setVaiTro(vaiTroService.findById(nguoiDungDto.getMaVaiTro()));
+		nguoiDung.setMatKhau(nguoiDungDto.getMatKhau());
+		nguoiDung.setTaiKhoan(nguoiDungDto.getTaiKhoan());
+		return nguoiDung;
 	}
 
 	@Override

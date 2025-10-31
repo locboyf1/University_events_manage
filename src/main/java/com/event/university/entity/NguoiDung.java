@@ -16,6 +16,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "nguoidung")
@@ -27,9 +30,13 @@ public class NguoiDung implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@NotBlank(message = "Tài khoản không được để trống")
+	@Size(max = 30, message = "Tài khoản không được quá 30 ký tự")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Tên đăng nhập không được chứa dấu cách hoặc ký tự đặc biệt.")
 	@Column(name = "taikhoan", length = 30, nullable = false)
 	private String taiKhoan;
 
+	@NotBlank(message = "Mật khẩu không được để trống")
 	@Column(name = "matkhau", length = 200, nullable = false)
 	private String matKhau;
 

@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "baiviet")
@@ -22,12 +24,20 @@ public class BaiViet {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Size(max = 200, message = "Tiêu đề không được quá dài")
+	@NotBlank(message = "Tiêu đề không được để trống")
 	@Column(name = "tieude", length = 200, nullable = false)
 	private String tieuDe;
 
+	@Column(name = "bidanh", length = 200, nullable = false)
+	private String biDanh;
+
+	@Size(max = 500, message = "Mô tả không được quá dài")
+	@NotBlank(message = "Mô tả không  được để trống")
 	@Column(name = "mota", length = 500)
 	private String moTa;
 
+	@NotBlank(message = "Nội dung không được để trống")
 	@Column(name = "noidung", columnDefinition = "LONGTEXT", nullable = false)
 	private String noiDung;
 
@@ -94,7 +104,7 @@ public class BaiViet {
 		this.ngayTao = ngayTao;
 	}
 
-	public boolean isHienThi() {
+	public boolean getHienThi() {
 		return hienThi;
 	}
 
@@ -132,5 +142,13 @@ public class BaiViet {
 
 	public void setBinhLuan(Set<BinhLuanBaiViet> binhLuan) {
 		this.binhLuan = binhLuan;
+	}
+
+	public void setBiDanh(String biDanh) {
+		this.biDanh = biDanh;
+	}
+
+	public String getBiDanh() {
+		return this.biDanh;
 	}
 }
