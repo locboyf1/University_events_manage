@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.event.university.entity.BaiViet;
@@ -99,6 +100,13 @@ public class QuanTriBaiVietController {
 	public String show(@PathVariable("id") Integer id) {
 		BaiViet baiViet = baiVietService.findById(id);
 		baiVietService.show(baiViet);
+		return "redirect:/admin/baiviet";
+	}
+
+	@PostMapping("/delete")
+	public String delete(@RequestParam("id") Integer id) {
+
+		baiVietService.deleteById(id);
 		return "redirect:/admin/baiviet";
 	}
 

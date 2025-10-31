@@ -38,6 +38,10 @@ public class BaiVietService {
 		return baiVietRepository.findByOrderByNgayTaoDesc();
 	}
 
+	public void deleteById(Integer id) {
+		baiVietRepository.deleteById(id);
+	}
+
 	public void create(BaiViet baiViet, MultipartFile fileAnh, NguoiDung nguoiDung) throws IOException {
 		byte[] anhBase64 = fileAnh.getBytes();
 		String kieuAnh = fileAnh.getContentType();

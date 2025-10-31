@@ -49,11 +49,18 @@
 											<h5>Bình luận</h5>
 											<h4 th:text="${baiViet.binhLuan.size() + ' bình luận'}"></h4>
 										</li>
-										<li class="	"><a th:href="@{/admin/baiviet/show/{id}(id = ${baiViet.id})}"
+										<li class="	"><a
+											th:href="@{/admin/baiviet/show/{id}(id = ${baiViet.id})}"
 											th:class="${baiViet.hienThi ? 'btn green radius-xl' : 'btn red radius-xl'}"
 											th:text="${baiViet.hienThi ? 'Đang hiện' : 'Đã ẩn'}">hien</a></li>
-										<li class="card-courses-price"><a th:href="@{/admin/baiviet/update/{id}(id = ${baiViet.id})}"
+										<li class="card-courses-price"><a
+											th:href="@{/admin/baiviet/update/{id}(id = ${baiViet.id})}"
 											class="btn green radius-xl outline">Sửa</a>
+											<form th:action="@{/admin/baiviet/delete}"
+												id="xoaBaiVietForm" method="post">
+												<input name="id" type="hidden" th:value="${baiViet.id}" />
+												<button class="btn red radius-xl outline">Xóa</button>
+											</form>
 									</ul>
 								</div>
 								<div class="row card-courses-dec">
@@ -71,6 +78,22 @@
 			<!-- Your Profile Views Chart END-->
 		</div>
 	</div>
+
+	<script layout:fragment="scripts" type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+			const xoaBaiVietForm = document.getElementById('xoaBaiVietForm');
+
+			xoaBaiVietForm.addEventListener('submit', function() {
+				event.preventDefault();
+
+				const xacNhan = confirm("Bạn có chắc muốn xóa không?")
+				if (xacNhan) {
+					this.submit();
+				}
+			})
+
+		})
+	</script>
 </body>
 
 </html>
