@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{admin/site}">
+
+
+<!-- modal.html  21 Nov 2019 03:54:30 GMT -->
+
+<head>
+
+<title>Quản lý khoa</title>
+<!-- General CSS Files -->
+</head>
+
+<body>
+	<!-- Main Content -->
+	<section class="section" layout:fragment="content">
+		<div class="section-body">
+			<div class="row">
+				<div class="col-12 col-md-12 col-lg-12">
+					<div class="card">
+						<div class="card-header">
+							<h4>Quản lý khoa</h4>
+						</div>
+						<div class="card-body">
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#exampleModal">Thêm khoa mới</button>
+						
+							<table
+								class="table table-striped table-hover table-bordered mt-3">
+
+								<thead class="table-light">
+									<tr>
+										<th scope="col">STT</th>
+										<th scope="col">Tên khoa</th>
+										<th scope="col">Mô tả</th>
+										<th scope="col">Số lượng ngành</th>
+										<th scope="col">Hành động</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr th:each="khoa, i : ${khoas}">
+										<th th:text="${i.count}"  scope="row">4</th>
+										<td th:text="${khoa.tenKhoa}">tenkhoa</td>
+										<td th:text="${khoa.moTa}">mota</td>
+										<td th:text="${khoa.nganh.size()}"></td>
+										<td><a
+											th:href="@{/admin/khoa/update/{id}(id = ${khoa.id})}"
+											class="btn">Sửa</a> <a
+											th:href="@{/admin/nganh/{id}(id = ${khoa.id})}"
+											class="btn blue">Danh sách ngành</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal with form -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="formModal" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="formModal">Nhập thông tin khoa</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form class="" th:object="${khoa}"
+							th:action="@{/admin/khoa/create}" method="post">
+							<div class="form-group">
+								<label>Khoa</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fa fa-font"></i>
+										</div>
+									</div>
+									<input type="text" class="form-control" placeholder="Tên khoa"
+										th:field="*{tenKhoa}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Mô tả</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fa fa-file-text-o"></i>
+										</div>
+									</div>
+									<textarea type="text" class="form-control" placeholder="Mô tả"
+										th:field="*{moTa}"></textarea>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-primary m-t-15 waves-effect">Tạo</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+</body>
+
+
+<!-- modal.html  21 Nov 2019 03:54:30 GMT -->
+
+</html>

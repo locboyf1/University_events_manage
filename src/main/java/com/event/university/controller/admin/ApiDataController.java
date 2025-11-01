@@ -25,11 +25,11 @@ public class ApiDataController {
 
 	@GetMapping("/nganhs/{khoaId}")
 	public List<NganhDto> getNganhsByKhoa(@PathVariable Integer khoaId) {
-		return nganhService.findByKhoaId(khoaId);
+		return nganhService.findDTOByKhoaId(khoaId);
 	}
 
 	@GetMapping("/lops/{nganhId}")
 	public List<LopDto> getLopsByNganh(@PathVariable Integer nganhId) {
-		return lopService.findByNganhId(nganhId);
+		return lopService.findDTOByNganhId(nganhId);
 	}
 }
