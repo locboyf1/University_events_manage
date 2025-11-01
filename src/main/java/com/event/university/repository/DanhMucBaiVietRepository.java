@@ -10,4 +10,8 @@ public interface DanhMucBaiVietRepository extends JpaRepository<DanhMucBaiViet, 
 
 	public List<DanhMucBaiViet> findByOrderByThuTu();
 
+	public DanhMucBaiViet findTopByOrderByThuTuDesc();
+
+	public DanhMucBaiViet findByThuTu(Integer thuTu);
+
 }
