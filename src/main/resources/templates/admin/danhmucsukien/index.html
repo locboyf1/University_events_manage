@@ -6,7 +6,7 @@
 
 <head>
 
-<title>Quản lý danh mục bài viết</title>
+<title>Quản lý danh mục sự kiện</title>
 <!-- General CSS Files -->
 </head>
 
@@ -18,7 +18,7 @@
 				<div class="col-12 col-md-12 col-lg-12">
 					<div class="card">
 						<div class="card-header">
-							<h4>Quản lý danh mục bài viết</h4>
+							<h4>Quản lý danh mục sự kiện</h4>
 						</div>
 						<div class="card-body">
 							<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -32,8 +32,8 @@
 										<th scope="col">STT</th>
 										<th scope="col">Tên danh mục</th>
 										<th scope="col">Mô tả</th>
-										<th scope="col">Số bài viết</th>
-										<th scope="col"class="col-2">Thứ tự</th>
+										<th scope="col">Số sự kiện</th>
+										<th scope="col" class="col-2">Thứ tự</th>
 										<th scope="col">Hành động</th>
 									</tr>
 								</thead>
@@ -43,13 +43,13 @@
 										<th th:text="${i.count}" scope="row">4</th>
 										<td th:text="${danhMuc.tenDanhMuc}">ten</td>
 										<td th:text="${danhMuc.moTa}">mota</td>
-										<td th:text="${danhMuc.baiViet.size()}">sobai</td>
+										<td th:text="${danhMuc.suKien.size()}"></td>
 										<td>
-											<a th:href="@{/admin/danhmucbaiviet/up/{id}(id = ${danhMuc.id})}" class="btn gray" ><i class="fa fa-sort-up"></i></a>
-											<a th:href="@{/admin/danhmucbaiviet/down/{id}(id = ${danhMuc.id})}" class="btn gray"><i class="fa fa-sort-desc"></i></a>
+											<a th:href="@{/admin/danhmucsukien/up/{id}(id = ${danhMuc.id})}" class="btn gray" ><i class="fa fa-sort-up"></i></a>
+											<a th:href="@{/admin/danhmucsukien/down/{id}(id = ${danhMuc.id})}" class="btn gray"><i class="fa fa-sort-desc"></i></a>
 										</td>
 										<td><a
-											th:href="@{/admin/danhmucbaiviet/update/{id}(id = ${danhMuc.id})}"
+											th:href="@{/admin/danhmucsukien/update/{id}(id = ${danhMuc.id})}"
 											class="btn">Sửa</a>
 									</tr>
 								</tbody>
@@ -74,7 +74,7 @@
 					</div>
 					<div class="modal-body">
 						<form class="" th:object="${danhMuc}"
-							th:action="@{/admin/danhmucbaiviet/create}" method="post">
+							th:action="@{/admin/danhmucsukien/create}" method="post">
 							<input type="hidden" value="0" name="thuTu" />
 							<script type="text/javascript" th:if="${#fields.hasErrors()}">
 								alert("[[${#fields.allErrors()[0]}]]")
