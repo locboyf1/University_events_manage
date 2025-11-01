@@ -56,7 +56,7 @@ public class QuanTriNguoiDungController {
 	@PostMapping("/create")
 	public String create(@Valid @ModelAttribute NguoiDungDto nguoiDungDto, BindingResult result, Model model) {
 		List<NguoiDung> nguoiDungs = nguoiDungService.findAllByTaiKhoan(nguoiDungDto.getTaiKhoan());
-		if (nguoiDungs.size() <= 0) {
+		if (nguoiDungs.size() > 0) {
 			result.rejectValue("taiKhoan", "datontai", "Tài khoản đã tồn tại");
 		}
 		if (result.hasErrors()) {
