@@ -54,7 +54,11 @@
 									</div>
 									<div class="col-md-12">
 										<a th:href="@{'/admin/sukien/' + ${sukien.id}}"
-											class="btn btn-info"> Chi tiết </a>
+											class="btn blue"> Chi tiết </a>
+										<form th:action="@{/admin/sukien/accept}" method="post">
+											<input type="hidden" name="id" th:value="${sukien.id}">
+											<button type="submit" class="btn green">Duyệt</button>
+										</form>
 
 
 									</div>

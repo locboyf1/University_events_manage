@@ -37,6 +37,16 @@ public class SuKienService {
 		return suKienRepository.findByNguoiDung(nguoiDung);
 	}
 
+	public List<SuKien> findByDuyetFalseAndThoiGianBatDauGreaterThanNow() {
+		LocalDateTime now = LocalDateTime.now();
+		return suKienRepository.findByDuyetFalseAndThoiGianBatDauGreaterThan(now);
+	}
+
+	public void accept(SuKien suKien) {
+		suKien.setDuyet(true);
+		suKienRepository.save(suKien);
+	}
+
 	public void create(SuKien suKien, MultipartFile fileAnh) throws IOException {
 		byte[] anh = fileAnh.getBytes();
 		String kieuAnh = fileAnh.getContentType();

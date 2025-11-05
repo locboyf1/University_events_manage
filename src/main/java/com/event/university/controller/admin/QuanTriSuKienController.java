@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.event.university.entity.DanhMucSuKien;
 import com.event.university.entity.SuKien;
@@ -26,11 +28,18 @@ public class QuanTriSuKienController {
 	@GetMapping({ "/", "" })
 	public String manageEvents(Model model) {
 
-		List<SuKien> suKiens = suKienService.getDisplaySorted();
+		List<SuKien> suKiens = suKienService.findByDuyetFalseAndThoiGianBatDauGreaterThanNow();
 		List<DanhMucSuKien> danhMucSuKiens = danhMucSuKienService.getAllDanhMucSuKien();
 		model.addAttribute("suKiens", suKiens);
 		model.addAttribute("danhMucSuKiens", danhMucSuKiens);
 		return "admin/sukien/index";
+	}
+
+	@PostMapping("/accept")
+	public String accept(@RequestParam("id") Integer id) {
+		SuKien suKien = suKienService.getById(id).orElse(null);
+		suKienService.accept(suKien);
+		return "redirect:/admin/sukien";
 	}
 
 	@GetMapping("/{id}")
