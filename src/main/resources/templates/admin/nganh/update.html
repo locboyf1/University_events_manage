@@ -35,12 +35,16 @@
 										<label class="col-sm-2 col-form-label">Tên ngành</label>
 										<div class="col-sm-7">
 											<input class="form-control" type="text" th:field="*{tenNganh}">
+											<div class="text-danger" th:if="${#fields.hasErrors('tenNganh')}" th:errors="*{tenNganh}">
+											</div>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-2 col-form-label">Mô tả</label>
 										<div class="col-sm-7">
 											<input class="form-control" th:field="*{moTa}" type="text">
+											<div class="text-danger" th:if="${#fields.hasErrors('moTa')}" th:errors="*{moTa}">
+											</div>
 										</div>
 									</div>
 								</div>
@@ -51,8 +55,7 @@
 								<div class="col-sm-2"></div>
 								<div class="col-sm-7">
 									<button type="submit" class="btn">Lưu</button>
-									<button type="reset" class="btn-secondry">Đặt lại</button>
-									<a th:href="@{/admin/nganh/{id}(id = ${nganh.khoa.id})}" class="btn gray">Quay lại</a>
+									<a th:href="@{/admin/nganh/{id}(id = ${nganh.khoa.id})}" class="btn-secondry">Quay lại</a>
 								</div>
 							</div>
 						</div>

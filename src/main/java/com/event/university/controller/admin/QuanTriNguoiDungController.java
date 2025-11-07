@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.event.university.dto.NguoiDungDto;
 import com.event.university.entity.Khoa;
 import com.event.university.entity.Lop;
 import com.event.university.entity.Nganh;
@@ -20,9 +22,11 @@ import com.event.university.service.KhoaService;
 import com.event.university.service.NguoiDungService;
 import com.event.university.service.VaiTroService;
 
+import jakarta.validation.Valid;
+
 @Controller
-@RequestMapping("/admin/users")
-public class UsersController {
+@RequestMapping("/admin/nguoidung")
+public class QuanTriNguoiDungController {
 
 	@Autowired
 	private NguoiDungService nguoiDungService;
@@ -36,28 +40,39 @@ public class UsersController {
 	public String manageUsers(Model model) {
 		List<NguoiDung> nguoiDungs = nguoiDungService.getAll();
 		model.addAttribute("nguoiDungs", nguoiDungs);
-		return "admin/users/index";
+		return "admin/nguoidung/index";
 	}
 
 	@GetMapping("/create")
 	public String create(Model model) {
-		NguoiDung nguoiDung = new NguoiDung();
-		nguoiDung.setVaiTro(vaiTroService.findByAlias("sinhvien"));
-		model.addAttribute("nguoiDung", nguoiDung);
+		NguoiDungDto nguoiDungDto = new NguoiDungDto();
+		nguoiDungDto.setMaVaiTro(vaiTroService.findByAlias("sinhvien").getId());
+		model.addAttribute("nguoiDungDto", nguoiDungDto);
 		model.addAttribute("vaiTros", vaiTroService.getAll());
 		model.addAttribute("khoas", khoaService.getAll());
-		return "admin/users/create";
+		return "admin/nguoidung/create";
 	}
 
 	@PostMapping("/create")
-	public String create(@ModelAttribute NguoiDung nguoiDung) {
+	public String create(@Valid @ModelAttribute NguoiDungDto nguoiDungDto, BindingResult result, Model model) {
+		List<NguoiDung> nguoiDungs = nguoiDungService.findAllByTaiKhoan(nguoiDungDto.getTaiKhoan());
+		if (nguoiDungs.size() > 0) {
+			result.rejectValue("taiKhoan", "datontai", "Tài khoản đã tồn tại");
+		}
+		if (result.hasErrors()) {
+			model.addAttribute("vaiTros", vaiTroService.getAll());
+			model.addAttribute("khoas", khoaService.getAll());
+
+			return "admin/nguoidung/create";
+		}
+		NguoiDung nguoiDung = nguoiDungService.getFromDto(nguoiDungDto);
 		nguoiDungService.create(nguoiDung);
-		return "redirect:/admin/users/";
+		return "redirect:/admin/nguoidung/";
 	}
 
 	@GetMapping("/update/{id}")
 	public String update(Model model, @PathVariable("id") Integer id) {
-		NguoiDung nguoiDung = nguoiDungService.getById(id);
+		NguoiDung nguoiDung = nguoiDungService.findById(id);
 		model.addAttribute("nguoiDung", nguoiDung);
 		model.addAttribute("vaiTros", vaiTroService.getAll());
 		model.addAttribute("khoas", khoaService.getAll());
@@ -82,19 +97,19 @@ public class UsersController {
 		model.addAttribute("nganhId", nganhId);
 		model.addAttribute("lopId", lopId);
 
-		return "admin/users/update";
+		return "admin/nguoidung/update";
 
 	}
 
 	@PostMapping("/update")
 	public String update(@ModelAttribute NguoiDung nguoiDung) {
 		nguoiDungService.update(nguoiDung);
-		return "redirect:/admin/users/";
+		return "redirect:/admin/nguoidung/";
 	}
 
 	@PostMapping("/lock")
 	public String lock(@RequestParam Integer id) {
 		nguoiDungService.lockUnlock(id);
-		return "redirect:/admin/users/";
+		return "redirect:/admin/nguoidung/";
 	}
 }

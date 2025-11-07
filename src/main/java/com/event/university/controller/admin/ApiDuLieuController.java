@@ -15,7 +15,7 @@ import com.event.university.service.NganhService;
 
 @RestController
 @RequestMapping("/api")
-public class ApiDataController {
+public class ApiDuLieuController {
 
 	@Autowired
 	private NganhService nganhService;

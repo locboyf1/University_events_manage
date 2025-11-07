@@ -29,7 +29,7 @@ public class BinhLuanBaiViet {
 	@JoinColumn(name = "manguoidung", nullable = false)
 	private NguoiDung nguoiDung;
 
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "mabaiviet", nullable = false)
 	private BaiViet baiViet;
 

@@ -14,6 +14,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "lop")
@@ -22,13 +26,17 @@ public class Lop {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	@Column(name = "tenlop", length = 100, nullable = false)
+	@Size(max = 50, message = "Tên lớp không được quá dài")
+	@NotBlank(message = "Tên lớp không được để trống")
+	@Column(name = "tenlop", length = 50, nullable = false)
 	private String tenLop;
 
+	@NotNull(message = "Khóa không được để trống")
+	@Positive(message = "Khóa phải là số nguyên dương")
 	@Column(name = "khoaso", nullable = false)
 	private Integer khoaSo;
 
+	@Size(max = 50, message = "Mô tả không được quá dài")
 	@Column(name = "mota", length = 500)
 	private String moTa;
 

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class QuanTriController {
 
-	@GetMapping({ "/dashboard", "/", "" })
+	@GetMapping({ "/bangdieukhien", "/", "" })
 	public String dashboard() {
 		return "admin/dashboard";
 	}

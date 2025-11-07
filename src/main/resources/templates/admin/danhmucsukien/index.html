@@ -6,7 +6,7 @@
 
 <head>
 
-<title>Quản lý ngành</title>
+<title>Quản lý danh mục sự kiện</title>
 <!-- General CSS Files -->
 </head>
 
@@ -18,35 +18,39 @@
 				<div class="col-12 col-md-12 col-lg-12">
 					<div class="card">
 						<div class="card-header">
-							<h4>Quản lý lớp thuộc ngành: <b th:text="${nganh.tenNganh}" ></b></h4>
+							<h4>Quản lý danh mục sự kiện</h4>
 						</div>
 						<div class="card-body">
 							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModal">Thêm lớp mới</button>
-								<a class="btn-secondry" th:href="@{/admin/nganh/{id}(id = ${nganh.khoa.id})}">Quay lại ngành</a>
-						
+								data-target="#exampleModal">Thêm danh mục mới</button>
+
 							<table
 								class="table table-striped table-hover table-bordered mt-3">
 
 								<thead class="table-light">
 									<tr>
 										<th scope="col">STT</th>
-										<th scope="col">Tên lớp</th>
+										<th scope="col">Tên danh mục</th>
 										<th scope="col">Mô tả</th>
-										<th scope="col">Khoa số</th>
+										<th scope="col">Số sự kiện</th>
+										<th scope="col" class="col-2">Thứ tự</th>
 										<th scope="col">Hành động</th>
 									</tr>
 								</thead>
 
 								<tbody>
-									<tr th:each="lop, i : ${lops}">
-										<th th:text="${i.count}"  scope="row">4</th>
-										<td th:text="${lop.tenLop}">tenlop</td>
-										<td th:text="${lop.moTa}">mota</td>
-										<td th:text="${lop.khoaSo}"></td>
+									<tr th:each="danhMuc, i : ${danhMucs}">
+										<th th:text="${i.count}" scope="row">4</th>
+										<td th:text="${danhMuc.tenDanhMuc}">ten</td>
+										<td th:text="${danhMuc.moTa}">mota</td>
+										<td th:text="${danhMuc.suKien.size()}"></td>
+										<td>
+											<a th:href="@{/admin/danhmucsukien/up/{id}(id = ${danhMuc.id})}" class="btn gray" ><i class="fa fa-sort-up"></i></a>
+											<a th:href="@{/admin/danhmucsukien/down/{id}(id = ${danhMuc.id})}" class="btn gray"><i class="fa fa-sort-desc"></i></a>
+										</td>
 										<td><a
-											th:href="@{/admin/lop/update/{id}(id = ${lop.id})}"
-											class="btn">Sửa</a></td>
+											th:href="@{/admin/danhmucsukien/update/{id}(id = ${danhMuc.id})}"
+											class="btn">Sửa</a>
 									</tr>
 								</tbody>
 							</table>
@@ -61,41 +65,31 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="formModal">Nhập thông tin lớp</h5>
+						<h5 class="modal-title" id="formModal">Nhập thông tin danh
+							mục</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						<form class="" th:object="${lop}"
-							th:action="@{/admin/lop/create}" method="post">
-							<input type="hidden" name="nganhId" th:value="${nganh.id}" />
+						<form class="" th:object="${danhMuc}"
+							th:action="@{/admin/danhmucsukien/create}" method="post">
+							<input type="hidden" value="0" name="thuTu" />
 							<script type="text/javascript" th:if="${#fields.hasErrors()}">
 								alert("[[${#fields.allErrors()[0]}]]")
 							</script>
 							<div class="form-group">
-								<label>Lớp</label>
+								<label>Danh mục</label>
 								<div class="input-group">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
 											<i class="fa fa-font"></i>
 										</div>
 									</div>
-									<input type="text" class="form-control" placeholder="Tên lớp"
-										th:field="*{tenLop}">
-								</div>
-							</div>
-								<div class="form-group">
-								<label>Khóa</label>
-								<div class="input-group">
-									<div class="input-group-prepend">
-										<div class="input-group-text">
-											<i class="fa fa-briefcase"></i>
-										</div>
-									</div>
-									<input type="number" class="form-control" placeholder="Khóa"
-										th:field="*{khoaSo}">
+									<input type="text" class="form-control"
+										placeholder="Tên danh mục" th:field="*{tenDanhMuc}">
+
 								</div>
 							</div>
 							<div class="form-group">

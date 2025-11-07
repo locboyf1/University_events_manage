@@ -37,7 +37,8 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/admins/css/shortcodes/shortcodes.css}">
 
-<link rel="stylesheet" type="text/css" th:href="@{/admins/css/style.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/admins/css/style.css}">
 <link rel="stylesheet" type="text/css"
 	th:href="@{/admins/css/dashboard.css}">
 <link class="skin" rel="stylesheet" type="text/css"
@@ -65,7 +66,7 @@
 			<div class="ttr-header-menu">
 				<ul class="ttr-header-navigation">
 					<li><a th:href="@{/}"
-						class="ttr-material-button ttr-submenu-toggle">HOME</a></li>
+						class="ttr-material-button ttr-submenu-toggle">Trang chủ</a></li>
 					<li><a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK
 							MENU <i class="fa fa-angle-down"></i>
 					</a>
@@ -184,40 +185,36 @@
 				<ul>
 					<li><a th:href="@{/admin}" class="ttr-material-button"> <span
 							class="ttr-icon"><i class="ti-home"></i></span> <span
-							class="ttr-label">Dashborad</span>
+							class="ttr-label">Bảng điều khiển</span>
 					</a></li>
-					<li><a th:href="@{/admins/courses}" class="ttr-material-button">
-							<span class="ttr-icon"><i class="ti-book"></i></span> <span
-							class="ttr-label">Courses</span>
+					<li><a th:href="@{/admin/nguoidung}"
+						class="ttr-material-button"> <span class="ttr-icon"><i
+								class="ti-user"></i></span> <span class="ttr-label">Quản lý
+								người dùng</span>
 					</a></li>
-					<li><a href="#" class="ttr-material-button"> <span
-							class="ttr-icon"><i class="ti-email"></i></span> <span
-							class="ttr-label">Mailbox</span> <span class="ttr-arrow-icon"><i
-								class="fa fa-angle-down"></i></span>
-					</a>
-						<ul>
-							<li><a th:href="@{/admins/mailbox}"
-								class="ttr-material-button"><span class="ttr-label">Mail
-										Box</span></a></li>
-							<li><a th:href="@{/admins/mailbox-compose}"
-								class="ttr-material-button"><span class="ttr-label">Compose</span></a>
-							</li>
-							<li><a th:href="@{/admins/mailbox-read}"
-								class="ttr-material-button"><span class="ttr-label">Mail
-										Read</span></a></li>
-						</ul></li>
 					<li><a href="#" class="ttr-material-button"> <span
 							class="ttr-icon"><i class="ti-calendar"></i></span> <span
-							class="ttr-label">Calendar</span> <span class="ttr-arrow-icon"><i
+							class="ttr-label">Quản lý sự kiện</span> <span
+							class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+					</a>
+						<ul>
+							<li><a th:href="@{/admin/danhmucsukien}"
+								class="ttr-material-button"><span class="ttr-label">Danh
+										mục sự kiện</span></a></li>
+							<li><a th:href="@{/admin/sukien}"
+								class="ttr-material-button"><span class="ttr-label">Sự
+										kiện</span></a></li>
+						</ul></li>
+					<li><a href="#" class="ttr-material-button"> <span
+							class="ttr-icon"><i class="ti-ink-pen"></i></span> <span
+							class="ttr-label">Quản lý bài viết</span> <span class="ttr-arrow-icon"><i
 								class="fa fa-angle-down"></i></span>
 					</a>
 						<ul>
-							<li><a th:href="@{/admins/basic-calendar}"
-								class="ttr-material-button"><span class="ttr-label">Basic
-										Calendar</span></a></li>
-							<li><a th:href="@{/admins/list-view-calendar}"
-								class="ttr-material-button"><span class="ttr-label">List
-										View</span></a></li>
+							<li><a th:href="@{/admin/danhmucbaiviet}"
+								class="ttr-material-button"><span class="ttr-label">Danh mục bài viết</span></a></li>
+							<li><a th:href="@{/admin/baiviet}"
+								class="ttr-material-button"><span class="ttr-label">Bài viết</span></a></li>
 						</ul></li>
 					<li><a th:href="@{/admins/bookmark}"
 						class="ttr-material-button"> <span class="ttr-icon"><i
@@ -276,6 +273,9 @@
 	<script th:src="@{/admins/vendors/calendar/moment.min.js}"></script>
 	<script th:src="@{/admins/vendors/calendar/fullcalendar.js}"></script>
 	<script th:src="@{/admins/vendors/switcher/switcher.js}"></script>
+
+	<script
+		th:src="@{/assets/vendors/bootstrap/js/bs-custom-file-input.min.js}"></script>
 
 	<script layout:fragment="scripts"></script>
 

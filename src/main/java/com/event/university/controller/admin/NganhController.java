@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,8 @@ import com.event.university.entity.Khoa;
 import com.event.university.entity.Nganh;
 import com.event.university.service.KhoaService;
 import com.event.university.service.NganhService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/nganh")
@@ -42,7 +45,17 @@ public class NganhController {
 	}
 
 	@PostMapping("/create")
-	public String create(@ModelAttribute("nganh") Nganh nganh, @RequestParam Integer khoaId) {
+	public String create(@Valid @ModelAttribute("nganh") Nganh nganh, BindingResult result,
+			@RequestParam Integer khoaId, Model model) {
+		if (result.hasErrors()) {
+			List<Nganh> nganhs = nganhService.findByKhoaId(khoaId);
+			Khoa khoa = khoaService.findById(khoaId);
+
+			model.addAttribute("nganhs", nganhs);
+			model.addAttribute("khoa", khoa);
+
+			return "admin/nganh/index";
+		}
 		nganhService.create(nganh, khoaId);
 		return "redirect:/admin/nganh/" + khoaId;
 	}
@@ -55,7 +68,13 @@ public class NganhController {
 	}
 
 	@PostMapping("/update")
-	public String update(@ModelAttribute("nganh") Nganh nganh) {
+	public String update(@Valid @ModelAttribute("nganh") Nganh nganh, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			Nganh nganhDB = nganhService.findById(nganh.getId());
+			nganh.setKhoa(nganhDB.getKhoa());
+
+			return "admin/nganh/update";
+		}
 		nganhService.update(nganh);
 		Nganh nganhDB = nganhService.findById(nganh.getId());
 		return "redirect:/admin/nganh/" + nganhDB.getKhoa().getId();

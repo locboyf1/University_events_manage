@@ -21,7 +21,7 @@ import com.event.university.service.DanhMucSuKienService;
 import com.event.university.service.SuKienService;
 
 @Controller
-public class EventController {
+public class SuKienController {
 
 	@Autowired
 	private SuKienService suKienService;

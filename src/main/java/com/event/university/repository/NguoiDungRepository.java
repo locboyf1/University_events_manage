@@ -10,11 +10,11 @@ import com.event.university.entity.NguoiDung;
 
 public interface NguoiDungRepository extends JpaRepository<NguoiDung, Integer> {
 
-	Optional<NguoiDung> findByEmail(String email);
-
 	List<NguoiDung> findByHoatDongTrue();
 
 	Optional<NguoiDung> findByTaiKhoan(String taiKhoan);
+
+	List<NguoiDung> findAllByTaiKhoan(String taiKhoan);
 
 	Optional<NguoiDung> findByHoTen(String hoTen);
 

@@ -13,6 +13,10 @@ public class VaiTroService {
 	@Autowired
 	private VaiTroRepository vaiTroRepository;
 
+	public VaiTro findById(Integer id) {
+		return vaiTroRepository.findById(id).orElse(null);
+	}
+
 	public List<VaiTro> getAll() {
 		return vaiTroRepository.findAll();
 	}

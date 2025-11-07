@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "danhmucbaiviet")
@@ -19,13 +21,16 @@ public class DanhMucBaiViet {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@NotBlank(message = "Tên danh mục không được để trống")
+	@Size(max = 30, message = "Tên danh mục không được quá dài")
 	@Column(name = "tendanhmuc", length = 30, nullable = false)
 	private String tenDanhMuc;
 
+	@Size(max = 500, message = "Mô tả không được quá dài")
 	@Column(name = "mota", length = 500)
 	private String moTa;
 
-	@Column(name = "thutu", nullable = false)
+	@Column(name = "thutu", nullable = false, unique = true)
 	private Integer thuTu;
 
 	@OneToMany(mappedBy = "danhMucBaiViet")
