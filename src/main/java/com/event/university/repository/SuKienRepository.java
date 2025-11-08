@@ -1,5 +1,6 @@
 package com.event.university.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,4 +19,8 @@ public interface SuKienRepository extends JpaRepository<SuKien, Integer> {
 
 	List<SuKien> findByNguoiDung(NguoiDung nguoiDung);
 
+	List<SuKien> findByDuyetFalseAndThoiGianBatDauGreaterThan(LocalDateTime now);
+
+	List<SuKien> findByTenSuKienContainingIgnoreCaseAndHienThiTrueAndDuyetTrueAndThoiGianBatDauGreaterThanEqual(
+			String keyword, LocalDateTime now);
 }

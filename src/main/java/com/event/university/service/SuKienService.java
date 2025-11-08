@@ -37,6 +37,16 @@ public class SuKienService {
 		return suKienRepository.findByNguoiDung(nguoiDung);
 	}
 
+	public List<SuKien> findByDuyetFalseAndThoiGianBatDauGreaterThanNow() {
+		LocalDateTime now = LocalDateTime.now();
+		return suKienRepository.findByDuyetFalseAndThoiGianBatDauGreaterThan(now);
+	}
+
+	public void accept(SuKien suKien) {
+		suKien.setDuyet(true);
+		suKienRepository.save(suKien);
+	}
+
 	public void create(SuKien suKien, MultipartFile fileAnh) throws IOException {
 		byte[] anh = fileAnh.getBytes();
 		String kieuAnh = fileAnh.getContentType();
@@ -71,5 +81,12 @@ public class SuKienService {
 		SuKien suKien = suKienRepository.findById(id).orElse(null);
 		suKien.setHienThi(!suKien.isHienThi());
 		suKienRepository.save(suKien);
+	}
+	public List<SuKien> search(String keyword){
+		LocalDateTime now = LocalDateTime.now();
+		if (keyword == null || keyword.trim().isEmpty()) {
+			keyword = "";
+		}
+		return suKienRepository.findByTenSuKienContainingIgnoreCaseAndHienThiTrueAndDuyetTrueAndThoiGianBatDauGreaterThanEqual(keyword, now);
 	}
 }

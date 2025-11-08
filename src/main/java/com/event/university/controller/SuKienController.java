@@ -96,4 +96,13 @@ public class SuKienController {
 		suKienService.hiddenShow(id);
 		return "redirect:/sukiencuatoi";
 	}
+	@PostMapping("/sukien/timkiem")
+	public String search(@RequestParam String keyword, Model model) {
+		List<SuKien> suKiens = suKienService.search(keyword);
+		List<DanhMucSuKien> danhMucSuKiens = danhMucSuKienService.getAllDanhMucSuKien();
+		model.addAttribute("suKiens", suKiens);
+		model.addAttribute("danhMucSuKiens", danhMucSuKiens);
+		model.addAttribute("keyword", keyword);
+		return "event/index";
+	}
 }

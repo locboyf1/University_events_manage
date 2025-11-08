@@ -13,15 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.event.university.entity.NguoiDung;
-import com.event.university.repository.NguoiDungRepository;
 import com.event.university.service.NguoiDungService;
 
 @Controller
 @RequestMapping("/thongtin")
 public class NguoiDungController {
-
-	@Autowired
-	private NguoiDungRepository nguoiDungRepository;
 
 	@Autowired
 	private NguoiDungService nguoiDungService;

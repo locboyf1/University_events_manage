@@ -33,23 +33,20 @@ public class DanhSachThamGiaController {
 	@Autowired
 	private NguoiDungService nguoiDungService;
 
-	// ✅ Trang chi tiết sự kiện
 	@GetMapping("/{id}/detail")
 	public String getDanhSachThamGia(@PathVariable("id") Integer suKienId, Model model) {
 		Optional<SuKien> optionalSuKien = suKienService.getById(suKienId);
 		if (optionalSuKien.isEmpty()) {
 			return "redirect:/admin/events";
 		}
-
 		SuKien suKien = optionalSuKien.get();
 		List<DanhSachThamGia> danhSachThamGia = danhSachThamGiaService.getBySuKienId(suKienId);
-		List<NguoiDung> nguoiDungList = nguoiDungService.findSinhVienHoatDong(); // ✅ Thêm dòng này
+		List<NguoiDung> nguoiDungList = nguoiDungService.findSinhVienHoatDong(); 
 
 		model.addAttribute("suKien", suKien);
 		model.addAttribute("danhSachThamGia", danhSachThamGia);
-		model.addAttribute("nguoiDungList", nguoiDungList); // ✅ Truyền sang giao diện
-		model.addAttribute("showForm", true); // ✅ Cho phép hiển thị form
-
+		model.addAttribute("nguoiDungList", nguoiDungList);
+		model.addAttribute("showForm", true);
 
 		return "admin/events/detail";
 	}
@@ -63,17 +60,16 @@ public class DanhSachThamGiaController {
 
 		SuKien suKien = optionalSuKien.get();
 		List<DanhSachThamGia> danhSachThamGia = danhSachThamGiaService.getBySuKienId(suKienId);
-		List<NguoiDung> nguoiDungList = nguoiDungService.getAll(); // 🔹 Lấy toàn bộ người dùng
+		List<NguoiDung> nguoiDungList = nguoiDungService.getAll(); 
 
 		model.addAttribute("suKien", suKien);
 		model.addAttribute("danhSachThamGia", danhSachThamGia);
-		model.addAttribute("nguoiDungList", nguoiDungList); // 🔹 Thêm vào model
+		model.addAttribute("nguoiDungList", nguoiDungList); 
 		model.addAttribute("showForm", true);
 
 		return "admin/events/detail";
 	}
 
-	// ✅ Xử lý thêm thành viên vào sự kiện
 	@PostMapping("/add-member")
 	public String addMemberToEvent(@RequestParam Integer suKienId, @RequestParam String taiKhoan,
 			RedirectAttributes redirectAttributes) {

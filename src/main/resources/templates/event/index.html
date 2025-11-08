@@ -38,6 +38,18 @@
 
 						</ul>
 					</div>
+					<form th:action="@{/sukien/timkiem}" method="post">
+					    <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm sự kiện..." th:value="${keyword}">
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                            </div>
+                        </div>
+					</form>
+					<br/>
 					<div class="clearfix">
 						<ul id="masonry" class="ttr-gallery-listing magnific-image row">
 							<li th:each="sukien: ${suKiens}" class="action-card col-lg-6 col-md-6 col-sm-12" th:classappend="${sukien.danhMucSuKien.biDanh}">
