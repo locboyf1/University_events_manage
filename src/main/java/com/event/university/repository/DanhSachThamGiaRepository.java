@@ -18,4 +18,7 @@ public interface DanhSachThamGiaRepository extends JpaRepository<DanhSachThamGia
     Optional<DanhSachThamGia> findBySuKienAndNguoiDung(SuKien suKien, NguoiDung nguoiDung);
     
     void deleteBySuKien_IdAndNguoiDung_Id( Integer nguoiDungId,Integer suKienId);
+    
+    List<DanhSachThamGia> findByNguoiDung(NguoiDung nguoiDung);
 }
+

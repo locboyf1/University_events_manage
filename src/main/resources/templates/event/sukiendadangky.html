@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/site}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sự kiện đã đăng ký</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-content bg-white">
+        <!-- Banner -->
+        <div class="page-banner ovbl-dark"
+             style="background-image: url(@{/assets/images/banner/banner1.jpg});">
+            <div class="container">
+                <div class="page-banner-entry">
+                    <h1 class="text-white">Sự kiện đã đăng ký</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-row">
+            <div class="container">
+                <ul class="list-inline">
+                    <li><a th:href="@{/}">Trang chủ</a></li>
+                    <li>Sự kiện đã đăng ký</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <div class="section-area section-sp1">
+                <div class="container">
+
+                    <div th:if="${#lists.isEmpty(suKiens)}" class="text-center my-5">
+                        <img src="/assets/images/empty.svg" alt="No events" width="180" class="mb-4">
+                        <h5 class="text-muted">Bạn chưa đăng ký tham gia sự kiện nào.</h5>
+                        <a th:href="@{/sukien}" class="btn btn-primary mt-3">
+                            <i class="bi bi-search"></i> Khám phá sự kiện
+                        </a>
+                    </div>
+
+                    <div th:unless="${#lists.isEmpty(suKiens)}" class="row g-4">
+                        <div class="col-lg-4 col-md-6 col-sm-12" th:each="sk : ${suKiens}">
+                            <div class="card event-card h-100">
+                                <img th:src="${sk.anh}" alt="Ảnh sự kiện"
+                                     class="event-img"
+                                     onerror="this.src='/assets/images/default-event.jpg'">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary fw-bold" th:text="${sk.tenSuKien}"></h5>
+                                    <p class="card-text text-muted mb-2">
+                                        <i class="bi bi-clock"></i>
+                                        <span th:text="${#temporals.format(sk.thoiGianBatDau, 'dd/MM/yyyy HH:mm')}"></span>
+                                    </p>
+                                    <p class="card-text text-muted">
+                                        <i class="bi bi-geo-alt"></i>
+                                        <span th:text="${sk.diaChi}"></span>
+                                    </p>
+                                    <a class="btn btn-outline-primary btn-sm"
+                                       th:href="@{'/Sukien/' + ${sk.id} + '/' + ${sk.biDanh} + '.html'}">
+                                        <i class="bi bi-eye"></i> Xem chi tiết
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

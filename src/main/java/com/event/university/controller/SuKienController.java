@@ -79,6 +79,13 @@ public class SuKienController {
 		model.addAttribute("suKiens", suKiens);
 		return "event/myevents";
 	}
+	
+	@GetMapping("/sukiendadangky")
+	public String suKienDaDangKy(@AuthenticationPrincipal NguoiDung nguoiDung, Model model) {
+	    List<SuKien> suKiens = danhSachThamGiaService.getSuKienDaDangKy(nguoiDung);
+	    model.addAttribute("suKiens", suKiens);
+	    return "event/sukiendadangky"; 
+	}
 
 	@GetMapping("/sukiencuatoi/create")
 	public String createMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, Model model) {

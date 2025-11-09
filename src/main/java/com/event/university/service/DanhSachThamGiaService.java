@@ -54,5 +54,11 @@ public class DanhSachThamGiaService {
 	public void removeNguoiDungKhoiSuKien(Integer suKienId, Integer nguoiDungId) {
 		danhSachThamGiaRepository.deleteBySuKien_IdAndNguoiDung_Id(nguoiDungId, suKienId);
 	}
-
+	
+	public List<SuKien> getSuKienDaDangKy(NguoiDung nguoiDung) {
+        List<DanhSachThamGia> thamGiaList = danhSachThamGiaRepository.findByNguoiDung(nguoiDung);
+        return thamGiaList.stream()
+                .map(DanhSachThamGia::getSuKien)
+                .toList();
+    }
 }
