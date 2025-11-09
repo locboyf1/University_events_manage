@@ -82,7 +82,8 @@ public class SuKienService {
 		suKien.setHienThi(!suKien.isHienThi());
 		suKienRepository.save(suKien);
 	}
-	public List<SuKien> search(String keyword){
+
+	public List<SuKien> search(String keyword) {
 		LocalDateTime now = LocalDateTime.now();
 		if (keyword == null || keyword.trim().isEmpty()) {
 			keyword = "";

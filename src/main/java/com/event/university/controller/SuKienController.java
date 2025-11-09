@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.event.university.entity.DanhMucSuKien;
+import com.event.university.entity.DanhSachThamGia;
 import com.event.university.entity.NguoiDung;
 import com.event.university.entity.SuKien;
 import com.event.university.service.DanhMucSuKienService;
+import com.event.university.service.DanhSachThamGiaService;
+import com.event.university.service.NguoiDungService;
 import com.event.university.service.SuKienService;
 
 @Controller
@@ -29,6 +32,12 @@ public class SuKienController {
 	@Autowired
 	private DanhMucSuKienService danhMucSuKienService;
 
+	@Autowired
+	DanhSachThamGiaService danhSachThamGiaService;
+
+	@Autowired
+	NguoiDungService nguoiDungService;
+
 	@GetMapping({ "/sukien", "/Sukien" })
 	public String index(Model model) {
 		List<SuKien> suKiens = suKienService.getDisplaySorted();
@@ -39,13 +48,27 @@ public class SuKienController {
 	}
 
 	@GetMapping("/Sukien/{id}/{biDanh}.html")
-	public String detail(@PathVariable Integer id, @PathVariable String biDanh, Model model) {
+	public String detail(@PathVariable Integer id, @PathVariable String biDanh, Model model, @AuthenticationPrincipal NguoiDung nguoiDungHienTai) {
+
 		SuKien suKien = suKienService.getById(id).orElse(null);
 		if (suKien == null) {
 			return "event/index";
 		}
 
+		Boolean daDangKy = null;
+		if (nguoiDungHienTai != null) {
+			NguoiDung nguoiDung = nguoiDungService.findById(nguoiDungHienTai.getId());
+			DanhSachThamGia danhSach = danhSachThamGiaService.findBySuKienAndNguoiDung(suKien, nguoiDungHienTai).orElse(null);
+
+			if (danhSach != null) {
+				daDangKy = true;
+			} else {
+				daDangKy = false;
+			}
+		}
+
 		model.addAttribute("suKien", suKien);
+		model.addAttribute("daDangKy", daDangKy);
 
 		return "event/detail";
 	}
@@ -68,8 +91,7 @@ public class SuKienController {
 	}
 
 	@PostMapping("/sukiencuatoi/create")
-	public String createMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, @ModelAttribute SuKien suKien,
-			MultipartFile fileAnh) throws IOException {
+	public String createMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, @ModelAttribute SuKien suKien, MultipartFile fileAnh) throws IOException {
 		suKien.setNguoiDung(nguoiDung);
 		suKienService.create(suKien, fileAnh);
 		return "redirect:/sukiencuatoi";
@@ -85,8 +107,7 @@ public class SuKienController {
 	}
 
 	@PostMapping("/sukiencuatoi/update")
-	public String updateMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, @ModelAttribute SuKien suKien,
-			MultipartFile fileAnh) throws IOException {
+	public String updateMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, @ModelAttribute SuKien suKien, MultipartFile fileAnh) throws IOException {
 		suKienService.update(suKien, fileAnh);
 		return "redirect:/sukiencuatoi";
 	}
@@ -96,6 +117,7 @@ public class SuKienController {
 		suKienService.hiddenShow(id);
 		return "redirect:/sukiencuatoi";
 	}
+
 	@PostMapping("/sukien/timkiem")
 	public String search(@RequestParam String keyword, Model model) {
 		List<SuKien> suKiens = suKienService.search(keyword);

@@ -5,75 +5,108 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div layout:fragment="content">
-    <div class="page-content bg-white">
-        <div class="page-banner ovbl-dark" style="background-image:url(@{/assets/images/banner/banner1.jpg});">
-            <div class="container">
-                <div class="page-banner-entry">
-                    <h1 class="text-white" th:text="${suKien.danhMucSuKien.tenDanhMuc}">Courses Details</h1>
-				 </div>
-            </div>
-        </div>
-		<div class="breadcrumb-row">
-			<div class="container">
-				<ul class="list-inline">
-					<li><a href="@{/}">Trang chủ</a></li>
-					<li>Danh sách sự kiện</li>
-					<li th:text="${suKien.tenSuKien}"></li>
-				</ul>
+	<div layout:fragment="content">
+		<div class="page-content bg-white">
+			<div class="page-banner ovbl-dark"
+				style="background-image: url(@{/assets/images/banner/banner1.jpg});">
+				<div class="container">
+					<div class="page-banner-entry">
+						<h1 class="text-white"
+							th:text="${suKien.danhMucSuKien.tenDanhMuc}">Courses Details</h1>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="content-block">
-            <div class="section-area section-sp1">
-                <div class="container">
-					 <div class="row">
-						<div class="col-lg-8 col-md-7 col-sm-12">
-							<div class="courses-post">
-								<div class="ttr-post-media media-effect">
-									<a href="#"><img th:src="${suKien.anh}" alt=""></a>
+			<div class="breadcrumb-row">
+				<div class="container">
+					<ul class="list-inline">
+						<li><a href="@{/}">Trang chủ</a></li>
+						<li>Danh sách sự kiện</li>
+						<li th:text="${suKien.tenSuKien}"></li>
+					</ul>
+				</div>
+			</div>
+			<div class="content-block">
+				<div class="section-area section-sp1">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-8 col-md-7 col-sm-12">
+								<div class="courses-post">
+									<div class="ttr-post-media media-effect">
+										<a href="#"><img th:src="${suKien.anh}" alt=""></a>
+									</div>
+									<div class="ttr-post-info">
+										<div class="ttr-post-title ">
+											<h2 class="post-title" th:text="${suKien.tenSuKien}">Good
+												Intentions or Good Results?</h2>
+										</div>
+										<div class="ttr-post-text">
+											<p th:utext="${suKien.moTa}">Lorem Ipsum is simply dummy
+												text of the printing and typesetting industry. Lorem Ipsum
+												has been the industry's standard dummy text ever since the
+												1500s, when an unknown printer took a galley of type and
+												scrambled it to make a type specimen book.</p>
+										</div>
+									</div>
 								</div>
-								<div class="ttr-post-info">
-									<div class="ttr-post-title ">
-										<h2 class="post-title" th:text="${suKien.tenSuKien}">Good Intentions or Good Results?</h2>
-									</div>
-									<div class="ttr-post-text">
-										<p th:utext="${suKien.moTa}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
+								<div class="courese-overview" id="overview">
+									<div class="row" th:utext="${suKien.noiDung}"></div>
 								</div>
 							</div>
-							<div class="courese-overview" id="overview">
-								<div class="row" th:utext="${suKien.noiDung}">
-									
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-5 col-sm-12 m-b30">
-							<div class="bg-primary text-white contact-info-bx m-b30">
-								<h2 class="m-b10 title-head">Hãy tham dự <span>Đừng bỏ qua</span></h2>
-								<p th:utext="${suKien.moTa}">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-								<div class="widget widget_getintuch">	
-									<ul>
-										<li><i class="ti-location-pin"></i><span th:text="${suKien.diaChi}">75k Newcastle St. Ponte Vedra Beach, FL 309382 New York</span></li>
-										<li><i class="ti-mobile"></i><span th:text="${suKien.sdtHoTro}">0800-123456 (24/7 Support Line)</span></li>
-										<li><i class="ti-email"></i><span th:text="${suKien.emailHoTro}">info@example.com</span></li>
-										<li><button class="btn">Đăng ký ngay</button></li>
+							<div class="col-lg-4 col-md-5 col-sm-12 m-b30">
+								<div class="bg-primary text-white contact-info-bx m-b30">
+									<h2 class="m-b10 title-head">
+										Hãy tham dự <span>Đừng bỏ qua</span>
+									</h2>
+									<p th:utext="${suKien.moTa}">Lorem Ipsum is simply dummy
+										text of the printing and typesetting industry.</p>
+									<div class="widget widget_getintuch">
+										<ul>
+											<li><i class="ti-location-pin"></i><span
+												th:text="${suKien.diaChi}">75k Newcastle St. Ponte
+													Vedra Beach, FL 309382 New York</span></li>
+											<li><i class="ti-mobile"></i><span
+												th:text="${suKien.sdtHoTro}">0800-123456 (24/7
+													Support Line)</span></li>
+											<li><i class="ti-email"></i><span
+												th:text="${suKien.emailHoTro}">info@example.com</span></li>
+											<li th:if="${!suKien.batBuoc}" )
+												sec:authorize="isAuthenticated()">
+												<form th:action="@{/dangkythamgia}" method="post"
+													th:if="${daDangKy == false}">
+													<input type="hidden" name="id" th:value="${suKien.id}" />
+													<button type="submit" class="btn">Đăng ký ngay</button>
+												</form>
+												<form th:action="@{/huydangkythamgia}" method="post"
+													th:if="${daDangKy == true}">
+													<input type="hidden" name="id" th:value="${suKien.id}" />
+													<button type="submit" class="btn btn-secondary">Hủy đăng ký</button>
+												</form>
+											</li>
+										</ul>
+									</div>
+									<h5 class="m-t0 m-b20">Follow Us</h5>
+									<ul class="list-inline contact-social-bx">
+										<li><a href="#" class="btn outline radius-xl"><i
+												class="fa fa-facebook"></i></a></li>
+										<li><a href="#" class="btn outline radius-xl"><i
+												class="fa fa-twitter"></i></a></li>
+										<li><a href="#" class="btn outline radius-xl"><i
+												class="fa fa-linkedin"></i></a></li>
+										<li><a href="#" class="btn outline radius-xl"><i
+												class="fa fa-google-plus"></i></a></li>
 									</ul>
 								</div>
-								<h5 class="m-t0 m-b20">Follow Us</h5>
-								<ul class="list-inline contact-social-bx">
-									<li><a href="#" class="btn outline radius-xl"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#" class="btn outline radius-xl"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#" class="btn outline radius-xl"><i class="fa fa-linkedin"></i></a></li>
-									<li><a href="#" class="btn outline radius-xl"><i class="fa fa-google-plus"></i></a></li>
-								</ul>
+								<iframe
+									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3448.1298878182047!2d-81.38369578541523!3d30.204840081824198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e437ac927a996b%3A0x799695b1a2b970ab!2sNona+Blue+Modern+Tavern!5e0!3m2!1sen!2sin!4v1548177305546"
+									class="align-self-stretch d-flex"
+									style="width: 100%; min-width: 100%; min-height: 400px;"
+									allowfullscreen></iframe>
 							</div>
-							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3448.1298878182047!2d-81.38369578541523!3d30.204840081824198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e437ac927a996b%3A0x799695b1a2b970ab!2sNona+Blue+Modern+Tavern!5e0!3m2!1sen!2sin!4v1548177305546" class="align-self-stretch d-flex" style="width:100%; min-width:100%; min-height:400px;" allowfullscreen></iframe>
 						</div>
 					</div>
 				</div>
-            </div>
-        </div>
+			</div>
 		</div>
-</div>
+	</div>
 </body>
 </html>

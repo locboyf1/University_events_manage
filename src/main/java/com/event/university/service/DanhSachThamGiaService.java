@@ -26,6 +26,10 @@ public class DanhSachThamGiaService {
 		return danhSachThamGiaRepository.findBySuKien_Id(suKienId);
 	}
 
+	public Optional<DanhSachThamGia> findBySuKienAndNguoiDung(SuKien suKien, NguoiDung nguoiDung) {
+		return danhSachThamGiaRepository.findBySuKienAndNguoiDung(suKien, nguoiDung);
+	}
+
 	public void addNguoiDungVaoSuKien(NguoiDung nguoiDung, Integer suKienId) {
 		Optional<SuKien> suKienOpt = suKienRepository.findById(suKienId);
 		if (suKienOpt.isEmpty()) {

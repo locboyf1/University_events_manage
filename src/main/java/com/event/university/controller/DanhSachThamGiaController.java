@@ -41,7 +41,7 @@ public class DanhSachThamGiaController {
 		}
 		SuKien suKien = optionalSuKien.get();
 		List<DanhSachThamGia> danhSachThamGia = danhSachThamGiaService.getBySuKienId(suKienId);
-		List<NguoiDung> nguoiDungList = nguoiDungService.findSinhVienHoatDong(); 
+		List<NguoiDung> nguoiDungList = nguoiDungService.findSinhVienHoatDong();
 
 		model.addAttribute("suKien", suKien);
 		model.addAttribute("danhSachThamGia", danhSachThamGia);
@@ -60,19 +60,18 @@ public class DanhSachThamGiaController {
 
 		SuKien suKien = optionalSuKien.get();
 		List<DanhSachThamGia> danhSachThamGia = danhSachThamGiaService.getBySuKienId(suKienId);
-		List<NguoiDung> nguoiDungList = nguoiDungService.getAll(); 
+		List<NguoiDung> nguoiDungList = nguoiDungService.getAll();
 
 		model.addAttribute("suKien", suKien);
 		model.addAttribute("danhSachThamGia", danhSachThamGia);
-		model.addAttribute("nguoiDungList", nguoiDungList); 
+		model.addAttribute("nguoiDungList", nguoiDungList);
 		model.addAttribute("showForm", true);
 
 		return "admin/events/detail";
 	}
 
 	@PostMapping("/add-member")
-	public String addMemberToEvent(@RequestParam Integer suKienId, @RequestParam String taiKhoan,
-			RedirectAttributes redirectAttributes) {
+	public String addMemberToEvent(@RequestParam Integer suKienId, @RequestParam String taiKhoan, RedirectAttributes redirectAttributes) {
 
 		try {
 			Optional<NguoiDung> nguoiDungOpt = nguoiDungService.findByTaiKhoan(taiKhoan);
