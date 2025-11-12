@@ -37,7 +37,7 @@
 									<th scope="col">Địa điểm</th>
 									<th scope="col">Ảnh</th>
 									<th scope="col">Trạng thái</th>
-									<th scope="col">Hành động</th>
+									<th class="" scope="col">Hành động</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -54,10 +54,10 @@
 									<td><div
 											th:class="${suKien.duyet} ? 'alert alert-success' : 'alert alert-danger'"
 											th:utext="${suKien.duyet} ? '<i class=\'fa fa-check\' ></i><br> Đã được duyệt' : '<i class=\'fa fa-exclamation\' ></i> <br> Đang chờ duyệt'">Duyệt</div></td>
-									<td><a class="btn button-sm blue"
+									<td><a class="btn button-sm blue w-100	"
 										th:href="@{/sukiencuatoi/update/{id}(id=${suKien.id})}">Sửa</a>
 										<form th:action="@{sukiencuatoi/hidden}" method="post">
-										<input th:name="id" th:value="${suKien.id}" type="hidden" />
+											<input th:name="id" th:value="${suKien.id}" type="hidden" />
 											<button
 												th:class="${suKien.hienThi} ? 'btn button-sm yellow' : 'btn button-sm red' "
 												th:utext="${suKien.hienThi}? '<i class=\'fa fa-unlock\' ></i> Đang hiện' : '<i class=\'fa fa-lock\' ></i> Đã ẩn'">Hiện</button>
