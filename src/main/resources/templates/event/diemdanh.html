@@ -3,100 +3,68 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Điểm danh</title>
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="page-content bg-white">
-			<!-- Main Slider -->
-			<div class="page-banner ovbl-dark"
-				th:style="'background-image:url(' + @{/assets/images/banner/banner2.jpg} + ');'">
-				<div class="container">
-					<div class="page-banner-entry">
-						<h1 class="text-white">Sự kiện</h1>
+		<div class="content-block">
+			<div class="section-area section-sp2 popular-courses-bx">
+
+				<form th:action="@{/diemdanh/{id}(id=${thamGia.id})}" method="post"
+					id="formdiemdanh"
+					class="container d-flex flex-column align-items-center bg-secondary rounded text-light">
+
+					<h2 class="mt-5">Điểm danh</h2>
+					<div class="align-self-start m-3"
+						th:text="${'Sự kiện: ' + suKien.tenSuKien}"></div>
+					<video id="video" autoplay class="col-sm-10 col-lg-5"></video>
+					<canvas id="khung" style="display: none;"></canvas>
+
+					<input type="hidden" id="theInputAnh" name="anhBase64" />
+					<div class="m-3">
+						<button id="nut" type="button" class="btn mr-3">Điểm
+							danh</button>
+						<a th:href="@{/sukiencuatoi}" class="btn black">Quay lại</a>
 					</div>
-				</div>
-			</div>
-			<div class="breadcrumb-row">
-				<div class="container">
-					<ul class="list-inline">
-						<li><a th:href="@{/}">Trang chủ</a></li>
-						<li>Sự kiện</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="content-block">
-				<!-- Popular Courses -->
-				<div class="section-area section-sp2 popular-courses-bx">
-					<div
-						class="container d-flex flex-column align-items-center bg-secondary rounded text-light">
-						<h2 class="mt-5">Điểm danh</h2>
-						<div class="align-self-start m-3"
-							th:text="${'Sự kiện: ' + suKien.tenSuKien}"></div>
-						<video id="video-stream" autoplay class="col-sm-10 col-lg-5"></video>
-
-						<canvas id="canvas" style="display: none;"></canvas>
-
-						<div class="m-3">
-							<button id="capture-btn" type="submit" class="btn mr-3">Điểm
-								danh</button>
-							<a th:href="@{/sukiencuatoi}" class="btn black">Quay lại</a>
-						</div>
-						<div id="status" class="text-danger"></div>
-
-					</div>
-				</div>
-				<!-- contact area END -->
+				</form>
 			</div>
 		</div>
-		<!-- Content END-->
 	</div>
 
 	<script type="text/javascript" layout:fragment="scripts">
     document.addEventListener('DOMContentLoaded', function() {
+        const video = document.getElementById('video');
+        const khung = document.getElementById('khung');
+        const btn = document.getElementById('nut');
         
-        const video = document.getElementById('video-stream');
-        const canvas = document.getElementById('canvas');
-        const captureButton = document.getElementById('capture-btn');
-        const statusDiv = document.getElementById('status');
+        const formDD = document.getElementById('formdiemdanh');
+        const theInputAnh = document.getElementById('theInputAnh');
+
         async function startCamera() {
-            try {
                 const stream = await navigator.mediaDevices.getUserMedia({ 
                     video: { facingMode: "user" }, 
                     audio: false 
                 });
                 video.srcObject = stream;
-            } catch (err) {
-                statusDiv.innerHTML = "Không thể truy cập camera. ";
-            }
         }
-        captureButton.addEventListener('click', () => {
 
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const context = canvas.getContext('2d');
-            context.translate(canvas.width, 0);
+        btn.addEventListener('click', () => {
+            btn.disabled = true;
+
+            khung.width = video.videoWidth;
+            khung.height = video.videoHeight;
+            const context = khung.getContext('2d');
+            context.translate(khung.width, 0);
             context.scale(-1, 1);
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            context.drawImage(video, 0, 0, khung.width, khung.height);
 
-            canvas.toBlob(sendImageAndDataToServer, 'image/jpeg', 0.9);
+            const dataUrl = khung.toDataURL('image/jpeg', 0.9);
+
+            theInputAnh.value = dataUrl;
+            formDD.submit();
         });
-
-        function sendImageAndDataToServer(blob) {
-            statusDiv.innerHTML = "Đang tải ảnh và dữ liệu lên...";
-
-            const formData = new FormData();
-            
-            formData.append('imageFile', blob, 'capture.jpg');
-
-            fetch('/api/upload', {
-                method: 'POST',
-                body: formData
-            })
-        }
-        startCamera();
         
+        startCamera();
     });
     </script>
 </body>

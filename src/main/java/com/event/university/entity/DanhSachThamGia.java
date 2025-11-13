@@ -1,6 +1,10 @@
 package com.event.university.entity;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,13 +20,22 @@ public class DanhSachThamGia {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "masukien", nullable = false)
 	private SuKien suKien;
 
 	@ManyToOne
 	@JoinColumn(name = "manguoidung", nullable = false)
 	private NguoiDung nguoiDung;
+
+	@Column(name = "thoigianthamgia", nullable = false)
+	private LocalDateTime thoiGianThamGia;
+
+	@Column(name = "thoigiandiemdanh", nullable = true)
+	private LocalDateTime thoiGianDiemDanh;
+
+	@Column(name = "anhdiemdanh", columnDefinition = "LONGTEXT", nullable = true)
+	private String anhDiemDanh;
 
 	public DanhSachThamGia() {
 	}
@@ -56,4 +69,27 @@ public class DanhSachThamGia {
 		this.nguoiDung = nguoiDung;
 	}
 
+	public LocalDateTime getThoiGianThamGia() {
+		return thoiGianThamGia;
+	}
+
+	public void setThoiGianThamGia(LocalDateTime thoiGianThamGia) {
+		this.thoiGianThamGia = thoiGianThamGia;
+	}
+
+	public LocalDateTime getThoiGianDiemDanh() {
+		return thoiGianDiemDanh;
+	}
+
+	public void setThoiGianDiemDanh(LocalDateTime thoiGianDiemDanh) {
+		this.thoiGianDiemDanh = thoiGianDiemDanh;
+	}
+
+	public String getAnhDiemDanh() {
+		return anhDiemDanh;
+	}
+
+	public void setAnhDiemDanh(String anhDiemDanh) {
+		this.anhDiemDanh = anhDiemDanh;
+	}
 }
