@@ -235,4 +235,15 @@ public class SuKien {
 		this.duyet = duyet;
 	}
 
+	public Boolean daBatDau() {
+		return LocalDateTime.now().isAfter(this.thoiGianBatDau);
+	}
+
+	public Boolean daKetThuc() {
+		if (this.thoiGianKetThuc == null) {
+			return false;
+		}
+		return LocalDateTime.now().isAfter(this.thoiGianKetThuc);
+	}
+
 }

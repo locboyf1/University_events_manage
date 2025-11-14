@@ -33,6 +33,10 @@ public class DanhSachThamGiaService {
 		return danhSachThamGiaRepository.findBySuKienAndNguoiDung(suKien, nguoiDung);
 	}
 
+	public List<DanhSachThamGia> findByNguoiDung(NguoiDung nguoiDung) {
+		return danhSachThamGiaRepository.findByNguoiDung(nguoiDung);
+	}
+
 	public DanhSachThamGia findById(Integer id) {
 		return danhSachThamGiaRepository.findById(id).orElse(null);
 	}

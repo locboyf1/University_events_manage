@@ -92,4 +92,9 @@ public class DanhSachThamGia {
 	public void setAnhDiemDanh(String anhDiemDanh) {
 		this.anhDiemDanh = anhDiemDanh;
 	}
+
+	public Boolean getDaDiemDanh() {
+		return (this.thoiGianDiemDanh != null && this.anhDiemDanh != null);
+	}
+
 }

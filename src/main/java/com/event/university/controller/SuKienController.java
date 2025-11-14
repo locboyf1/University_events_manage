@@ -79,12 +79,20 @@ public class SuKienController {
 		model.addAttribute("suKiens", suKiens);
 		return "event/myevents";
 	}
-	
+
 	@GetMapping("/sukiendadangky")
 	public String suKienDaDangKy(@AuthenticationPrincipal NguoiDung nguoiDung, Model model) {
-	    List<SuKien> suKiens = danhSachThamGiaService.getSuKienDaDangKy(nguoiDung);
-	    model.addAttribute("suKiens", suKiens);
-	    return "event/sukiendadangky"; 
+		List<SuKien> suKiens = danhSachThamGiaService.getSuKienDaDangKy(nguoiDung).stream().filter(sk -> !sk.daBatDau()).toList();
+
+		List<DanhSachThamGia> daThamGias = danhSachThamGiaService.findByNguoiDung(nguoiDung);
+		List<DanhSachThamGia> daDiemDanhs = daThamGias.stream().filter(ds -> ds.getDaDiemDanh()).filter(ds -> ds.getSuKien().daBatDau()).toList();
+		List<DanhSachThamGia> chuaDiemDanhs = daThamGias.stream().filter(ds -> !ds.getDaDiemDanh()).filter(ds -> ds.getSuKien().daBatDau()).toList();
+
+		model.addAttribute("daDiemDanhs", daDiemDanhs);
+		model.addAttribute("chuaDiemDanhs", chuaDiemDanhs);
+
+		model.addAttribute("suKiens", suKiens);
+		return "event/sukiendadangky";
 	}
 
 	@GetMapping("/sukiencuatoi/create")

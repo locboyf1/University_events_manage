@@ -28,6 +28,10 @@ public class DangKyThamGiaController {
 	@PostMapping("/dangkythamgia")
 	public String register(@RequestParam("id") Integer suKienId, @AuthenticationPrincipal NguoiDung nguoiDungDangDangNhap) {
 
+		if (nguoiDungDangDangNhap == null) {
+			return "redirect:/dangnhap";
+		}
+
 		NguoiDung nguoiDung = nguoiDungService.findById(nguoiDungDangDangNhap.getId());
 		SuKien suKien = suKienService.getById(suKienId).orElse(null);
 
