@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/site}"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Danh sách tham gia</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="page-content bg-white">
+			<!-- Banner -->
+			<div class="page-banner ovbl-dark"
+				style="background-image: url(@{/assets/images/banner/banner1.jpg});">
+				<div class="container">
+					<div class="page-banner-entry">
+						<h1 class="text-white">Danh sách tham gia</h1>
+					</div>
+				</div>
+			</div>
+
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-row">
+				<div class="container">
+					<ul class="list-inline">
+						<li><a th:href="@{/}">Trang chủ</a></li>
+						<li th:text="${suKien.tenSuKien}">tensk</li>
+						<li>Danh sách tham gia</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="content-block">
+				<div class="section-area section-sp1">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-5 col-sm-12">
+								<h5 class="mb-3">Danh sách chưa điểm danh</h5>
+								<table class="table table-striped table-hover table-bordered">
+
+									<thead class="thead-dark">
+										<tr>
+											<th scope="col">Mã sinh viên</th>
+											<th scope="col">Họ tên</th>
+											<th scope="col">Lớp</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="diemDanh : ${chuaDiemDanhs}">
+											<td th:text="${diemDanh.nguoiDung.taiKhoan}">Nguyễn Văn A</td>
+											<td th:text="${diemDanh.nguoiDung.hoTen}" >hoten</td>
+											<td th:text="${diemDanh.nguoiDung.lop.tenLop}" >lop</td>
+										</tr>
+										<tr th:if="${#lists.isEmpty(chuaDiemDanhs)}">
+											<td colspan="3" class="text-center">Không có sự kiện nào
+												chưa điểm danh.</td>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-lg-7 col-sm-12">
+								<h5 class="mb-3">Danh sách đã điểm danh</h5>
+								<table class="table table-striped table-hover table-bordered">
+
+									<thead class="thead-dark">
+										<tr>
+											<th scope="col">Mã sinh viên</th>
+											<th scope="col">Họ tên</th>
+											<th scope="col">Lớp</th>
+											<th scope="col">Ảnh điểm danh</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="diemDanh : ${daDiemDanhs}">
+											<td th:text="${diemDanh.nguoiDung.taiKhoan}">Nguyễn Văn
+												A</td>
+											<td th:text="${diemDanh.nguoiDung.hoTen}">ten</td>
+											<td th:text="${diemDanh.nguoiDung.lop?.tenLop}">lop</td>
+											<td><img th:src="${diemDanh.anhDiemDanh}" width="300" /></td>
+										</tr>
+										<tr th:if="${#lists.isEmpty(daDiemDanhs)}">
+											<td colspan="4" class="text-center">Không có sự kiện nào
+												đã điểm danh.</td>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

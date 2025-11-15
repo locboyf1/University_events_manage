@@ -61,7 +61,9 @@
 											<button
 												th:class="${suKien.hienThi} ? 'btn button-sm yellow' : 'btn button-sm red' "
 												th:utext="${suKien.hienThi}? '<i class=\'fa fa-unlock\' ></i> Đang hiện' : '<i class=\'fa fa-lock\' ></i> Đã ẩn'">Hiện</button>
-										</form></td>
+										</form> <a class="btn button-sm green w-100"
+										th:href="@{/danhsachthamgia/{id}(id = ${suKien.id})}"><i
+											class="fa fa-bars"></i>Danh sách</a>
 								</tr>
 							</tbody>
 						</table>

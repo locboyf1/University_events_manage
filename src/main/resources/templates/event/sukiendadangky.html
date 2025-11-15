@@ -23,7 +23,7 @@
 				<div class="container">
 					<ul class="list-inline">
 						<li><a th:href="@{/}">Trang chủ</a></li>
-						<li>Sự kiện đã đăng ký</li>
+						<li>Sự kiện của tôi</li>
 					</ul>
 				</div>
 			</div>
@@ -91,7 +91,6 @@
 								</table>
 							</div>
 						</div>
-
 						<div class="mt-3">
 							<h5 class="mb-3">Danh sách sự kiện sắp tới</h5>
 							<div th:unless="${#lists.isEmpty(suKiens)}" class="row g-4">
