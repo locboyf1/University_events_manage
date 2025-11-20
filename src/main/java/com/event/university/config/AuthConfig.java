@@ -20,9 +20,7 @@ public class AuthConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/admin/**").hasAuthority("quantrivien").requestMatchers("/", "/trangchu", "/diemdanh", "/dangnhap", "/dangxuat", "/assets/**", "/admins/**", "/testpassword/**", "/api/**", "/thongtin/**").permitAll()
-
-				.anyRequest().authenticated()).formLogin(form -> form.loginPage("/dangnhap").loginProcessingUrl("/dangnhap").defaultSuccessUrl("/trangchu", true).permitAll()).logout(logout -> logout.logoutUrl("/dangxuat").logoutSuccessUrl("/").permitAll()).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
+		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/admin/**").hasAuthority("quantrivien").anyRequest().permitAll()).formLogin(form -> form.loginPage("/dangnhap").loginProcessingUrl("/dangnhap").defaultSuccessUrl("/trangchu", true).permitAll()).logout(logout -> logout.logoutUrl("/dangxuat").logoutSuccessUrl("/").permitAll()).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
 
 		return http.build();
 	}

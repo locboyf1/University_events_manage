@@ -58,7 +58,7 @@ public class SuKienController {
 		Boolean daDangKy = null;
 		if (nguoiDungHienTai != null) {
 			NguoiDung nguoiDung = nguoiDungService.findById(nguoiDungHienTai.getId());
-			DanhSachThamGia danhSach = danhSachThamGiaService.findBySuKienAndNguoiDung(suKien, nguoiDungHienTai).orElse(null);
+			DanhSachThamGia danhSach = danhSachThamGiaService.findBySuKienAndNguoiDung(suKien, nguoiDung).orElse(null);
 
 			if (danhSach != null) {
 				daDangKy = true;

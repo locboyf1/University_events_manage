@@ -55,7 +55,7 @@
 							<li th:each="sukien: ${suKiens}" class="action-card col-lg-6 col-md-6 col-sm-12" th:classappend="${sukien.danhMucSuKien.biDanh}">
 								<div class="event-bx m-b30">
 									<div class="action-box">
-										<img th:src="@{${sukien.anh}}" alt="">
+										<img th:src="${sukien.anh}" alt="">
 									</div>
 									<div class="info-bx d-flex">
 										<div>
@@ -67,7 +67,7 @@
 										<div class="event-info">
 											<h4 class="event-title"><a th:href="@{/Sukien/{id}/{biDanh}.html(id=${sukien.id}, biDanh=${sukien.biDanh})}" th:text="${sukien.tenSuKien}">Đây là tiêu đề</a></h4>
 											<ul class="media-post">
-												<li><a href="#"><i class="fa fa-clock-o"></i ><span th:text="${#temporals.format(sukien.thoiGianBatDau, 'hh:mm')}"></span></a></li>
+												<li><a href="#"><i class="fa fa-clock-o"></i ><span th:text="${#temporals.format(sukien.thoiGianBatDau, 'hh:mm a')}"></span></a></li>
 												<li><a href="#"><i class="fa fa-map-marker"></i><span th:text="${sukien.diaChi}"> Địa chỉ</span></a></li>
 											</ul>
 											<p th:text="${sukien.moTa}">Mô tả</p>

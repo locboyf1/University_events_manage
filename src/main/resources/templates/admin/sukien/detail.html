@@ -127,15 +127,6 @@
 							</table>
 						</div>
 
-						<!--<div class="mt-4">
-							<a th:href="@{'/admin/events/update/' + ${suKien.id}}"  class="btn btn-primary">Chỉnh sửa</a>
-							<a
-								th:href="@{/admin/events}" class="btn btn-secondary">Quay
-								lại</a>
-							
-								 
-						</div>-->
-
 						<form th:action="@{/admin/sukien/add-member}" method="post"
 							class="mt-3" th:if="${showForm}">
 							<input type="hidden" name="suKienId" th:value="${suKien.id}" />
