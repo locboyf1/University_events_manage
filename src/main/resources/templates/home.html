@@ -76,13 +76,12 @@
 								<div class="item" th:each="sukien: ${suKiens}">
 									<div class="cours-bx">
 										<div class="action-box">
-											<img th:src="${sukien.anh}" alt=""> <a href="#"
+											<a  th:href="@{/Sukien/{id}/{biDanh}.html(id=${sukien.id}, biDanh=${sukien.biDanh})}"><img th:src="${sukien.anh}" alt=""> </a><a href="#"
 												class="btn">Read More</a>
 										</div>
 										<div class="info-bx text-center">
 											<h5>
-												<a href="#" th:text="${sukien.tenSuKien}">Introduction
-													EduChamp – LMS plugin</a>
+												<a th:href="@{/Sukien/{id}/{biDanh}.html(id=${sukien.id}, biDanh=${sukien.biDanh})}" th:text="${sukien.tenSuKien}">Tên sự kiện</a>
 											</h5>
 										</div>
 										<div class="cours-more-info">

@@ -5,83 +5,94 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div layout:fragment="content">
-    <div class="page-content bg-white">
-        <div class="page-banner ovbl-dark" th:style="'background-image:url(' + @{/assets/images/banner/banner2.jpg} + ');'">
-            <div class="container">
-                <div class="page-banner-entry">
-                    <h1 class="text-white">Events</h1>
-				 </div>
-            </div>
-        </div>
-		<div class="breadcrumb-row">
-			<div class="container">
-				<ul class="list-inline">
-					<li><a th:href="@{/}">Trang chủ</a></li>
-					<li>Events</li>
-				</ul>
-			</div>
-		</div>
-		<div class="content-block">
-			<div class="section-area section-sp1 gallery-bx">
+	<div layout:fragment="content">
+		<div class="page-content bg-white">
+			<div class="page-banner ovbl-dark"
+				th:style="'background-image:url(' + @{/assets/images/banner/banner2.jpg} + ');'">
 				<div class="container">
-					<div class="feature-filters clearfix center m-b40">
-						<ul class="filters" data-toggle="buttons">
-							<li data-filter="" class="btn active">
-								<input type="radio">
-								<a href="#"><span>Tất cả</span></a> 
-							</li>
-							<li th:each="danhmuc: ${danhMucSuKiens}" th:data-filter="${danhmuc.biDanh}" class="btn">
-								<input type="radio">
-								<a href="#"><span th:text="${danhmuc.tenDanhMuc}">Danh mục</span></a> 
-							</li>
-
-						</ul>
-					</div>
-					<form th:action="@{/sukien/timkiem}" method="post">
-					    <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm sự kiện..." th:value="${keyword}">
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
-                        </div>
-					</form>
-					<br/>
-					<div class="clearfix">
-						<ul id="masonry" class="ttr-gallery-listing magnific-image row">
-							<li th:each="sukien: ${suKiens}" class="action-card col-lg-6 col-md-6 col-sm-12" th:classappend="${sukien.danhMucSuKien.biDanh}">
-								<div class="event-bx m-b30">
-									<div class="action-box">
-										<img th:src="@{${sukien.anh}}" alt="">
-									</div>
-									<div class="info-bx d-flex">
-										<div>
-											<div class="event-time">
-												<div class="event-date" th:text="${#temporals.format(sukien.thoiGianBatDau, 'dd')}"></div>
-												<div class="event-month" th:text="'Tháng ' + ${#temporals.format(sukien.thoiGianBatDau, 'MM')}"></div>
-											</div>
-										</div>
-										<div class="event-info">
-											<h4 class="event-title"><a th:href="@{/Sukien/{id}/{biDanh}.html(id=${sukien.id}, biDanh=${sukien.biDanh})}" th:text="${sukien.tenSuKien}">Đây là tiêu đề</a></h4>
-											<ul class="media-post">
-												<li><a href="#"><i class="fa fa-clock-o"></i ><span th:text="${#temporals.format(sukien.thoiGianBatDau, 'hh:mm')}"></span></a></li>
-												<li><a href="#"><i class="fa fa-map-marker"></i><span th:text="${sukien.diaChi}"> Địa chỉ</span></a></li>
-											</ul>
-											<p th:text="${sukien.moTa}">Mô tả</p>
-										</div>
-									</div>
-								</div>
-							</li>
-				
-						</ul>
+					<div class="page-banner-entry">
+						<h1 class="text-white">Events</h1>
 					</div>
 				</div>
 			</div>
-        </div>
+			<div class="breadcrumb-row">
+				<div class="container">
+					<ul class="list-inline">
+						<li><a th:href="@{/}">Trang chủ</a></li>
+						<li>Events</li>
+					</ul>
+				</div>
+			</div>
+			<div class="content-block">
+				<div class="section-area section-sp1 gallery-bx">
+					<div class="container">
+						<div class="feature-filters clearfix center m-b40">
+							<ul class="filters" data-toggle="buttons">
+								<li data-filter="" class="btn active"><input type="radio">
+									<a href="#"><span>Tất cả</span></a></li>
+								<li th:each="danhmuc: ${danhMucSuKiens}"
+									th:data-filter="${danhmuc.biDanh}" class="btn"><input
+									type="radio"> <a href="#"><span
+										th:text="${danhmuc.tenDanhMuc}">Danh mục</span></a></li>
+
+							</ul>
+						</div>
+						<form th:action="@{/sukien/timkiem}" method="post">
+							<div class="row">
+								<div class="col-md-4"></div>
+								<div class="col-md-4">
+									<input type="text" name="keyword" class="form-control"
+										placeholder="Tìm kiếm sự kiện..." th:value="${keyword}">
+								</div>
+								<div class="col-md-4">
+									<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+								</div>
+							</div>
+						</form>
+						<br />
+						<div class="clearfix">
+							<ul id="masonry" class="ttr-gallery-listing magnific-image row">
+								<li th:each="sukien: ${suKiens}"
+									class="action-card col-lg-6 col-md-6 col-sm-12"
+									th:classappend="${sukien.danhMucSuKien.biDanh}">
+									<div class="event-bx m-b30">
+										<div class="action-box">
+											<a
+												th:href="@{/Sukien/{id}/{biDanh}.html(id=${sukien.id}, biDanh=${sukien.biDanh})}"><img
+												th:src="@{${sukien.anh}}" alt=""></a>
+										</div>
+										<div class="info-bx d-flex">
+											<div>
+												<div class="event-time">
+													<div class="event-date"
+														th:text="${#temporals.format(sukien.thoiGianBatDau, 'dd')}"></div>
+													<div class="event-month"
+														th:text="'Tháng ' + ${#temporals.format(sukien.thoiGianBatDau, 'MM')}"></div>
+												</div>
+											</div>
+											<div class="event-info">
+												<h4 class="event-title">
+													<a
+														th:href="@{/Sukien/{id}/{biDanh}.html(id=${sukien.id}, biDanh=${sukien.biDanh})}"
+														th:text="${sukien.tenSuKien}">tên sự kiện</a>
+												</h4>
+												<ul class="media-post">
+													<li><a href="#"><i class="fa fa-clock-o"></i><span
+															th:text="${#temporals.format(sukien.thoiGianBatDau, 'hh:mm')}"></span></a></li>
+													<li><a href="#"><i class="fa fa-map-marker"></i><span
+															th:text="${sukien.diaChi}"> Địa chỉ</span></a></li>
+												</ul>
+												<p th:text="${sukien.moTa}">Mô tả</p>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-</div>
+	</div>
 </body>
 </html>
