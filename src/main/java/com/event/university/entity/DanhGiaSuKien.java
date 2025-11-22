@@ -1,5 +1,7 @@
 package com.event.university.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,8 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "danhgiasukien")
 public class DanhGiaSuKien {
 
 	@Id
@@ -16,10 +20,7 @@ public class DanhGiaSuKien {
 	private Integer id;
 
 	@Column(name = "sosao", nullable = false)
-	private Integer soSao;
-
-	@Column(name = "noidung", nullable = false)
-	private String noiDung;
+	private Float soSao;
 
 	@ManyToOne()
 	@JoinColumn(name = "masukien", nullable = false)
@@ -28,29 +29,31 @@ public class DanhGiaSuKien {
 	@ManyToOne()
 	@JoinColumn(name = "manguoidung", nullable = false)
 	private NguoiDung nguoiDung;
-
+	
+	@Column(name = "thoigian", nullable = false)
+	private LocalDateTime thoiGian;
+	
+	public DanhGiaSuKien() {
+	}
+	
 	public Integer getId() {
 		return id;
 	}
-
+	public LocalDateTime getThoiGian() {
+		return thoiGian;
+	}
+    public void setThoiGian(LocalDateTime thoiGian) {
+		this.thoiGian = thoiGian;
+	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Integer getSoSao() {
-		return soSao;
+	public Float getSoSao() {
+	    return soSao;
 	}
-
-	public void setSoSao(Integer soSao) {
-		this.soSao = soSao;
-	}
-
-	public String getNoiDung() {
-		return noiDung;
-	}
-
-	public void setNoiDung(String noiDung) {
-		this.noiDung = noiDung;
+	public void setSoSao(Float soSao) {
+	    this.soSao = soSao;
 	}
 
 	public SuKien getSuKien() {

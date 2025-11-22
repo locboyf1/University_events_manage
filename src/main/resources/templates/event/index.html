@@ -10,8 +10,9 @@
 			<div class="page-banner ovbl-dark"
 				th:style="'background-image:url(' + @{/assets/images/banner/banner2.jpg} + ');'">
 				<div class="container">
+
 					<div class="page-banner-entry">
-						<h1 class="text-white">Events</h1>
+						<h1 class="text-white">Sự kiện</h1>
 					</div>
 				</div>
 			</div>
@@ -19,7 +20,7 @@
 				<div class="container">
 					<ul class="list-inline">
 						<li><a th:href="@{/}">Trang chủ</a></li>
-						<li>Events</li>
+						<li>Sự kiện</li>
 					</ul>
 				</div>
 			</div>
@@ -83,9 +84,17 @@
 															th:text="${sukien.diaChi}"> Địa chỉ</span></a></li>
 												</ul>
 												<p th:text="${sukien.moTa}">Mô tả</p>
+												<div class="star-rating mb-2">
+													<i class="fa fa-star text-warning"></i> <i
+														class="fa fa-star text-warning"></i> <i
+														class="fa fa-star text-warning"></i> <i
+														class="fa fa-star text-warning"></i> <i
+														class="fa fa-star text-warning"></i>
+														<span class="ml-2">(5.0)</span>
+												</div>
 											</div>
 										</div>
-									</div>
+									</div>		
 								</li>
 							</ul>
 						</div>

@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "binhluanbaiviet")
@@ -22,6 +24,8 @@ public class BinhLuanBaiViet {
 	@Column(name = "thoigian", nullable = false)
 	private LocalDateTime thoiGian;
 
+	@NotBlank(message = "Vui lòng nhập nội dung bình luận")
+	@Size(max = 500, message = "Nội dung bình luận khộng được quá dài")
 	@Column(name = "noidung", length = 500, nullable = false)
 	private String noiDung;
 
@@ -75,4 +79,5 @@ public class BinhLuanBaiViet {
 	public void setBaiViet(BaiViet baiViet) {
 		this.baiViet = baiViet;
 	}
+
 }

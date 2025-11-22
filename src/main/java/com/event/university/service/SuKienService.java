@@ -24,6 +24,9 @@ public class SuKienService {
 	public List<SuKien> getAllSuKien() {
 		return suKienRepository.findAll();
 	}
+	public SuKien findById(Integer id) {
+	    return suKienRepository.findById(id).orElse(null);
+	}
 
 	public List<SuKien> getDisplaySorted() {
 		return suKienRepository.findByHienThiTrueAndDuyetTrueOrderByThoiGianBatDauDesc();

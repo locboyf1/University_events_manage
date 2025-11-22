@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/site}">
+
+<head>
+<meta charset="UTF-8">
+<title>Bài viết</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="page-content bg-white">
+			<div class="page-banner ovbl-dark"
+				th:style="|background-image:url(@{/assets/images/banner/banner1.jpg});|">
+				<div class="container">
+					<div class="page-banner-entry">
+						<h1 class="text-white">Bài viết</h1>
+					</div>
+				</div>
+			</div>
+
+			<div class="breadcrumb-row">
+				<div class="container">
+					<ul class="list-inline">
+						<li><a th:href="@{/}">Trang chủ</a></li>
+						<li>Bài viết</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="content-block">
+				<div class="section-area section-sp1">
+					<div class="container">
+						<form th:action="@{/baiviet}" method="get" class="mb-4">
+							<div class="row justify-content-center">
+								<div class="col-md-6 col-sm-12">
+									<div class="input-group">
+										<input name="keyword" class="form-control"
+											placeholder="Nhập từ khóa muốn tìm" type="text"
+											th:value="${keyword}"> <span class="input-group-btn">
+											<button type="submit" class="btn btn-primary">
+												<i class="fa fa-search"></i> Tìm kiếm
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="row">
+							<div class="col-12">
+
+								<div id="masonry" class="ttr-blog-grid-3 row">
+									<div th:if="${truyVan.content.size() == 0}">
+										<h5>Ở đây không tìm thấy gì cả</h5>
+										<p>
+											<a th:href="@{/}">Quay lại trang chủ</a>
+										</p>
+									</div>
+
+									<!-- mỗi bài viết là 1 card; ở đây đặt 3 cột trên màn lớn (col-xl-4) -->
+									<div
+										class="post action-card col-xl-4 col-lg-4 col-md-6 col-sm-12 m-b40"
+										th:each="baiViet : ${truyVan.content}">
+										<div class="recent-news">
+											<div class="action-box">
+												<img th:src="${baiViet.anh}" th:alt="${baiViet.tieuDe}">
+											</div>
+											<div class="info-bx">
+												<ul class="media-post">
+													<li><a href="#"><i class="fa fa-calendar"></i><span
+															th:text="${#temporals.format(baiViet.ngayTao, 'dd/MM/yyyy')}"></span></a>
+													</li>
+													<li><a href="#"><i class="fa fa-user"></i><span
+															th:text="${baiViet.nguoiDung.hoTen}"></span></a></li>
+												</ul>
+
+												<h5 class="post-title">
+													<a
+														th:href="@{/baiviet/{id}/{alias}(id=${baiViet.id}, alias=${baiViet.biDanh})}"
+														th:text="${baiViet.tieuDe}"></a>
+												</h5>
+
+												<p th:text="${baiViet.moTa}"></p>
+													<div class="star-rating mb-2">
+														<i class="fa fa-star text-warning"></i> <i
+															class="fa fa-star text-warning"></i> <i
+															class="fa fa-star text-warning"></i> <i
+															class="fa fa-star text-warning"></i> <i
+															class="fa fa-star text-warning"></i>
+															<span class="ml-2">(5.0)</span>
+													</div>
+												<div class="post-extra">
+													<a
+														th:href="@{/baiviet/{id}/{alias}(id=${baiViet.id}, alias=${baiViet.biDanh})}"
+														class="btn-link">Đọc thêm</a> <a href="#"
+														class="comments-bx"> <i class="fa fa-comments-o"></i>
+														<span th:text="${baiViet.binhLuan.size()}"></span> bình
+														luận
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="pagination-bx rounded-sm gray clearfix text-center"
+									th:if="${truyVan.totalPages > 0}">
+									<ul class="pagination justify-content-center">
+										<li class="previous"
+											th:classappend="${truyVan.number == 0 ? ' disabled' : ''}">
+											<a
+											th:href="@{/baiviet(keyword=${keyword}, page=${truyVan.number - 1})}">
+												<i class="ti-arrow-left"></i> Trang trước
+										</a>
+										</li>
+
+										<li th:each="i : ${#numbers.sequence(1, truyVan.totalPages)}"
+											th:class="${i == truyVan.number + 1 ? 'active': ''}"><a
+											th:href="@{/baiviet(keyword=${keyword}, page=${i})}"
+											th:text="${i}">1</a></li>
+
+										<li class="next"
+											th:classappend="${truyVan.number + 1 >= truyVan.totalPages ? ' disabled' : ''}">
+											<a
+											th:href="@{/baiviet(keyword=${keyword}, page=${truyVan.number + 1})}">
+												Trang sau <i class="ti-arrow-right"></i>
+										</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

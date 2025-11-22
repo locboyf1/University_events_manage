@@ -51,6 +51,7 @@
 								<div class="courese-overview" id="overview">
 									<div class="row" th:utext="${suKien.noiDung}"></div>
 								</div>
+
 							</div>
 							<div class="col-lg-4 col-md-5 col-sm-12 m-b30">
 								<div class="bg-primary text-white contact-info-bx m-b30">
@@ -79,7 +80,8 @@
 												<form th:action="@{/huydangkythamgia}" method="post"
 													th:if="${daDangKy == true}">
 													<input type="hidden" name="id" th:value="${suKien.id}" />
-													<button type="submit" class="btn btn-secondary">Hủy đăng ký</button>
+													<button type="submit" class="btn btn-secondary">Hủy
+														đăng ký</button>
 												</form>
 											</li>
 										</ul>
@@ -95,13 +97,26 @@
 										<li><a href="#" class="btn outline radius-xl"><i
 												class="fa fa-google-plus"></i></a></li>
 									</ul>
+
 								</div>
+
 								<iframe
 									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3448.1298878182047!2d-81.38369578541523!3d30.204840081824198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e437ac927a996b%3A0x799695b1a2b970ab!2sNona+Blue+Modern+Tavern!5e0!3m2!1sen!2sin!4v1548177305546"
 									class="align-self-stretch d-flex"
 									style="width: 100%; min-width: 100%; min-height: 400px;"
 									allowfullscreen></iframe>
+
 							</div>
+							<form
+								th:action="@{/sukien/danhgia/{eventId}(eventId=${suKien.id})}"
+								method="post">
+								<input type="number" name="soSao" min="1" max="5" required />
+								<button type="submit">Gửi đánh giá</button>
+								<input type="hidden" th:name="${_csrf.parameterName}"
+									th:value="${_csrf.token}" />
+							</form>
+
+
 						</div>
 					</div>
 				</div>
