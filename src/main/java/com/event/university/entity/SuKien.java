@@ -80,6 +80,9 @@ public class SuKien {
 	@OneToMany(mappedBy = "suKien")
 	private Set<DanhSachThamGia> danhSachThamGia = new HashSet<>();
 
+	@OneToMany(mappedBy = "suKien")
+	private Set<DanhGiaSuKien> danhGiaSuKien = new HashSet<>();
+
 	public SuKien() {
 	}
 
@@ -244,6 +247,14 @@ public class SuKien {
 			return false;
 		}
 		return LocalDateTime.now().isAfter(this.thoiGianKetThuc);
+	}
+
+	public Set<DanhGiaSuKien> getDanhGiaSuKien() {
+		return danhGiaSuKien;
+	}
+
+	public void setDanhGiaSuKien(Set<DanhGiaSuKien> danhGiaSuKien) {
+		this.danhGiaSuKien = danhGiaSuKien;
 	}
 
 }

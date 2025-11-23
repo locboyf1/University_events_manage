@@ -12,12 +12,14 @@ import com.event.university.entity.SuKien;
 
 public interface DanhGiaSuKienRepository extends JpaRepository<DanhGiaSuKien, Integer> {
 
-    Boolean existsByNguoiDungAndSuKien(NguoiDung nguoiDung, SuKien suKien);
+	Boolean existsByNguoiDungAndSuKien(NguoiDung nguoiDung, SuKien suKien);
 
-    List<DanhGiaSuKien> findBySuKien(SuKien suKien);
+	List<DanhGiaSuKien> findBySuKien(SuKien suKien);
 
-    int countBySuKien(SuKien suKien);
+	int countBySuKien(SuKien suKien);
 
-    @Query("SELECT AVG(d.soSao) FROM DanhGiaSuKien d WHERE d.suKien = :suKien")
-    Double tinhSaoTrungBinh(@Param("suKien") SuKien suKien);
+	@Query("SELECT AVG(d.soSao) FROM DanhGiaSuKien d WHERE d.suKien = :suKien")
+	Double tinhSaoTrungBinh(@Param("suKien") SuKien suKien);
+
+	DanhGiaSuKien findByNguoiDungAndSuKien(NguoiDung nguoiDung, SuKien suKien);
 }

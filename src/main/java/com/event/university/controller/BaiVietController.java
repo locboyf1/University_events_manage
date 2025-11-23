@@ -13,15 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.event.university.entity.BaiViet;
 import com.event.university.entity.BinhLuanBaiViet;
-import com.event.university.entity.DanhGiaBaiViet;
 import com.event.university.entity.NguoiDung;
 import com.event.university.service.BaiVietService;
 import com.event.university.service.BinhLuanBaiVietService;
-import com.event.university.service.DanhGiaBaiVietService;
 import com.event.university.service.NguoiDungService;
 
 import jakarta.validation.Valid;
@@ -31,8 +28,6 @@ public class BaiVietController {
 
 	final static Integer KICHTHUOCTRANG = 10;
 
-    @Autowired
-    private DanhGiaBaiVietService danhGiaBaiVietService;
 	@Autowired
 	BaiVietService baiVietService;
 
@@ -78,13 +73,7 @@ public class BaiVietController {
 
 		List<BinhLuanBaiViet> binhLuans = binhLuanBaiVietService.findByBaiViet(baiViet);
 		model.addAttribute("binhLuans", binhLuans);
-// Lấy danh sách đánh giá và thêm vào model
-		List<DanhGiaBaiViet> danhGias = danhGiaBaiVietService.findByBaiViet(baiViet);
-		model.addAttribute("danhGias", danhGias);
-	    // Thêm số sao trung bình vào model
-	    double saoTrungBinh = danhGiaBaiVietService.tinhSaoTrungBinh(baiViet);
-	    model.addAttribute("saoTrungBinh", saoTrungBinh);
-	    
+
 		BinhLuanBaiViet binhLuanMoi = new BinhLuanBaiViet();
 		model.addAttribute("binhLuanMoi", binhLuanMoi);
 
@@ -116,28 +105,4 @@ public class BaiVietController {
 
 		return "redirect:/baiviet/" + baiViet.getId() + "/" + baiViet.getBiDanh();
 	}
-	@PostMapping("/baiviet/danhgia/{eventId}")
-	public String rateArticle(@PathVariable("eventId") Integer eventId,
-	                          @RequestParam("sosao") int soSao,
-	                          @AuthenticationPrincipal NguoiDung nguoiDung,
-	                          RedirectAttributes redirectAttributes) {
-
-	    NguoiDung nguoiDungDB = nguoiDungService.findById(nguoiDung.getId());
-	    BaiViet baiViet = baiVietService.findById(eventId);
-
-	    if (baiViet == null) {
-	        return "redirect:/";
-	    }
-	    List<DanhGiaBaiViet> danhGias = danhGiaBaiVietService.findByBaiViet(baiViet);
-	    Boolean success = danhGiaBaiVietService.danhGiaBaiViet(nguoiDungDB, baiViet, soSao);
-	    if (!success) {
-	        redirectAttributes.addFlashAttribute("errorMessage", "Bạn đã đánh giá bài viết này rồi.");
-	    }
-	 // Lấy số sao trung bình sau khi đánh giá
-	    double saoTrungBinh = danhGiaBaiVietService.tinhSaoTrungBinh(baiViet);
-	    redirectAttributes.addFlashAttribute("saoTrungBinh", saoTrungBinh);
-
-	    return "redirect:/baiviet/" + baiViet.getId() + "/" + baiViet.getBiDanh();
-	}
-	
 }

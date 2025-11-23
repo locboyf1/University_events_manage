@@ -15,30 +15,41 @@ import com.event.university.repository.DanhGiaSuKienRepository;
 public class DanhGiaSuKienService {
 	@Autowired
 	private DanhGiaSuKienRepository danhGiaSuKienRepository;
-	
+
 	public List<DanhGiaSuKien> findBySuKien(SuKien suKien) {
-	    return danhGiaSuKienRepository.findBySuKien(suKien);
+		return danhGiaSuKienRepository.findBySuKien(suKien);
 	}
-	
-	public Boolean danhGiaSuKien(NguoiDung nguoiDung, SuKien suKien, float soSao) {
-	    if (danhGiaSuKienRepository.existsByNguoiDungAndSuKien(nguoiDung, suKien)) {
-	        return false;  
-	    }
 
-	    DanhGiaSuKien dg = new DanhGiaSuKien();
-	    dg.setNguoiDung(nguoiDung);
-	    dg.setSuKien(suKien);
-	    dg.setSoSao((float) soSao);	
-	    dg.setThoiGian(LocalDateTime.now());
-
-	    danhGiaSuKienRepository.save(dg);
-	    return true;
+	public DanhGiaSuKien findById(Integer id) {
+		return danhGiaSuKienRepository.findById(id).orElse(null);
 	}
+
+	public DanhGiaSuKien findByNguoiDungAndSuKien(NguoiDung nguoiDung, SuKien suKien) {
+
+		return danhGiaSuKienRepository.findByNguoiDungAndSuKien(nguoiDung, suKien);
+	}
+
+	public void create(DanhGiaSuKien danhGiaSuKien, NguoiDung nguoiDung, SuKien suKien) {
+		danhGiaSuKien.setNguoiDung(nguoiDung);
+		danhGiaSuKien.setSuKien(suKien);
+		danhGiaSuKien.setThoiGian(LocalDateTime.now());
+		danhGiaSuKienRepository.save(danhGiaSuKien);
+	}
+
+	public void update(DanhGiaSuKien danhGiaSuKien) {
+		DanhGiaSuKien danhGiaSuKienDB = danhGiaSuKienRepository.findById(danhGiaSuKien.getId()).orElse(null);
+		danhGiaSuKienDB.setNoiDung(danhGiaSuKien.getNoiDung());
+		danhGiaSuKienDB.setSoSao(danhGiaSuKien.getSoSao());
+		danhGiaSuKienDB.setThoiGian(LocalDateTime.now());
+		danhGiaSuKienRepository.save(danhGiaSuKienDB);
+	}
+
 	public int countBySuKien(SuKien suKien) {
 		return danhGiaSuKienRepository.countBySuKien(suKien);
 	}
+
 	public double tinhSaoTrungBinh(SuKien suKien) {
-	    Double trungBinh = danhGiaSuKienRepository.tinhSaoTrungBinh(suKien);
-	    return trungBinh != null ? trungBinh : 0.0;
+		Double trungBinh = danhGiaSuKienRepository.tinhSaoTrungBinh(suKien);
+		return trungBinh != null ? trungBinh : 0.0;
 	}
 }

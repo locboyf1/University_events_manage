@@ -60,6 +60,36 @@
 										<div class="ttr-divider bg-gray">
 											<i class="icon-dot c-square"></i>
 										</div>
+										<div class="widget_tag_cloud">
+											<h6>TAGS</h6>
+											<div class="tagcloud">
+												<a href="#">Design</a> <a href="#">User interface</a> <a
+													href="#">SEO</a> <a href="#">WordPress</a> <a href="#">Development</a>
+												<a href="#">Joomla</a> <a href="#">Design</a> <a href="#">User
+													interface</a> <a href="#">SEO</a> <a href="#">WordPress</a> <a
+													href="#">Development</a> <a href="#">Joomla</a> <a href="#">Design</a>
+												<a href="#">User interface</a> <a href="#">SEO</a> <a
+													href="#">WordPress</a> <a href="#">Development</a> <a
+													href="#">Joomla</a>
+											</div>
+										</div>
+										<div class="ttr-divider bg-gray">
+											<i class="icon-dot c-square"></i>
+										</div>
+										<h6>SHARE</h6>
+										<ul class="list-inline contact-social-bx">
+											<li><a href="#" class="btn outline radius-xl"><i
+													class="fa fa-facebook"></i></a></li>
+											<li><a href="#" class="btn outline radius-xl"><i
+													class="fa fa-twitter"></i></a></li>
+											<li><a href="#" class="btn outline radius-xl"><i
+													class="fa fa-linkedin"></i></a></li>
+											<li><a href="#" class="btn outline radius-xl"><i
+													class="fa fa-google-plus"></i></a></li>
+										</ul>
+										<div class="ttr-divider bg-gray">
+											<i class="icon-dot c-square"></i>
+										</div>
 									</div>
 								</div>
 								<div class="clear" id="comment-list">
@@ -82,39 +112,13 @@
 																Doe</cite> <span class="says">says:</span>
 														</div>
 														<div class="comment-meta">
-															<p class="text-muted" href="#"
-																th:text="${#temporals.format(binhLuan.thoiGian, 'dd/MM/yyyy - hh:mm')}">December
-																02, 2019 at 10:45 am</p>
+															<p class="text-muted" href="#" th:text="${#temporals.format(binhLuan.thoiGian, 'dd/MM/yyyy - hh:mm')}">December 02, 2019 at 10:45 am</p>
 														</div>
-														<p th:text="${binhLuan.noiDung}">Lorem ipsum</p>
-													</div>
-												</li>
-											</ol>
-											<!--hiển thị số sao đánh giá -->
-											<ol class="comment-list">
-												<li class="comment" th:each="danhgia : ${danhGias}">
-													<div class="comment-body">
-														<div class="comment-author vcard">
-															<img class="avatar photo"
-																th:src="${danhgia.nguoiDung.anh}" alt=""> <cite
-																class="fn" th:text="${danhgia.nguoiDung.hoTen}">John
-																Doe</cite> <span class="says">says:</span>
-														</div>
-														<div class="comment-meta">
-															<p class="text-muted" href="#"
-																th:text="${#temporals.format(danhgia.thoiGian, 'dd/MM/yyyy - hh:mm')}">December
-																02, 2019 at 10:45 am</p>
-														</div>
-														<div class="star-rating mb-2">
-															<!-- Sao vàng -->
-															<i class="fa fa-star text-warning"
-																th:each="i : ${#numbers.sequence(1, danhgia.soSao)}"></i>
-
-															<!-- Sao xám -->
-															<i class="fa fa-star text-secondary"
-																th:if="${danhgia.soSao < 5}"
-																th:each="i : ${#numbers.sequence(1, danhgia.soSao == 4 ? 1 : 5 - danhgia.soSao)}"></i>
-														</div>
+														<p th:text="${binhLuan.noiDung}">Lorem ipsum dolor
+															sit amet, consectetur adipiscing elit. Nam vitae
+															neqnsectetur adipiscing elit. Nam viae neqnsectetur
+															adipiscing elit. Nam vitae neque vitae sapien malesuada
+															aliquet.</p>
 													</div>
 												</li>
 											</ol>
@@ -146,32 +150,6 @@
 													</p>
 												</form>
 											</div>
-											<form
-												th:action="@{/baiviet/danhgia/{eventId}(eventId=${baiViet.id})}"
-												method="post">
-												<div class="star-rating mb-2">
-													<input type="radio" id="star5" name="sosao" value="5"
-														required /> <label for="star5" title="5 sao"><i
-														class="fa fa-star"></i></label> <input type="radio" id="star4"
-														name="sosao" value="4" /> <label for="star4"
-														title="4 sao"><i class="fa fa-star"></i></label> <input
-														type="radio" id="star3" name="sosao" value="3" /> <label
-														for="star3" title="3 sao"><i class="fa fa-star"></i></label>
-
-													<input type="radio" id="star2" name="sosao" value="2" /> <label
-														for="star2" title="2 sao"><i class="fa fa-star"></i></label>
-
-													<input type="radio" id="star1" name="sosao" value="1" /> <label
-														for="star1" title="1 sao"><i class="fa fa-star"></i></label>
-												</div>
-
-												<button type="submit">Gửi đánh giá</button>
-
-												<!-- CSRF token -->
-												<input type="hidden" th:name="${_csrf.parameterName}"
-													th:value="${_csrf.token}" />
-											</form>
-
 										</div>
 									</div>
 								</div>

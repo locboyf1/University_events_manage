@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.event.university.entity.DanhGiaSuKien;
 import com.event.university.entity.DanhMucSuKien;
 import com.event.university.entity.DanhSachThamGia;
 import com.event.university.entity.NguoiDung;
@@ -24,6 +25,8 @@ import com.event.university.service.DanhMucSuKienService;
 import com.event.university.service.DanhSachThamGiaService;
 import com.event.university.service.NguoiDungService;
 import com.event.university.service.SuKienService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class SuKienController {
@@ -52,8 +55,7 @@ public class SuKienController {
 	}
 
 	@GetMapping("/Sukien/{id}/{biDanh}.html")
-	public String detail(@PathVariable Integer id, @PathVariable String biDanh, Model model,
-			@AuthenticationPrincipal NguoiDung nguoiDungHienTai) {
+	public String detail(@PathVariable Integer id, @PathVariable String biDanh, Model model, @AuthenticationPrincipal NguoiDung nguoiDungHienTai) {
 
 		SuKien suKien = suKienService.getById(id).orElse(null);
 		if (suKien == null) {
@@ -63,8 +65,7 @@ public class SuKienController {
 		Boolean daDangKy = null;
 		if (nguoiDungHienTai != null) {
 			NguoiDung nguoiDung = nguoiDungService.findById(nguoiDungHienTai.getId());
-			DanhSachThamGia danhSach = danhSachThamGiaService.findBySuKienAndNguoiDung(suKien, nguoiDungHienTai)
-					.orElse(null);
+			DanhSachThamGia danhSach = danhSachThamGiaService.findBySuKienAndNguoiDung(suKien, nguoiDungHienTai).orElse(null);
 
 			if (danhSach != null) {
 				daDangKy = true;
@@ -75,6 +76,13 @@ public class SuKienController {
 
 		model.addAttribute("suKien", suKien);
 		model.addAttribute("daDangKy", daDangKy);
+
+		DanhGiaSuKien danhGiaSuKien = new DanhGiaSuKien();
+		danhGiaSuKien.setSoSao(1);
+		model.addAttribute("danhGiaMoi", danhGiaSuKien);
+
+		DanhGiaSuKien danhGiaCuaBan = danhGiaSuKienService.findByNguoiDungAndSuKien(nguoiDungHienTai, suKien);
+		model.addAttribute("danhGiaCuaBan", danhGiaCuaBan);
 
 		return "event/detail";
 	}
@@ -88,14 +96,11 @@ public class SuKienController {
 
 	@GetMapping("/sukiendadangky")
 	public String suKienDaDangKy(@AuthenticationPrincipal NguoiDung nguoiDung, Model model) {
-		List<SuKien> suKiens = danhSachThamGiaService.getSuKienDaDangKy(nguoiDung).stream().filter(sk -> !sk.daBatDau())
-				.toList();
+		List<SuKien> suKiens = danhSachThamGiaService.getSuKienDaDangKy(nguoiDung).stream().filter(sk -> !sk.daBatDau()).toList();
 
 		List<DanhSachThamGia> daThamGias = danhSachThamGiaService.findByNguoiDung(nguoiDung);
-		List<DanhSachThamGia> daDiemDanhs = daThamGias.stream().filter(ds -> ds.getDaDiemDanh())
-				.filter(ds -> ds.getSuKien().daBatDau()).toList();
-		List<DanhSachThamGia> chuaDiemDanhs = daThamGias.stream().filter(ds -> !ds.getDaDiemDanh())
-				.filter(ds -> ds.getSuKien().daBatDau()).toList();
+		List<DanhSachThamGia> daDiemDanhs = daThamGias.stream().filter(ds -> ds.getDaDiemDanh()).filter(ds -> ds.getSuKien().daBatDau()).toList();
+		List<DanhSachThamGia> chuaDiemDanhs = daThamGias.stream().filter(ds -> !ds.getDaDiemDanh()).filter(ds -> ds.getSuKien().daBatDau()).toList();
 
 		model.addAttribute("daDiemDanhs", daDiemDanhs);
 		model.addAttribute("chuaDiemDanhs", chuaDiemDanhs);
@@ -115,8 +120,7 @@ public class SuKienController {
 	}
 
 	@PostMapping("/sukiencuatoi/create")
-	public String createMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, @ModelAttribute SuKien suKien,
-			MultipartFile fileAnh) throws IOException {
+	public String createMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, @ModelAttribute SuKien suKien, MultipartFile fileAnh) throws IOException {
 		suKien.setNguoiDung(nguoiDung);
 		suKienService.create(suKien, fileAnh);
 		return "redirect:/sukiencuatoi";
@@ -132,8 +136,7 @@ public class SuKienController {
 	}
 
 	@PostMapping("/sukiencuatoi/update")
-	public String updateMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, @ModelAttribute SuKien suKien,
-			MultipartFile fileAnh) throws IOException {
+	public String updateMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, @ModelAttribute SuKien suKien, MultipartFile fileAnh) throws IOException {
 		suKienService.update(suKien, fileAnh);
 		return "redirect:/sukiencuatoi";
 	}
@@ -154,33 +157,42 @@ public class SuKienController {
 		return "event/index";
 	}
 
-	@PostMapping("/Sukien/danhgia/{suKienId}")
-	public String danhGiaSuKien(@PathVariable Integer suKienId,
-	                            @RequestParam float soSao,
-	                            @AuthenticationPrincipal NguoiDung nguoiDung,
-	                            RedirectAttributes redirectAttributes) {
-	    if (nguoiDung == null) {
-	        redirectAttributes.addFlashAttribute("errorMessage", "Bạn cần đăng nhập để đánh giá.");
-	        return "redirect:/login"; // hoặc trang đăng nhập của bạn
-	    }
+	@PostMapping("/sukien/danhgia/{suKienId}")
+	public String danhGiaSuKien(@PathVariable Integer suKienId, @Valid @ModelAttribute("danhGiaMoi") DanhGiaSuKien danhGiaSuKien, BindingResult result, @AuthenticationPrincipal NguoiDung nguoiDung, Model model) {
+		if (nguoiDung == null) {
+			return "redirect:/dangnhap";
+		}
 
-	    NguoiDung nguoiDungDB = nguoiDungService.findById(nguoiDung.getId());
-	    SuKien suKien = suKienService.findById(suKienId);
-	    if (suKien == null) {
-	        redirectAttributes.addFlashAttribute("errorMessage", "Sự kiện không tồn tại.");
-	        return "redirect:/";
-	    }
+		NguoiDung nguoiDungDB = nguoiDungService.findById(nguoiDung.getId());
+		SuKien suKien = suKienService.findById(suKienId);
+		if (suKien == null) {
+			return "redirect:/";
+		}
 
-	    Boolean success = danhGiaSuKienService.danhGiaSuKien(nguoiDungDB, suKien, soSao);
+		DanhGiaSuKien danhGiaSuKienDB = danhGiaSuKienService.findByNguoiDungAndSuKien(nguoiDungDB, suKien);
+		if (danhGiaSuKienDB != null) {
+			result.rejectValue("noiDung", "", "Bạn đã đánh giá rồi");
+		}
 
-	    if (!success) {
-	        redirectAttributes.addFlashAttribute("errorMessage", "Bạn đã đánh giá sự kiện này rồi.");
-	    } else {
-	        redirectAttributes.addFlashAttribute("successMessage", "Cảm ơn bạn đã đánh giá!");
-	    }
+		if (result.hasErrors()) {
 
-	    return "redirect:/sukien/" + suKien.getId() + "/" + suKien.getBiDanh() + ".html";
+			Boolean daDangKy = null;
+
+			DanhSachThamGia danhSach = danhSachThamGiaService.findBySuKienAndNguoiDung(suKien, nguoiDungDB).orElse(null);
+
+			if (danhSach != null) {
+				daDangKy = true;
+			} else {
+				daDangKy = false;
+			}
+
+			model.addAttribute("suKien", suKien);
+			model.addAttribute("daDangKy", daDangKy);
+
+			return "event/detail";
+		}
+
+		return "redirect:/Sukien/" + suKien.getId() + "/" + suKien.getBiDanh() + ".html";
 	}
-
 
 }
