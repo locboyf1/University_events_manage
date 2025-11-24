@@ -55,7 +55,7 @@
 									</div>
 								</div>
 									<div class="pagination-bx rounded-sm gray clearfix" th:if="${truyVan.totalPages > 0}">
-										<ul class="pagination">
+										<ul class="pagination justify-content-center">
 											<li class="previous"><a th:href="@{/baiviet( keyword = ${keyword}, page=${truyVan.number - 1} )}"><i class="ti-arrow-left"></i> Trang trước</a></li>
 											<li th:class="${ i == truyVan.number + 1 ? 'active': ''}" th:each="i : ${#numbers.sequence(1, truyVan.totalPages)}"><a  th:href="@{/baiviet( keyword = ${keyword}, page=${i})}" th:text="${i}">1</a></li>
 											<li class="next"><a th:href="@{/baiviet( keyword = ${keyword}, page=${truyVan.number + 1})}">Trang sau <i class="ti-arrow-right"></i></a></li>

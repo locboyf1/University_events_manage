@@ -25,7 +25,7 @@ public class BinhLuanBaiViet {
 	private LocalDateTime thoiGian;
 
 	@NotBlank(message = "Vui lòng nhập nội dung bình luận")
-	@Size(max = 500, message = "Nội dung bình luận khộng được quá dài")
+	@Size(max = 500, message = "Nội dung bình luận không được quá dài")
 	@Column(name = "noidung", length = 500, nullable = false)
 	private String noiDung;
 

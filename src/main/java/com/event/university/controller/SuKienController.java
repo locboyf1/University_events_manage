@@ -192,6 +192,8 @@ public class SuKienController {
 			return "event/detail";
 		}
 
+		danhGiaSuKienService.create(danhGiaSuKien, nguoiDungDB, suKien);
+
 		return "redirect:/Sukien/" + suKien.getId() + "/" + suKien.getBiDanh() + ".html";
 	}
 
