@@ -1,11 +1,12 @@
 package com.event.university.entity;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,6 +56,28 @@ public class NguoiDung implements UserDetails {
 
 	@Column(name = "hoatdong", nullable = false)
 	private boolean hoatDong;
+
+	@ManyToOne
+	@JoinColumn(name = "malop", nullable = true)
+	private Lop lop;
+
+	@ManyToOne
+	@JoinColumn(name = "mavaitro")
+	private VaiTro vaiTro;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.vaiTro.getDsQuyen().stream().map(q -> new SimpleGrantedAuthority(q.getTenQuyen())).collect(Collectors.toList());
+	}
+
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return this;
+	}
+
+	public Boolean isCoQuyen(String tenQuyen) {
+		Boolean coQuyen = this.vaiTro.getDsQuyen().stream().anyMatch(q -> q.getTenQuyen().equals(tenQuyen));
+		return coQuyen;
+	}
 
 	public NguoiDung() {
 	}
@@ -108,7 +131,10 @@ public class NguoiDung implements UserDetails {
 	}
 
 	public String getAnh() {
-		return anh;
+		if (this.anh == null) {
+			return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s";
+		}
+		return this.anh;
 	}
 
 	public void setAnh(String anh) {
@@ -123,10 +149,6 @@ public class NguoiDung implements UserDetails {
 		this.hoatDong = hoatDong;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "mavaitro")
-	private VaiTro vaiTro;
-
 	public VaiTro getVaiTro() {
 		return vaiTro;
 	}
@@ -135,21 +157,12 @@ public class NguoiDung implements UserDetails {
 		this.vaiTro = vaiTro;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "malop", nullable = true)
-	private Lop lop;
-
 	public Lop getLop() {
 		return lop;
 	}
 
 	public void setLop(Lop lop) {
 		this.lop = lop;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singleton(new SimpleGrantedAuthority(this.vaiTro.getBiDanh()));
 	}
 
 	@Override

@@ -24,8 +24,9 @@ public class SuKienService {
 	public List<SuKien> getAllSuKien() {
 		return suKienRepository.findAll();
 	}
+
 	public SuKien findById(Integer id) {
-	    return suKienRepository.findById(id).orElse(null);
+		return suKienRepository.findById(id).orElse(null);
 	}
 
 	public List<SuKien> getDisplaySorted() {
@@ -34,6 +35,11 @@ public class SuKienService {
 
 	public Optional<SuKien> getById(Integer id) {
 		return suKienRepository.findById(id);
+	}
+
+	public List<SuKien> findByDuyetTrueAndThoiGianBatDauGreaterThanNow() {
+		LocalDateTime now = LocalDateTime.now();
+		return suKienRepository.findByDuyetTrueAndThoiGianBatDauGreaterThan(now);
 	}
 
 	public List<SuKien> getByNguoiDung(NguoiDung nguoiDung) {

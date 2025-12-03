@@ -96,20 +96,21 @@ Theme Version:	1.0.0
 					Chart.defaults.global.defaultFontSize = '12';
 
 					var ctx = document.getElementById('chart').getContext('2d');
+					
 
 					var chart = new Chart(ctx, {
 						type: 'line',
 
 						// The data for our dataset
 						data: {
-							labels: ["January", "February", "March", "April", "May", "June"],
+							labels: window.bieuDoData.nhan,
 							// Information about the dataset
 							datasets: [{
 								label: "Views",
 								backgroundColor: 'rgba(0,0,0,0.05)',
 								borderColor: '#4c1864',
 								borderWidth: "3",
-								data: [196,132,215,362,210,252],
+								data: window.bieuDoData.duLieu,
 								pointRadius: 4,
 								pointHoverRadius:4,
 								pointHitRadius: 10,

@@ -22,4 +22,6 @@ public interface SuKienRepository extends JpaRepository<SuKien, Integer> {
 	List<SuKien> findByDuyetFalseAndThoiGianBatDauGreaterThan(LocalDateTime now);
 
 	List<SuKien> findByTenSuKienContainingIgnoreCaseAndHienThiTrueAndDuyetTrueAndThoiGianBatDauGreaterThanEqual(String keyword, LocalDateTime now);
+
+	List<SuKien> findByDuyetTrueAndThoiGianBatDauGreaterThan(LocalDateTime now);
 }

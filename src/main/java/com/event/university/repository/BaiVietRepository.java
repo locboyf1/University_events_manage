@@ -1,5 +1,6 @@
 package com.event.university.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,5 +22,7 @@ public interface BaiVietRepository extends JpaRepository<BaiViet, Integer> {
 
 	@Query("SELECT bv FROM BaiViet bv WHERE (bv.tieuDe LIKE CONCAT('%', :keyword, '%' ) OR bv.moTa LIKE CONCAT('%', :keyword, '%' ) OR bv.noiDung LIKE CONCAT('%', :keyword, '%' )) AND bv.hienThi = true")
 	public Page<BaiViet> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
-	
+
+	public List<BaiViet> findByNgayTaoAfter(LocalDateTime time);
+
 }

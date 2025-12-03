@@ -39,6 +39,10 @@ public class BaiVietService {
 		return baiVietRepository.findAll();
 	}
 
+	public List<BaiViet> findByNgayTaoAfter(LocalDateTime time) {
+		return baiVietRepository.findByNgayTaoAfter(time);
+	}
+
 	public List<BaiViet> findByHienThiTrueOrderByNgayTaoDesc() {
 		return baiVietRepository.findByHienThiTrueOrderByNgayTaoDesc();
 	}

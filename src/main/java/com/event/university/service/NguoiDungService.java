@@ -42,6 +42,10 @@ public class NguoiDungService implements UserDetailsService {
 		return nguoiDungRepository.findAllByTaiKhoan(taiKhoan);
 	}
 
+	public List<NguoiDung> findByHoatDongTrue() {
+		return nguoiDungRepository.findByHoatDongTrue();
+	};
+
 	public List<NguoiDung> findSinhVienHoatDong() {
 		return nguoiDungRepository.findHoatDongSinhVien();
 	}
@@ -58,7 +62,9 @@ public class NguoiDungService implements UserDetailsService {
 	public NguoiDung getFromDto(NguoiDungDto nguoiDungDto) {
 		NguoiDung nguoiDung = new NguoiDung();
 		nguoiDung.setHoTen(nguoiDungDto.getHoTen());
-		nguoiDung.setLop(lopService.findById(nguoiDungDto.getMaLop()));
+		if (nguoiDungDto.getMaLop() != null) {
+			nguoiDung.setLop(lopService.findById(nguoiDungDto.getMaLop()));
+		}
 		nguoiDung.setVaiTro(vaiTroService.findById(nguoiDungDto.getMaVaiTro()));
 		nguoiDung.setMatKhau(nguoiDungDto.getMatKhau());
 		nguoiDung.setTaiKhoan(nguoiDungDto.getTaiKhoan());
@@ -67,8 +73,7 @@ public class NguoiDungService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(username)
-				.orElseThrow(() -> new UsernameNotFoundException("Sai thông tin đăng nhập"));
+		NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(username).orElseThrow(() -> new UsernameNotFoundException("Sai thông tin đăng nhập"));
 
 		return nguoiDung;
 	}
@@ -91,8 +96,6 @@ public class NguoiDungService implements UserDetailsService {
 		String encodedPassword = passwordEncoder.encode(rawPassword);
 		nguoiDung.setMatKhau(encodedPassword);
 		nguoiDung.setHoatDong(true);
-		nguoiDung
-				.setAnh("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdBqlgrpFx60XH_CdP3DpEZ7oTmvQuF4i9A&s");
 
 		nguoiDungRepository.save(nguoiDung);
 	}
