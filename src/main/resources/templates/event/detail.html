@@ -54,7 +54,7 @@
 										<div class="row" th:utext="${suKien.noiDung}"></div>
 									</div>
 									<div class="w-100 mt-5" id="instructor">
-										<h4>Instructor</h4>
+										<h4>Đánh giá</h4>
 
 										<div class="instructor-bx"
 											th:each=" danhGia : ${suKien.danhGiaSuKien}">
@@ -75,7 +75,6 @@
 									</div>
 								</div>
 								<div class="w-100" id="reviews">
-									<h4>Đánh giá</h4>
 
 									<div class="comment-respond" id="respond"
 										sec:authorize="isAnonymous()">

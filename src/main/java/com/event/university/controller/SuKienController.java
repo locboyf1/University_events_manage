@@ -168,30 +168,23 @@ public class SuKienController {
 		if (suKien == null) {
 			return "redirect:/";
 		}
-
 		DanhGiaSuKien danhGiaSuKienDB = danhGiaSuKienService.findByNguoiDungAndSuKien(nguoiDungDB, suKien);
 		if (danhGiaSuKienDB != null) {
 			result.rejectValue("noiDung", "", "Bạn đã đánh giá rồi");
 		}
-
 		if (result.hasErrors()) {
-
 			Boolean daDangKy = null;
-
 			DanhSachThamGia danhSach = danhSachThamGiaService.findBySuKienAndNguoiDung(suKien, nguoiDungDB).orElse(null);
-
 			if (danhSach != null) {
 				daDangKy = true;
 			} else {
 				daDangKy = false;
 			}
-
 			model.addAttribute("suKien", suKien);
 			model.addAttribute("daDangKy", daDangKy);
-
 			return "event/detail";
 		}
-
+		danhGiaSuKienService.create(danhGiaSuKien, nguoiDungDB, suKien);
 		return "redirect:/Sukien/" + suKien.getId() + "/" + suKien.getBiDanh() + ".html";
 	}
 
