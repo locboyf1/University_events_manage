@@ -137,6 +137,7 @@ public class SuKienController {
 
 	@PostMapping("/sukiencuatoi/update")
 	public String updateMyEvent(@AuthenticationPrincipal NguoiDung nguoiDung, @ModelAttribute SuKien suKien, MultipartFile fileAnh) throws IOException {
+
 		suKienService.update(suKien, fileAnh);
 		return "redirect:/sukiencuatoi";
 	}
@@ -185,6 +186,7 @@ public class SuKienController {
 			return "event/detail";
 		}
 		danhGiaSuKienService.create(danhGiaSuKien, nguoiDungDB, suKien);
+
 		return "redirect:/Sukien/" + suKien.getId() + "/" + suKien.getBiDanh() + ".html";
 	}
 

@@ -187,12 +187,12 @@
 							class="ttr-icon"><i class="ti-home"></i></span> <span
 							class="ttr-label">Bảng điều khiển</span>
 					</a></li>
-					<li><a th:href="@{/admin/nguoidung}"
+					<li th:if="${#authentication.principal.isCoQuyen(@Role.AUTHS_QUANTRITAIKHOAN)}"><a th:href="@{/admin/nguoidung}"
 						class="ttr-material-button"> <span class="ttr-icon"><i
 								class="ti-user"></i></span> <span class="ttr-label">Quản lý
 								người dùng</span>
 					</a></li>
-					<li><a href="#" class="ttr-material-button"> <span
+					<li th:if="${#authentication.principal.isCoQuyen(@Role.AUTHS_QUANTRISUKIEN)}"><a href="#" class="ttr-material-button"> <span
 							class="ttr-icon"><i class="ti-calendar"></i></span> <span
 							class="ttr-label">Quản lý sự kiện</span> <span
 							class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
@@ -205,7 +205,7 @@
 								class="ttr-material-button"><span class="ttr-label">Sự
 										kiện</span></a></li>
 						</ul></li>
-					<li><a href="#" class="ttr-material-button"> <span
+					<li th:if="${#authentication.principal.isCoQuyen(@Role.AUTHS_QUANTRIBAIVIET)}"><a href="#" class="ttr-material-button"> <span
 							class="ttr-icon"><i class="ti-ink-pen"></i></span> <span
 							class="ttr-label">Quản lý bài viết</span> <span class="ttr-arrow-icon"><i
 								class="fa fa-angle-down"></i></span>
@@ -217,7 +217,7 @@
 								class="ttr-material-button"><span class="ttr-label">Bài viết</span></a></li>
 						</ul></li>
 						
-					<li><a th:href="@{/admin/khoa}"
+					<li th:if="${#authentication.principal.isCoQuyen(@Role.AUTHS_QUANTRITAIKHOAN)}"><a th:href="@{/admin/khoa}"
 						class="ttr-material-button"> <span class="ttr-icon"><i
 								class="ti-bookmark-alt"></i></span> <span class="ttr-label">Quản lý khoa</span>
 					</a></li>

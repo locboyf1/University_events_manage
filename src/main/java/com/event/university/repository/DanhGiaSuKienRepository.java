@@ -1,5 +1,6 @@
 package com.event.university.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,6 @@ public interface DanhGiaSuKienRepository extends JpaRepository<DanhGiaSuKien, In
 	Double tinhSaoTrungBinh(@Param("suKien") SuKien suKien);
 
 	DanhGiaSuKien findByNguoiDungAndSuKien(NguoiDung nguoiDung, SuKien suKien);
+
+	List<DanhGiaSuKien> findByThoiGianAfter(LocalDateTime time);
 }

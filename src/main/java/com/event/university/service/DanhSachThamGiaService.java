@@ -25,6 +25,10 @@ public class DanhSachThamGiaService {
 	@Autowired
 	private SuKienRepository suKienRepository;
 
+	public List<DanhSachThamGia> getAll() {
+		return danhSachThamGiaRepository.findAll();
+	}
+
 	public List<DanhSachThamGia> getBySuKienId(Integer suKienId) {
 		return danhSachThamGiaRepository.findBySuKien_Id(suKienId);
 	}

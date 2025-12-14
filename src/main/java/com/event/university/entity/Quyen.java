@@ -20,7 +20,7 @@ public class Quyen {
 	@Column(name = "tenquyen", length = 50, nullable = false)
 	private String tenQuyen;
 
-	@Column(name = "mota", length = 50)
+	@Column(name = "mota", length = 255)
 	private String moTa;
 
 	@ManyToMany(mappedBy = "dsQuyen")

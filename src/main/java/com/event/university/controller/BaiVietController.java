@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
 @Controller
 public class BaiVietController {
 
-	final static Integer KICHTHUOCTRANG = 10;
+	final static Integer KICHTHUOCTRANG = 6;
 
 	@Autowired
 	BaiVietService baiVietService;
@@ -38,7 +38,8 @@ public class BaiVietController {
 	BinhLuanBaiVietService binhLuanBaiVietService;
 
 	@GetMapping("/baiviet")
-	public String index(@RequestParam(name = "keyword", defaultValue = "") String tuKhoa, @RequestParam(name = "page", defaultValue = "1") Integer trang, Model model) {
+	public String index(@RequestParam(name = "keyword", defaultValue = "") String tuKhoa,
+			@RequestParam(name = "page", defaultValue = "1") Integer trang, Model model) {
 		if (trang <= 0) {
 			trang = 1;
 			return "redirect:/baiviet?keyword=" + tuKhoa + "&page=" + trang;
@@ -55,13 +56,22 @@ public class BaiVietController {
 		model.addAttribute("truyVan", truyVan);
 
 		model.addAttribute("keyword", tuKhoa);
+		List<BaiViet> topBinhLuan = baiVietService.layTopBaiVietNhieuBinhLuan(5);
 
+		model.addAttribute("topBinhLuan", topBinhLuan);
 		return "baiviet/index";
 	}
 
 	@GetMapping("/baiviet/{id}/{alias}")
 	public String detail(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal NguoiDung nguoiDung) {
 		BaiViet baiViet = baiVietService.findById(id);
+		List<BaiViet> baiVietLienQuan =
+		            baiVietService.layCacBaiVietLienQuan(
+		                    baiViet.getDanhMucBaiViet(),
+		                    baiViet.getId()
+		            );
+		   
+		model.addAttribute("baiVietLienQuan", baiVietLienQuan);
 		model.addAttribute("baiViet", baiViet);
 
 		NguoiDung nguoiDungDB = null;
@@ -81,7 +91,9 @@ public class BaiVietController {
 	}
 
 	@PostMapping("/baiviet/binhluan/{eventId}")
-	public String comment(@PathVariable("eventId") Integer eventId, @Valid @ModelAttribute("binhLuanMoi") BinhLuanBaiViet binhLuan, BindingResult result, @AuthenticationPrincipal NguoiDung nguoiDung, Model model) {
+	public String comment(@PathVariable("eventId") Integer eventId,
+			@Valid @ModelAttribute("binhLuanMoi") BinhLuanBaiViet binhLuan, BindingResult result,
+			@AuthenticationPrincipal NguoiDung nguoiDung, Model model) {
 
 		NguoiDung nguoiDungDB = nguoiDungService.findById(nguoiDung.getId());
 

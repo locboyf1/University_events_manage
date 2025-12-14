@@ -20,6 +20,10 @@ public class DanhGiaSuKienService {
 		return danhGiaSuKienRepository.findBySuKien(suKien);
 	}
 
+	public List<DanhGiaSuKien> findByThoiGianAfter(LocalDateTime time) {
+		return danhGiaSuKienRepository.findByThoiGianAfter(time);
+	}
+
 	public DanhGiaSuKien findById(Integer id) {
 		return danhGiaSuKienRepository.findById(id).orElse(null);
 	}

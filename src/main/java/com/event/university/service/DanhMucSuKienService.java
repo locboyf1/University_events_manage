@@ -57,7 +57,6 @@ public class DanhMucSuKienService {
 			danhMucSuKienRepository.save(danhMuc);
 			danhMucSuKienRepository.save(danhMucDungTruoc);
 		}
-
 	}
 
 	public void down(DanhMucSuKien danhMuc) {

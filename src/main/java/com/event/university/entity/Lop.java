@@ -36,7 +36,7 @@ public class Lop {
 	@Column(name = "khoaso", nullable = false)
 	private Integer khoaSo;
 
-	@Size(max = 50, message = "Mô tả không được quá dài")
+	@Size(max = 500, message = "Mô tả không được quá dài")
 	@Column(name = "mota", length = 500)
 	private String moTa;
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.event.university.entity.BaiViet;
+import com.event.university.entity.DanhMucBaiViet;
 import com.event.university.entity.NguoiDung;
 import com.event.university.repository.BaiVietRepository;
 import com.event.university.utillities.Functions;
@@ -37,6 +38,10 @@ public class BaiVietService {
 
 	public List<BaiViet> findAll() {
 		return baiVietRepository.findAll();
+	}
+
+	public List<BaiViet> findByNgayTaoAfter(LocalDateTime time) {
+		return baiVietRepository.findByNgayTaoAfter(time);
 	}
 
 	public List<BaiViet> findByHienThiTrueOrderByNgayTaoDesc() {
@@ -84,5 +89,13 @@ public class BaiVietService {
 	public void show(BaiViet baiViet) {
 		baiViet.setHienThi(!baiViet.getHienThi());
 		baiVietRepository.save(baiViet);
+	}
+
+    public List<BaiViet> layTopBaiVietNhieuBinhLuan(int soLuong) {
+        Pageable pageable = PageRequest.of(0, soLuong);
+        return baiVietRepository.findTopBaiVietNhieuBinhLuan(pageable);
+    }
+    public List<BaiViet> layCacBaiVietLienQuan(DanhMucBaiViet danhMucBaiViet, Integer idBaiViet) {
+		return baiVietRepository.findTop5ByDanhMucBaiVietAndIdNotOrderByNgayTaoDesc(danhMucBaiViet, idBaiViet);
 	}
 }

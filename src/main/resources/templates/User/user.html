@@ -26,7 +26,6 @@
 			</div>
 			<div class="container mt-5">
 				<div class="row">
-					<!-- Cột trái: ảnh đại diện -->
 					<div class="col-lg-3 col-md-4 col-sm-12 mb-4 text-center">
 						<div class="card shadow-sm p-3">
 							<img th:src="${nguoiDung.anh}" alt="Ảnh đại diện"
@@ -37,7 +36,7 @@
 							<form th:action="@{/thongtin/doianhdaidien}" method="post"
 								enctype="multipart/form-data">
 								<div class="form-group">
-									<label for="file">Chọn ảnh đại diện mới:</label>
+									<label for="file">Chọn ảnh đại diện mới</label>
 									<div class=" custom-file">
 										<input type="file" class="custom-file-input" name="fileAnh"
 											accept="image/png, image/jpeg" /> <label
@@ -50,8 +49,7 @@
 
 						</div>
 					</div>
-
-					<!-- Cột phải: thông tin cá nhân -->
+					<!-- thông tin -->
 					<div class="col-lg-9 col-md-8 col-sm-12">
 						<div class="card shadow-sm p-4">
 							<h4 class="mb-4">Thông tin cá nhân</h4>
